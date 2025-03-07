@@ -49,6 +49,7 @@ body {
   padding: 100px 20px;
   font-family: 'Arial', sans-serif;
   font-size: 30px;
+  font-weight: 900;
 }
 
 .welcome-section h1 {
@@ -210,4 +211,27 @@ body {
   margin-top: 20px;
   font-size: 12px;
   color: #777;
+}
+.info-panel {
+  display: none;
+  margin-top: 20px;
+}
+.info-panel .card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+}
+.info-panel img {
+  max-width: 50%;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+.info-panel .text-content {
+  flex: 1;
+  margin-top: -170px;
+}
+.info-panel .btn-close-panel {
+  align-self: flex-start;
+  margin-top: 290px;
 }

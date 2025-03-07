@@ -33,11 +33,28 @@
       border-color: yellow;
       box-shadow: 0 0 0 0.2rem rgba(226, 226, 34, 0.25); /* Resalta el borde y el sombreado */
     }
+
+    /* Animación de "palpitar" para el formulario de login */
+    .login-card {
+      animation: pulse-login 2s infinite; /* Hace el movimiento de palpitar */
+    }
+
+    /* Keyframes para el efecto de palpitar en el formulario */
+    @keyframes pulse-login {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); } /* Aumenta ligeramente el tamaño */
+      100% { transform: scale(1); }
+    }
+
+    /* Si el cursor está sobre la tarjeta de login, se detiene la animación */
+    .login-card:hover {
+      animation: none;
+    }
   </style>
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100 bg-warning">
   
-  <div class="card card-custom p-4 shadow">
+  <div class="card card-custom p-4 shadow login-card"> <!-- Agregado class "login-card" para la animación -->
     <h1 class="title"><span>Calori</span><span class="fit">Fit</span></h1>
     
     <ul class="nav nav-tabs mb-3" id="authTab">
@@ -87,7 +104,7 @@
             <label class="form-label">Contraseña</label>
             <input type="password" class="form-control" name="contraseña" required>
           </div>
-          <button type="submit" class="btn btn-primary w-100">Entrar</button>
+          <button type="submit" class="btn btn-warning w-100">Entrar</button>
         </form>
         <div id="loginAlert" class="alert mt-3 d-none"></div>
       </div>
@@ -124,7 +141,7 @@
             alertDiv.classList.remove("d-none", "alert-danger", "alert-success");
             alertDiv.classList.add(data.includes("exitoso") ? "alert-success" : "alert-danger");
             alertDiv.textContent = data;
-            if (data.includes("exitoso")) setTimeout(() => window.location.href = "index.html", 2000);
+            if (data.includes("exitoso")) setTimeout(() => window.location.href = "menu.html", 2000);
           });
       });
     });

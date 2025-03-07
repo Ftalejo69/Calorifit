@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
 
-$conn = new mysqli("localhost", "root", "", "gym");
+$conn = new mysqli("localhost", "root", "", "calorifit");
 
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);

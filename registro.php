@@ -23,7 +23,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (!empty($correo) && !empty($contraseña)) {
             $result = $model->loginUser($correo, $contraseña);
-            echo $result['success'] ? "Inicio de sesión exitoso." : $result['message'];
+            if ($result['success']) {
+                session_start();
+                $_SESSION['usuario'] = $result['user'];
+
+                // ✅ Redirección automática a 'menu.html'
+                if ($result['success']) {
+                    if (session_status() == PHP_SESSION_NONE) {
+                        session_start(); // Solo inicia sesión si no está activa
+                    }
+                    $_SESSION['usuario'] = $result['user'];
+                
+                    // Muestra una alerta y redirige
+                    echo "<script>
+                            alert('Inicio de sesión exitoso.');
+                            window.location.href = 'menu.html';
+                          </script>";
+                    exit;
+                }
+                
+                
+            } else {
+                echo $result['message'];
+            }
         } else {
             echo "⚠️ Por favor, completa todos los campos.";
         }

@@ -25,6 +25,8 @@
           <a class="nav-link" href="#">Inicio</a>
           <a class="nav-link" href="planes">Planes</a>
           <a class="nav-link" href="rutinas.html">Rutinas</a>
+          <a class="nav-link" href="ejerciciios.html">Ejercicio</a>
+          <a class="nav-link" href="index.php">cerrar sesion</a>
         </div>
       </div>
     </div>
@@ -57,7 +59,7 @@
               <span class="price-current" style="position: absolute ; margin-top: 20px; margin-left: -59px;">$40.000</span>
             </p>
             <div class="testo">
-            <p class="card-detail">PLAN CON VARIEDAD DE EJERCICIOS</p>
+            <p class="card-detail">PLAN CON VARIEDAD </p>
             </div>
             <p class="card-validity">
               Válido del 1 al 5 de marzo del 2025.<br>
@@ -81,7 +83,7 @@
               <span class="price-current" style="position: absolute ; margin-top: 20px; margin-left: -59px;">$40.000</span>
             </p>
             <div class="testo">
-            <p class="card-detail">PLAN CON VARIEDAD DE EJERCICIOS</p>
+            <p class="card-detail">PLAN CON VARIEDAD </p>
             </div>
             <p class="card-validity">
               Válido del 1 al 5 de marzo del 2025.<br>
@@ -105,7 +107,7 @@
               <span class="price-current" style="position: absolute ; margin-top: 20px; margin-left: -59px;">$40.000</span>
             </p>
             <div class="testo">
-            <p class="card-detail">PLAN CON VARIEDAD DE EJERCICIOS</p>
+            <p class="card-detail">PLAN CON VARIEDAD</p>
             </div>
             <p class="card-validity">
               Válido del 1 al 5 de marzo del 2025.<br>
@@ -119,20 +121,19 @@
     </div>
   </div>
 
-  <!-- Panel extra (Tarjeta detallada) -->
-  <div class="container" id="infoPanel" style="display: none;">
-    <div class="card mb-5">
-      <div class="card-body">
-        <h5 class="card-title">Fuerza - Detalles</h5>
-        <p class="card-text">
-          Este es un plan diseñado para mejorar tu fuerza y condición física.
-          Incluye una variedad de ejercicios que te ayudarán a alcanzar tus metas.
-        </p>
-        <img src="https://images.pexels.com/photos/1229356/pexels-photo-1229356.jpg?cs=srgb&dl=pexels-anush-1229356.jpg&fm=jpg" class="img-fluid rounded" alt="Ejercicio">
-        <button class="btn btn-secondary mt-3" onclick="togglePanel()">Cerrar</button>
-      </div>
+ <!-- Panel extra (Tarjeta detallada) -->
+ <div class="container info-panel" id="infoPanel">
+  <div class="card">
+    <img src="https://th.bing.com/th/id/R.75c2ef94bc631ceb46e613eed9ab5471?rik=ylWJYGFtp4ZBwQ&riu=http%3a%2f%2f5b0988e595225.cdn.sohucs.com%2fimages%2f20190403%2f7f7a1ae827d64742b6e3c71131b11fc8.jpg&ehk=pgvHntSg5eORVPol8OfQnbRlsbz%2fenpbL7mVEChnag4%3d&risl=&pid=ImgRaw&r=0" alt="Ejercicio">
+    <div class="text-content">
+      <h5 class="card-title">Fuerza - Detalles</h5>
+      <p class="card-text">
+        La fuerza en el gym es la capacidad de generar tensión muscular al vencer una resistencia. El entrenamiento de fuerza, también conocido como entrenamiento de resistencia, es un método para fortalecer los músculos.
+      </p>
     </div>
+    <button class="btn btn-secondary btn-close-panel" onclick="togglePanel()">Cerrar</button>
   </div>
+</div>
     <!-- Footer -->
 <footer class="gym-footer">
   <div class="footer-content">
