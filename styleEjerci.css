@@ -1,0 +1,53 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000;
+    color: #FFD700;
+    text-align: center;
+}
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.5);
+}
+h1, h2 {
+    color: #FFD700;
+}
+label, select, button, input {
+    display: block;
+    margin: 10px auto;
+}
+input, select {
+    padding: 8px;
+    width: 90%;
+    border: 1px solid #FFD700;
+    background: #333;
+    color: #FFD700;
+    border-radius: 5px;
+}
+button {
+    background: #FFD700;
+    color: #000;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+button:hover {
+    background: #FFC107;
+}
+.ejercicio {
+    background: #333;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+.plan {
+    background: #444;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+}

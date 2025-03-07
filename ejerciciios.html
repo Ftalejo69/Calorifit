@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planes de Entrenamiento</title>
+    <link rel="stylesheet" href="styleEjerci.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Creación de Planes de Entrenamiento</h1>
+        <form id="plan-form">
+            <label for="tipo-entrenamiento">Tipo de Entrenamiento:</label>
+            <select id="tipo-entrenamiento">
+                <option value="fuerza">Fuerza</option>
+                <option value="resistencia">Resistencia</option>
+                <option value="flexibilidad">Flexibilidad</option>
+            </select>
+            <button type="button" id="agregar-ejercicio">Agregar Ejercicio</button>
+        </form>
+        
+        <div id="lista-ejercicios"></div>
+        <button id="guardar-plan">Guardar Plan</button>
+        <h2>Mis Planes</h2>
+        <div id="planes-guardados"></div>
+    </div>
+    
+    <script src="ejercicio.js"></script>
+</body>
+</html>
