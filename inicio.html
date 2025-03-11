@@ -23,14 +23,24 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
           <a class="nav-link" href="#">Inicio</a>
-          <a class="nav-link" href="planes">Planes</a>
+          <a class="nav-link" href="planes.html">Planes</a>
           <a class="nav-link" href="rutinas.html">Rutinas</a>
           <a class="nav-link" href="ejerciciios.html">Ejercicio</a>
           <a class="nav-link" href="index.php">cerrar sesion</a>
+          <li><a href="#" id="openProfile" class="btn">Ver Perfil</a></li>
         </div>
       </div>
     </div>
   </nav>
+  
+  <div id="profileModal" class="modal">
+    <div class="modal-content">
+      <h2>Perfil</h2>
+      <p>Información del usuario...</p>
+      <button class="close-btn" id="closeProfile">Cerrar</button>
+    </div>
+  </div>
+
   <!-- Nueva sección de bienvenida -->
   <div class="welcome-section">
     BIENVENIDO A <span>CALORIFIT</span>
@@ -160,5 +170,7 @@
       panel.style.display = (panel.style.display === "none" || panel.style.display === "") ? "block" : "none";
     }
   </script>
+  
+  <script src="script.js"></script>
 </body>
 </html>

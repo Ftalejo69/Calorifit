@@ -1,0 +1,104 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #000;
+  color: #FFD700;
+}
+.navbar {
+  background: linear-gradient(to right, #000, #333);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.brand-highlight {
+  color: white;
+}
+
+.fit-text {
+  color: yellow;
+  font-weight: bold;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.navbar-nav .nav-link {
+  color: rgb(10, 10, 10) !important;
+  font-size: 1.1rem;
+  transition: 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: yellow !important;
+}
+.section-title {
+  font-size: 2.5rem;
+  color: #FFD700;
+  font-weight: bold;
+}
+.card {
+  background: #222;
+  color: #FFD700;
+  border-radius: 10px;
+}
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.price-current {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #FFD700;
+}
+.btn-warning {
+  background: #FFD700;
+  color: #000;
+  font-weight: bold;
+}
+.btn-warning:hover {
+  background: #FFC107;
+}
+.container.animate-panel {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.fade-in {
+  opacity: 1 !important;
+}
+.fade-out {
+  opacity: 0 !important;
+}
+        /* Estilos para el modal */
+        .modal {
+          display: none;
+          position: fixed;
+          z-index: 1000;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 0.5);
+      }
+      .modal-content {
+          background-color: white;
+          margin: 15% auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 50%;
+          border-radius: 10px;
+          text-align: center;
+      }
+      .close {
+          color: red;
+          font-size: 24px;
+          float: right;
+          cursor: pointer;
+      }

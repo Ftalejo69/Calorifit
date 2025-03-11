@@ -1,17 +1,15 @@
-function abrirModal(id) {
-    document.getElementById(id).style.display = 'block';
-}
-
-function cerrarModal(id) {
-    document.getElementById(id).style.display = 'none';
-}
-
-// Cerrar modal al hacer clic fuera de él
-window.onclick = function(event) {
-    const modales = document.querySelectorAll('.modal');
-    modales.forEach(modal => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-};
+document.getElementById('openProfile').addEventListener('click', function(event) {
+    event.preventDefault();
+    document.getElementById('profileModal').classList.add('active');
+  });
+  
+  document.getElementById('closeProfile').addEventListener('click', function() {
+    document.getElementById('profileModal').classList.remove('active');
+  });
+  
+  document.getElementById('profileModal').addEventListener('click', function(event) {
+    if (event.target === this) {
+      this.classList.remove('active');
+    }
+  });
+  
