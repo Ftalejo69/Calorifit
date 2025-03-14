@@ -27,17 +27,34 @@
           <a class="nav-link" href="rutinas.html">Rutinas</a>
           <a class="nav-link" href="ejerciciios.html">Ejercicio</a>
           <a class="nav-link" href="index.php">cerrar sesion</a>
-          <li><a href="#" id="openProfile" class="btn">Ver Perfil</a></li>
+          <a href="#" id="openProfile" class="btn">Ver Perfil</a>
         </div>
       </div>
     </div>
   </nav>
-  
+
   <div id="profileModal" class="modal">
     <div class="modal-content">
-      <h2>Perfil</h2>
-      <p>Información del usuario...</p>
-      <button class="close-btn" id="closeProfile">Cerrar</button>
+      <span class="close-btn" id="closeProfile">&times;</span>
+      <h2>Perfil de Usuario</h2>
+      
+      <form id="profileForm">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" required>
+  
+        <label for="age">Edad:</label>
+        <input type="number" id="age" required>
+  
+        <label for="weight">Peso (kg):</label>
+        <input type="number" id="weight" required>
+  
+        <label for="height">Altura (cm):</label>
+        <input type="number" id="height" required>
+  
+        <button type="submit" class="btn">Guardar Cambios</button>
+        <button type="button" id="deleteProfile" class="btn btn-delete">Eliminar Perfil</button>
+      </form>
+  
     </div>
   </div>
 

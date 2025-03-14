@@ -1,15 +1,20 @@
-document.getElementById('openProfile').addEventListener('click', function(event) {
+document.addEventListener("DOMContentLoaded", function () {
+  var modal = document.getElementById("profileModal");
+  var openBtn = document.getElementById("openProfile");
+  var closeBtn = document.getElementById("closeProfile");
+
+  openBtn.addEventListener("click", function (event) {
     event.preventDefault();
-    document.getElementById('profileModal').classList.add('active');
+    modal.style.display = "flex";
   });
-  
-  document.getElementById('closeProfile').addEventListener('click', function() {
-    document.getElementById('profileModal').classList.remove('active');
+
+  closeBtn.addEventListener("click", function () {
+    modal.style.display = "none";
   });
-  
-  document.getElementById('profileModal').addEventListener('click', function(event) {
-    if (event.target === this) {
-      this.classList.remove('active');
+
+  window.addEventListener("click", function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
     }
   });
-  
+});
