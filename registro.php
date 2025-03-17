@@ -35,11 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['usuario'] = $result['user'];
                 
                     // Muestra una alerta y redirige
-                    echo "<script>
-                            alert('Inicio de sesión exitoso.');
-                            window.location.href = 'menu.html';
-                          </script>";
+                    echo "
+                           Inicio de sesión exitoso.
+                            ";
                     exit;
+
+                    
                 }
                 
                 
