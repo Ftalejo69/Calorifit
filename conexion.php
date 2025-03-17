@@ -3,7 +3,7 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$db = "calorifit";
+$db = "gymdb";
 
 $conexion = new mysqli($host, $user, $password, $db);
 if ($conexion->connect_error) {
