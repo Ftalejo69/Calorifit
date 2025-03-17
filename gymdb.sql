@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-03-2025 a las 13:36:23
+-- Tiempo de generación: 17-03-2025 a las 14:36:24
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -144,11 +144,13 @@ CREATE TABLE `rutina_ejercicios` (
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
+  `correo` varchar(255) DEFAULT NULL,
   `contraseña` varchar(255) NOT NULL,
   `telefono` varchar(15) DEFAULT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
   `genero` enum('M','F','Otro') DEFAULT NULL,
+  `peso` decimal(5,2) DEFAULT NULL,
+  `altura` decimal(5,2) DEFAULT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -230,7 +232,7 @@ ALTER TABLE `rutina_ejercicios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`correo`);
 
 --
 -- Indices de la tabla `usuarios_roles`
