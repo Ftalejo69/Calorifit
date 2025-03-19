@@ -1,7 +1,8 @@
 <?php
 // usuario.php
 include_once 'conexion.php';
-require 'vendor/autoload.php';  // conexion Composer haya instalado PHPMailer
+require __DIR__ . '/../vendor/autoload.php';
+// conexion Composer haya instalado PHPMailer
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
