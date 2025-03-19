@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const addTaskBtn = document.getElementById("addTaskBtn");
     const taskInput = document.getElementById("taskInput");
     const columns = document.querySelectorAll(".column .task-list");
+    let taskIdCounter = 16; // Iniciar el contador después del último ID existente
 
     addTaskBtn.addEventListener("click", () => {
         const taskText = taskInput.value.trim();
@@ -11,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         newTask.classList.add("task");
         newTask.textContent = taskText;
         newTask.setAttribute("draggable", "true");
+        newTask.setAttribute("id", `task${taskIdCounter++}`);
         newTask.addEventListener("click", () => newTask.remove());
         newTask.addEventListener("dragstart", dragStart);
         newTask.addEventListener("dragend", dragEnd);
