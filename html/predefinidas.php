@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
+
+    <?php include '../php/navbar.php'; ?>
     <div class="container">
         <h1>Rutina de Gym</h1>
         <div class="cards">
