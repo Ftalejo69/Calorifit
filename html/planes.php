@@ -10,28 +10,7 @@
 
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="inicio.html">
-        <span class="brand-highlight">Calori</span>
-        <span class="fit-text">Fit</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link" href="inicio.html">Inicio</a>
-          <a class="nav-link" href="planes.html">Planes</a>
-          <a class="nav-link" href="rutinas.html">Rutinas</a>
-          <a class="nav-link" href="ejerciciios.html">Ejercicio</a>
-          <a class="nav-link" href="index.php">cerrar sesion</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
+<?php include '../php/navbar.php'; ?>
   <!-- Main Banner -->
   <div class="container mt-5 pt-5 text-center">
     <img src="https://img.freepik.com/foto-gratis/vista-angulo-hombre-musculoso-irreconocible-preparandose-levantar-barra-club-salud_637285-2497.jpg" alt="Banner" class="img-fluid rounded shadow-lg">

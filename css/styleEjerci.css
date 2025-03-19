@@ -52,42 +52,66 @@ button:hover {
     margin: 10px 0;
     border-radius: 5px;
 }
-/* Navbar con efecto sombra */
 .navbar {
-    background: linear-gradient(to right, #000, #333);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  }
+  background-color: black !important;
+  background: linear-gradient(to right, #000, #333);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.navbar-brand .calori {
+  color: white;
+}
+.navbar-brand .fit {
+  color: yellow;
+}
+.nav-link {
+  color: white !important;
+  transition: color 0.3s;
+}
+.nav-link:hover {
+  color: yellow !important;
+}
+.btn-dark {
+  background-color: yellow;
+  color: black;
+  font-weight: bold;
+}
+.btn-dark:hover {
+  background-color: white;
+  color: black;
+}
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
 
-  .navbar-brand {
-    font-size: 1.8rem;
-    font-weight: bold;
-  }
+.brand-highlight {
+  color: white;
+}
 
-  .brand-highlight {
-    color: white;
-  }
+.fit-text {
+  color: yellow;
+  animation: pulse 1.5s infinite;
+}
 
-  .fit-text {
-    color: yellow;
-    font-weight: bold;
-    animation: pulse 1.5s infinite;
-  }
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
 
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-  }
+.navbar-nav .nav-link {
+  color: white !important;
+  font-size: 1.1rem;
+  transition: 0.3s;
+}
 
-  .navbar-nav .nav-link {
-    color: white !important;
-    font-size: 1.1rem;
-    transition: 0.3s;
-  }
-
-  .navbar-nav .nav-link:hover {
-    color: yellow !important;
-  }
+.navbar-nav .nav-link:hover {
+  color: yellow !important;
+}
   /* Footer styles */
 .gym-footer {
     background: #111;

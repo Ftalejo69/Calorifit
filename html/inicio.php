@@ -10,78 +10,9 @@
   <link rel="stylesheet" href="../css/estilo.css">
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="inicio.html">
-        <span class="brand-highlight">Calori</span>
-        <span class="fit-text">Fit</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link" href="#">Inicio</a>
-          <a class="nav-link" href="planes.html">Planes</a>
-          <a class="nav-link" href="rutinas.html">Rutinas</a>
-          <a class="nav-link" href="ejerciciios.html">Ejercicio</a>
-          <a class="nav-link" href="index.php">cerrar sesion</a>
-                 <a href="#" id="openProfile" class="btn">Ver Perfil</a>
-        </div>
-      </div>
-    </div>
-  </nav> 
-  <div id="profileModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" id="closeProfile">&times;</span>
-      <h2>Perfil de Usuario</h2>
-      
-      <form id="profileForm">
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" required>
-  
-        <label for="age">Edad:</label>
-        <input type="number" id="age" required>
-  
-        <label for="weight">Peso (kg):</label>
-        <input type="number" id="weight" required>
-  
-        <label for="height">Altura (cm):</label>
-        <input type="number" id="height" required>
-  
-        <button type="submit" class="btn">Guardar Cambios</button>
-        <button type="button" id="deleteProfile" class="btn btn-delete">Eliminar Perfil</button>
-      </form>
-  
-    </div>
-  </div>
+  <?php include '../php/navbar.php'; ?>
 
 
-  <div id="profileModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" id="closeProfile">&times;</span>
-      <h2>Perfil de Usuario</h2>
-      
-      <form id="profileForm">
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" required>
-  
-        <label for="age">Edad:</label>
-        <input type="number" id="age" required>
-  
-        <label for="weight">Peso (kg):</label>
-        <input type="number" id="weight" required>
-  
-        <label for="height">Altura (cm):</label>
-        <input type="number" id="height" required>
-  
-        <button type="submit" class="btn">Guardar Cambios</button>
-        <button type="button" id="deleteProfile" class="btn btn-delete">Eliminar Perfil</button>
-      </form>
-  
-    </div>
-  </div>
 
 
   <!-- Nueva sección de bienvenida -->

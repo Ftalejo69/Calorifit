@@ -4,36 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="rutinas.css">
+    <link rel="stylesheet" href="../css/rutinas.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body style="background: rgba(255, 255, 255, 0.719);">
+<body >
 
-    <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="inicio.html">
-        <span class="brand-highlight">Calori</span>
-        <span class="fit-text">Fit</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link" href="inicio.html">Inicio</a>
-          <a class="nav-link" href="planes.html">Planes</a>
-          <a class="nav-link" href="rutinas.html">Rutinas</a>
-          <a class="nav-link" href="ejerciciios.html">Ejercicios</a>
-          <a class="nav-link" href="index.php">cerrar sesion</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-  <!-- Nueva sección de bienvenida -->
-  <div class="welcome-section">
-    BIENVENIDO A <span>CALORIFIT</span>
-  </div>
+<?php include '../php/navbar.php'; ?>
     <div>
         <p class="titulo4">IMPULSA </p>
         <p class="com">TU   COMPROMISO Y</p>
@@ -53,7 +29,7 @@
         </div>
     </div>
     <div class="tarjeta2" style="margin-left: 550px;">
-        <img src="intermedio-removebg-preview.png" alt="Imagen de ejemplo">
+        <img src="../imagenes/David-Laid.jpg" alt="Imagen de ejemplo">
         <div class="contenido2">
             <div class="titulo2">INTERMEDIO</div>
             <div class="descripcion2">Esta es una breve descripción de la tarjeta. Aquí puedes añadir más detalles sobre el contenido.</div>
@@ -63,7 +39,7 @@
         </div>
     </div>
     <div class="tarjeta3">
-        <img src="David-Laid.jpg" alt="Imagen de ejemplo">
+        <img src="../imagenes/David-Laid.jpg" alt="Imagen de ejemplo">
         <div class="contenido3">
             <div class="titulo3">AVANZADO</div>
             <div class="descripcion3">Esta es una breve descripción de la tarjeta. Aquí puedes añadir más detalles sobre el contenido.</div>
@@ -73,20 +49,20 @@
         </div>
     </div>
         <!-- Footer -->
-<footer class="gym-footer">
-  <div class="footer-content">
-    <h3>CaloriFit</h3>
-    <p>Transformando cuerpos y mentes, un entrenamiento a la vez.</p>
-    <ul class="socials">
-      <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a></li>
-      <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Instagram"></a></li>
-      <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Twitter"></a></li>
-    </ul>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 CaloriFit. Todos los derechos reservados.</p>
-  </div>
-</footer>
+        <footer class="gym-footer">
+    <div class="footer-content">
+      <h3>CaloriFit</h3>
+      <p>Transformando cuerpos y mentes, un entrenamiento a la vez.</p>
+      <ul class="socials">
+        <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a></li>
+        <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Instagram"></a></li>
+        <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Twitter"></a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 CaloriFit. Todos los derechos reservados.</p>
+    </div>
+  </footer>
       <script src="https://i.pinimg.com/originals/f2/ff/e4/f2ffe4ca8602818a4fd4abf1e3563964.jpg" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
