@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rutina de Gym</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/tyyga.css">
     <script defer src="../js/tyyga.js"></script>
 </head>
@@ -11,6 +12,22 @@
     <header>
         <h1>Rutina de Gym</h1>
     </header>
+
+    <nav>
+        <ul>
+            <li><a href="inicio.php">Inicio</a></li>
+            <li><a href="ejercicios.php">Ejercicios</a></li>
+            <li>
+                <a href="planes.php">Planes</a>
+                <ul class="submenu">
+                    <li><a href="planes_basicos.php">Planes Básicos</a></li>
+                    <li><a href="planes_avanzados.php">Planes Avanzados</a></li>
+                </ul>
+            </li>
+            <li><a href="predefinidas.php">Predefinidas</a></li>
+            <li><a href="tyyga.html" class="active">Rutina</a></li>
+        </ul>
+    </nav>
     
     <!-- Contenedor para agregar nuevas tareas -->
     <div class="add-task-container">
@@ -18,6 +35,14 @@
         <input type="text" id="taskInput" placeholder="Añadir ejercicio...">
         <button id="addTaskBtn">Agregar</button>
     </div>
+    
+    <!-- Contenedor para limpiar todas las tareas -->
+    <div class="clear-tasks-container">
+        <button id="clearTasksBtn">Limpiar todas las tareas</button>
+    </div>
+
+    <!-- Contador total de tareas -->
+    <div id="totalTaskCounter" class="total-task-counter">Total de tareas: 0</div>
     
     <!-- Contenedor principal de columnas -->
     <div class="columns">
@@ -67,5 +92,18 @@
             </ul>
         </div>
     </div>
+
+    <!-- Modal para confirmar eliminación -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <p>¿Estás seguro de que deseas eliminar esta tarea?</p>
+            <button id="confirmDelete" class="confirm">Eliminar</button>
+            <button id="cancelDelete" class="cancel">Cancelar</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Rutina de Gym. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>

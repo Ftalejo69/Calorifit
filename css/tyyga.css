@@ -1,40 +1,77 @@
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #d0ba14, #000000);
-    color: white;
+    font-family: 'Roboto', sans-serif; /* Cambiar a una fuente más elegante */
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Fondo más sutil y elegante */
+    color: #333; /* Color de texto más suave */
     text-align: center;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
     padding: 20px;
     font-size: 24px;
     font-weight: bold;
+    background-color: #333;
+    color: #fff;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    border-bottom: 3px solid #ff9800;
 }
 
 .add-task-container {
     display: flex;
     justify-content: center;
     margin: 20px 0;
+    gap: 10px;
 }
 
 .add-task-container input {
-    padding: 10px;
-    width: 250px;
-    border: none;
+    padding: 12px;
+    width: 300px;
+    border: 2px solid #ff9800;
     border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s;
+}
+
+.add-task-container input:focus {
+    border-color: #e68900;
 }
 
 .add-task-container button {
-    padding: 10px;
-    margin-left: 10px;
+    padding: 12px;
     background-color: #ff9800;
-    border: none;
+    border: 2px solid #ff9800;
     color: white;
     cursor: pointer;
     border-radius: 5px;
     font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-task-container button:hover {
+    background-color: #e68900;
+    transform: scale(1.05);
+}
+
+.add-task-container button::before,
+.clear-tasks-container button::before {
+    content: '➕'; /* Icono de agregar */
+    margin-right: 5px;
+}
+
+.clear-tasks-container button::before {
+    content: '🗑️'; /* Icono de limpiar */
+}
+
+.add-task-container button.loading::before {
+    content: '⏳'; /* Icono de carga */
+    animation: spin 1s linear infinite;
 }
 
 .columns {
@@ -42,19 +79,27 @@ header {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+    padding-bottom: 60px;
 }
 
 .column {
-    background-color: #1e1e2f;
-    padding: 15px;
+    background-color: #fff;
+    padding: 20px;
     border-radius: 10px;
-    width: 250px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 280px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.column:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 h4 {
-    margin-bottom: 10px;
-    font-size: 18px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #ff9800;
 }
 
 .task-list {
@@ -63,10 +108,18 @@ h4 {
 }
 
 .task {
-    background-color: #333;
-    padding: 10px;
-    margin: 5px 0;
+    background-color: #f0f0f0;
+    padding: 12px;
+    margin: 8px 0;
     border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    animation: fadeIn 0.5s;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.task:hover {
+    background-color: #e0e0e0;
+    transform: translateX(5px);
 }
 
 .task.hide {
@@ -75,7 +128,11 @@ h4 {
 
 .task.dragging {
     opacity: 0.5;
-    background-color: #555;
+    background-color: #e0e0e0;
+}
+
+.task.removing {
+    animation: fadeOut 0.5s;
 }
 
 .visually-hidden {
@@ -87,4 +144,162 @@ h4 {
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px 0;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Aumentar el espacio entre los elementos del menú */
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: #ff9800;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px; /* Aumentar el relleno para hacer los enlaces más grandes */
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s; /* Añadir transición para el color */
+}
+
+nav ul li a.active {
+    background-color: #555; /* Color de fondo para el enlace activo */
+    color: #fff; /* Color de texto para el enlace activo */
+}
+
+nav ul li a:hover {
+    background-color: #444;
+    color: #fff; /* Cambiar el color del texto al pasar el ratón */
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    width: 100%;
+    font-size: 14px;
+    box-shadow: 0px -4px 15px rgba(0, 0, 0, 0.2);
+    margin-top: auto;
+}
+
+.clear-tasks-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.clear-tasks-container button {
+    padding: 12px;
+    background-color: #ff9800;
+    border: 2px solid #ff9800;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.clear-tasks-container button:hover {
+    background-color: #e68900;
+    transform: scale(1.05);
+}
+
+.total-task-counter {
+    font-size: 16px;
+    color: #ff9800;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content button {
+    padding: 12px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.modal-content .confirm {
+    background-color: #ff9800;
+    color: white;
+}
+
+.modal-content .confirm:hover {
+    background-color: #e68900;
+    transform: scale(1.05);
+}
+
+.modal-content .cancel {
+    background-color: #444;
+    color: white;
+}
+
+.modal-content .cancel:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Contador de tareas */
+.task-counter {
+    font-size: 14px;
+    color: #ff9800;
+    margin-top: 10px;
 }
