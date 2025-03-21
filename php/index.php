@@ -162,7 +162,7 @@
 
           if (data.includes("exitoso")) {
             clearForm(form, alertDiv);
-            setTimeout(() => window.location.href = "/calorifit/html/inicio.html", 2000);
+            setTimeout(() => window.location.href = "../html/inicio.php", 2000);
 
           }
         });
