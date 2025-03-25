@@ -12,23 +12,8 @@
     <header>
         <h1>Rutina de Gym</h1>
     </header>
-
-    <nav>
-        <ul>
-            <li><a href="inicio.php">Inicio</a></li>
-            <li><a href="ejercicios.php">Ejercicios</a></li>
-            <li class="has-submenu">
-                <a href="planes.php">Planes</a>
-                <ul class="submenu">
-                    <li><a href="planes_basicos.php">Planes Básicos</a></li>
-                    <li><a href="planes_avanzados.php">Planes Avanzados</a></li>
-                </ul>
-            </li>
-            <li><a href="predefinidas.php">Predefinidas</a></li>
-            <li><a href="tyyga.html" class="active">Rutina</a></li>
-        </ul>
-    </nav>
-    
+    <?php include '../php/navbar.php'; ?>
+  
     <!-- Contenedor para agregar nuevas tareas -->
     <div class="add-task-container">
         <label for="taskInput" class="visually-hidden">Añadir ejercicio</label>
