@@ -218,27 +218,27 @@
     color: #e99903;
     margin-right: 10px;
 }
-input{
-    width: 10px;
+/* Estilo específico para el campo de Teléfono */
+#telefono {
+    width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px; /* Separación entre los campos */
 }
-.fa-calendar-day{
-    width: 40px;
+
+/* Estilo para el campo Teléfono cuando esté enfocado */
+#telefono:focus {
+    border-color: #007bff; /* Cambia el borde cuando el input de teléfono está enfocado */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra suave al enfocar */
 }
-.fa-ruler-vertical{
-    width: 40px;
+
+/* Asegurarse de que el placeholder en el input Teléfono tenga el tamaño consistente */
+#telefono::placeholder {
+    text-overflow: ellipsis; /* Si el texto es largo, usar puntos suspensivos */
+    white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
+    overflow: hidden; /* Ocultar cualquier texto que sobrepase el ancho del campo */
 }
-.fa-weight-hanging{
-    width: 40px;
-}
-.fa-genderless{
-    width: 40px;
-}
-.fa-birthday-cake{
-    width: 40px;
-}
-.fa-envelope{
-    width: 40px;
-}
-.fa-user{
-    width: 40px;
-}
+

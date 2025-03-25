@@ -17,10 +17,9 @@
                     <li class="nav-item"><a class="nav-link" href="../html/ejercicios.php">Ejercicio</a></li>
                     <li class="nav-item"><a class="nav-link text-danger" href="index.php">Cerrar sesión</a></li>
                     <!-- Botón para abrir el modal -->
-<button type="button" class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#registroModal">
+                    <button type="button" class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Ver Perfil
 </button>
-
 
                 </ul>
             </div>

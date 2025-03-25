@@ -1,3 +1,15 @@
+<?php
+// Asegúrate de iniciar sesión para acceder a los datos del usuario
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    echo "Por favor, inicie sesión para ver su perfil.";
+    exit;
+}
+
+$usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,58 +21,50 @@
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="../css/estilo.css">
   <!-- Agregar Font Awesome para los iconos -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 </head>
 <body>
   <?php include '../php/navbar.php'; ?>
 
-<!-- Modal de Perfil -->
-<div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="perfilModalLabel">Mi Perfil</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-            <div class="modal-body">
-                <form id="perfilForm" action="../php/editar_perfil.php" method="POST">
-                    <!-- Documento -->
-                    <div class="mb-3">
-                        <label class="form-label"><b>Documento:</b></label>
-                        <input type="text" class="form-control" value="<?= isset($usuario['documento']) ? $usuario['documento'] : ''; ?>" readonly>
-                    </div>
-                    <!-- Correo -->
-                    <div class="mb-3">
-                        <label class="form-label"><b>Correo:</b></label>
-                        <input type="email" class="form-control" value="<?= isset($usuario['correo']) ? $usuario['correo'] : ''; ?>" readonly>
-                    </div>
-                    <!-- Usuario -->
-                    <div class="mb-3">
-                        <label class="form-label"><b>Usuario:</b></label>
-                        <input type="text" class="form-control editable" name="usuario" value="<?= isset($usuario['usuario']) ? $usuario['usuario'] : ''; ?>" disabled required>
-                    </div>
-                    <!-- Nombre -->
-                    <div class="mb-3">
-                        <label class="form-label"><b>Nombre:</b></label>
-                        <input type="text" class="form-control editable" name="nombre" value="<?= isset($usuario['nombre']) ? $usuario['nombre'] : ''; ?>" disabled required>
-                    </div>
-                    <!-- Número -->
-                    <div class="mb-3">
-                        <label class="form-label"><b>Número:</b></label>
-                        <input type="text" class="form-control editable" name="numero" value="<?= isset($usuario['numero']) ? $usuario['numero'] : ''; ?>" disabled required>
-                    </div>
-                    <!-- Botones -->
-                    <button type="button" id="editarBtn" class="btn btn-warning">Editar</button>
-                    <button type="submit" id="guardarBtn" class="btn btn-success d-none">Guardar</button>
-                </form>
-            </div>
-        </div>
+<!-- Modal para editar y mostrar los datos del usuario -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Mi Perfil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="../php/editar_perfil.php">  <!-- Verifica que la acción sea la correcta -->
+          <!-- Nombre (no editable) -->
+          <div class="mb-3">
+            <label for="nombre" class="form-label">
+              <i class="fas fa-user"></i> Nombre
+            </label>
+            <!-- Mostrar el nombre del usuario desde la sesión -->
+            <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" readonly value="<?= isset($usuario['nombre']) ? $usuario['nombre'] : ''; ?>" required>
+          </div>
+
+          <!-- Teléfono -->
+          <div class="mb-3">
+            <label for="telefono" class="form-label">
+              <i class="fas fa-phone"></i> Teléfono
+            </label>
+            <!-- Mostrar el teléfono del usuario desde la sesión -->
+            <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su teléfono" value="<?= isset($usuario['telefono']) ? $usuario['telefono'] : ''; ?>" required>
+          </div>
+
+          <!-- Botones -->
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-warning ms-2" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-warning ms-2" name="action" value="update">Guardar</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
-
-
-
 
 
   <!-- Nueva sección de bienvenida -->
@@ -194,5 +198,24 @@
   </script>
   
   <script src="script.js"></script>
+  
+  <script>
+  // Script para activar/desactivar los inputs y cambiar el texto del botón
+  document.getElementById("editarBtn").addEventListener("click", function() {
+    var telefonoInput = document.getElementById("telefono");
+    var passwordInput = document.getElementById("password");
+
+    // Habilitar o deshabilitar los campos de Teléfono y Contraseña
+    telefonoInput.disabled = !telefonoInput.disabled;
+    passwordInput.disabled = !passwordInput.disabled;
+
+    // Cambiar el texto del botón entre "Editar" y "Guardar"
+    if (telefonoInput.disabled) {
+      this.textContent = "Editar";  // Si los campos están deshabilitados, cambiar el texto a "Editar"
+    } else {
+      this.textContent = "Guardar";  // Si los campos están habilitados, cambiar el texto a "Guardar"
+    }
+  });
+  
 </body>
 </html>
