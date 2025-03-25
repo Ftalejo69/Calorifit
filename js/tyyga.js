@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (column.children.length < 5) { // Máximo 5 ejercicios por día
                     column.appendChild(newTask);
                     updateTaskCounter(column);
+                    saveTask(taskText, column.id);
                     break;
                 }
             }
@@ -41,6 +42,22 @@ document.addEventListener("DOMContentLoaded", () => {
             addTaskBtn.classList.remove("loading");
         }, 500); // Simular tiempo de carga
     });
+
+    function saveTask(nombre, dia) {
+        fetch('../php/tareas.php?action=add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nombre, dia })
+        });
+    }
+
+    function deleteTask(id) {
+        fetch(`../php/tareas.php?action=delete&id=${id}`, {
+            method: 'GET'
+        });
+    }
 
     clearTasksBtn.addEventListener("click", () => {
         columns.forEach(column => {
@@ -94,11 +111,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     confirmDeleteBtn.addEventListener("click", () => {
         if (taskToDelete) {
+            const taskId = taskToDelete.id.replace('task', '');
             taskToDelete.classList.add("removing");
             setTimeout(() => {
                 taskToDelete.remove();
                 updateTaskCounter(taskToDelete.parentNode);
                 updateTotalTaskCounter();
+                deleteTask(taskId);
                 taskToDelete = null;
             }, 500);
         }
@@ -133,4 +152,26 @@ document.addEventListener("DOMContentLoaded", () => {
         task.addEventListener("dragend", dragEnd);
         task.addEventListener("click", () => showDeleteModal(task));
     });
+
+    fetchTasks();
+
+    function fetchTasks() {
+        fetch('../php/tareas.php?action=get')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(task => {
+                    const column = document.getElementById(task.dia);
+                    const newTask = document.createElement("li");
+                    newTask.classList.add("task");
+                    newTask.textContent = task.nombre;
+                    newTask.setAttribute("draggable", "true");
+                    newTask.setAttribute("id", `task${task.id}`);
+                    newTask.addEventListener("click", () => showDeleteModal(newTask));
+                    newTask.addEventListener("dragstart", dragStart);
+                    newTask.addEventListener("dragend", dragEnd);
+                    column.querySelector(".task-list").appendChild(newTask);
+                });
+                updateTotalTaskCounter();
+            });
+    }
 });
