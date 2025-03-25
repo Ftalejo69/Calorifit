@@ -6,8 +6,7 @@
   <title>CaloriFit</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <?php include '../php/navbar.php'; ?>
@@ -80,12 +79,12 @@
     </div>
   </section>
 
-<!-- Modal de Perfil -->
-<div id="perfil" class="modal">
-  <div class="modal-contenido">
-      <!-- El contenido del perfil se cargará aquí dinámicamente -->
+  <!-- Modal de Perfil -->
+  <div id="perfil" class="modal">
+    <div class="modal-contenido">
+        <!-- El contenido del perfil se cargará aquí dinámicamente -->
+    </div>
   </div>
-</div>
 
   <!-- Footer -->
   <footer class="bg-dark text-center text-light py-4">
@@ -103,53 +102,8 @@
     </div>
   </footer>
 
-    <!-- Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM cargado correctamente."); // Debug
-
-    // Manejo de panel de información de planes
-    function togglePanel(plan) {
-      var panel = document.getElementById("infoPanel");
-      var title = document.getElementById("panelTitle");
-      var description = document.getElementById("panelDescription");
-
-      if (plan) {
-        title.innerText = plan + " - Detalles";
-        description.innerText = "Este plan está diseñado para mejorar tu " + plan.toLowerCase() + ".";
-        panel.classList.remove("d-none");
-        panel.classList.add("fade-in");
-      } else {
-        panel.classList.remove("fade-in");
-        panel.classList.add("fade-out");
-        setTimeout(() => {
-          panel.classList.add("d-none");
-          panel.classList.remove("fade-out");
-          title.innerText = "";
-        }, 300);
-      }
-    }
-
-    document.querySelectorAll(".btn-warning").forEach(button => {
-      button.addEventListener("click", function () {
-        let plan = this.closest(".card-body").querySelector(".card-title").innerText;
-        togglePanel(plan);
-      });
-    });
-
-    // 📌 Manejo del modal con Bootstrap
-    const btnPerfil = document.getElementById("btnPerfil");
-    const modalElement = document.getElementById("modalPerfil");
-
-    if (btnPerfil && modalElement) {
-        btnPerfil.setAttribute("data-bs-toggle", "modal");
-        btnPerfil.setAttribute("data-bs-target", "#modalPerfil");
-    }
-});
-
-</script>
-
-  
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
