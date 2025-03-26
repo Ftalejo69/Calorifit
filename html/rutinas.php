@@ -13,44 +13,49 @@
 
 <?php include '../php/navbar.php'; ?>
 <?php include '../php/modal_perfil.php'; ?>
-    <div>
-        <p class="titulo4">IMPULSA </p>
-        <p class="com">TU   COMPROMISO Y</p>
-        <p class="titulo1">  MOTIVACIÓN </p>
-        <P class="ti">CON LOS</P>
-        <p class="ti2">PROGRAMAS</p>
-        <p class="ti3">Elige tu programa de acompañamiento y seguimiento según tu objetivo</p>
+<div class="header">
+        <h1 class="titulo">IMPULSA <span class="resaltar">TU COMPROMISO Y MOTIVACIÓN</span></h1>
+        <p class="subtitulo">Elige tu programa de acompañamiento y seguimiento según tu objetivo</p>
     </div>
-    <div class="tarjeta">
-        <img src="https://www.ific.es/blog/wp-content/uploads/2015/10/novato.jpg" alt="Imagen de ejemplo">
-        <div class="contenido">
-            <div class="titulo"> PRINCIPIANTE</div>
-            <div class="descripcion">Esta es una breve descripción de la tarjeta. Aquí puedes añadir más detalles sobre el contenido.</div>
-            <div class="contenedor">
-                <button class="boton">ver plan</button>
+    
+    <div class="contenedor-tarjetas">
+        <div class="tarjeta">
+            <img src="https://www.ific.es/blog/wp-content/uploads/2015/10/novato.jpg" alt="Principiante">
+            <div class="contenido">
+                <h2>PRINCIPIANTE</h2>
+                <p>Empieza desde cero con un programa adaptado a ti.</p>
+                <button class="boton">Ver Plan</button>
+            </div>
+        </div>
+        
+        <div class="tarjeta">
+            <img src="../imagenes/David-Laid.jpg" alt="Intermedio">
+            <div class="contenido">
+                <h2>INTERMEDIO</h2>
+                <p>Mejora tu rendimiento y lleva tu entrenamiento al siguiente nivel.</p>
+                <button class="boton">Ver Plan</button>
+            </div>
+        </div>
+        
+        <div class="tarjeta">
+            <img src="../imagenes/David-Laid.jpg" alt="Avanzado">
+            <div class="contenido">
+                <h2>AVANZADO</h2>
+                <p>Desafía tus límites y alcanza el máximo potencial.</p>
+                <button class="boton">Ver Plan</button>
             </div>
         </div>
     </div>
-    <div class="tarjeta2" style="margin-left: 550px;">
-        <img src="../imagenes/David-Laid.jpg" alt="Imagen de ejemplo">
-        <div class="contenido2">
-            <div class="titulo2">INTERMEDIO</div>
-            <div class="descripcion2">Esta es una breve descripción de la tarjeta. Aquí puedes añadir más detalles sobre el contenido.</div>
-            <div class="contenedor2">
-                <button class="boton2">ver plan</button>
-            </div>
-        </div>
-    </div>
-    <div class="tarjeta3">
-        <img src="../imagenes/David-Laid.jpg" alt="Imagen de ejemplo">
-        <div class="contenido3">
-            <div class="titulo3">AVANZADO</div>
-            <div class="descripcion3">Esta es una breve descripción de la tarjeta. Aquí puedes añadir más detalles sobre el contenido.</div>
-            <div class="contenedor3">
-                <button class="boton3">ver plan</button>
-            </div>
-        </div>
-    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.tarjeta').hover(function() {
+                $(this).addClass('hovered');
+            }, function() {
+                $(this).removeClass('hovered');
+            });
+        });
+    </script>
         <!-- Footer -->
         <footer class="gym-footer">
     <div class="footer-content">

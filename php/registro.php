@@ -27,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 session_start();
                 $_SESSION['usuario'] = $result['user'];
 
+                
+
                 // ✅ Redirección automática a 'menu.html'
                 if ($result['success']) {
                     if (session_status() == PHP_SESSION_NONE) {
