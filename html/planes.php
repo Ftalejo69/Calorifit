@@ -6,10 +6,13 @@
   <title>CaloriFit</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Agregar Font Awesome para los iconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <?php include '../php/navbar.php'; ?>
+<?php include '../php/modal_perfil.php'; ?>
   <!-- Main Banner -->
   <div class="container mt-5 pt-5 text-center">
     <img src="https://img.freepik.com/foto-gratis/vista-angulo-hombre-musculoso-irreconocible-preparandose-levantar-barra-club-salud_637285-2497.jpg" alt="Banner" class="img-fluid rounded shadow-lg">

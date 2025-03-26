@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rutina de Gym</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+      <!-- Agregar Font Awesome para los iconos -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/tyyga.css">
     <script defer src="../js/tyyga.js"></script>
 </head>
@@ -13,6 +15,7 @@
         <h1>Rutina de Gym</h1>
     </header>
     <?php include '../php/navbar.php'; ?>
+    <?php include '../php/modal_perfil.php'; ?>
   
     <!-- Contenedor para agregar nuevas tareas -->
     <div class="add-task-container">
