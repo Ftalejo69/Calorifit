@@ -1,3 +1,15 @@
+<?php
+// Asegúrate de iniciar sesión para acceder a los datos del usuario
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    echo "Por favor, inicie sesión para ver su perfil.";
+    exit;
+}
+
+$usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
