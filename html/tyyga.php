@@ -35,7 +35,7 @@
     <!-- Contenedor principal de columnas -->
     <div class="columns">
         <!-- Columna para Lunes -->
-        <div class="column" id="lunes">
+        <div class="column" id="lunes"> <!-- Asegúrate de que el ID sea correcto -->
             <h4>🏋️ Lunes - Pecho y Tríceps</h4>
             <ul class="task-list">
                 <li class="task" id="task1" draggable="true">Press de banca</li>
@@ -44,7 +44,7 @@
             </ul>
         </div>
         <!-- Columna para Martes -->
-        <div class="column" id="martes">
+        <div class="column" id="martes"> <!-- Asegúrate de que el ID sea correcto -->
             <h4>🏋️ Martes - Espalda y Bíceps</h4>
             <ul class="task-list">
                 <li class="task" id="task4" draggable="true">Dominadas</li>

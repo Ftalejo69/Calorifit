@@ -26,16 +26,34 @@ document.addEventListener("DOMContentLoaded", () => {
             newTask.addEventListener("dragstart", dragStart);
             newTask.addEventListener("dragend", dragEnd);
 
-            // Agregar la tarea a la primera columna disponible
+            let selectedColumn = null;
+
+            // Intentar agregar automáticamente a la primera columna disponible
             for (let column of columns) {
                 if (column.children.length < 5) { // Máximo 5 ejercicios por día
                     column.appendChild(newTask);
                     updateTaskCounter(column);
-                    saveTask(taskText, column.id);
+                    selectedColumn = column.parentNode.id;
                     break;
                 }
             }
 
+            // Si no se encontró una columna automáticamente, preguntar al usuario
+            if (!selectedColumn) {
+                const dayOptions = Array.from(columns).map(column => column.parentNode.id).join(", ");
+                selectedColumn = prompt(`¿En qué día deseas guardar la tarea? Opciones disponibles: ${dayOptions}`);
+                const targetColumn = document.getElementById(selectedColumn)?.querySelector(".task-list");
+                if (targetColumn) {
+                    targetColumn.appendChild(newTask);
+                    updateTaskCounter(targetColumn);
+                } else {
+                    alert("Día no válido. La tarea no se guardará.");
+                    addTaskBtn.classList.remove("loading");
+                    return;
+                }
+            }
+
+            saveTask(taskText, selectedColumn);
             taskInput.value = "";
             updateTotalTaskCounter();
             alert("Nueva tarea agregada!");
@@ -50,12 +68,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ nombre, dia })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Tarea guardada con ID:', data.id);
         });
     }
 
     function deleteTask(id) {
         fetch(`../php/tareas.php?action=delete&id=${id}`, {
             method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Tarea eliminada:', data.success);
         });
     }
 
