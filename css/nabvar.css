@@ -146,99 +146,26 @@
     background-color: #ec9512;
     transform: scale(1.05);
 }
-
-/* Sombra de la modal */
-.modal-dialog {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
- /* Aquí va tu código CSS personalizado para el botón */
- .btn-primary-custom {
-    background-color: yellow; /* Azul brillante */
-    border-color: #ffb310; /* Azul oscuro */
-    color: rgb(0, 0, 0);
-    font-weight: 600; /* Textos más negritas */
-    padding: 5px 10px; /* Espaciado cómodo */
-    border-radius: 15px; /* Bordes redondeados */
-    font-size: 1rem; /* Un tamaño de fuente agradable */
-    text-transform: uppercase; /* Texto en mayúsculas */
-    letter-spacing: 0.4px; /* Espaciado entre letras */
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Transiciones suaves */
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra ligera para darle profundidad */
-    border: 2px solid yellow; /* Borde azul */
-}
-
-/* Efecto hover - al pasar el mouse sobre el botón */
-.btn-primary-custom:hover {
-    background-color: rgb(255, 208, 0); /* Azul más oscuro al pasar el mouse */
-    border-color: #ffbb00; /* Borde más oscuro */
-    transform: scale(1.05); /* Efecto de aumentar el tamaño */
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Aumenta la sombra */
-}
-
-/* Efecto focus - cuando el botón es seleccionado */
-.btn-primary-custom:focus {
-    outline: none;
-    box-shadow: 0px 0px 8px rgba(78, 115, 223, 0.6); /* Resalta con un halo azul */
-}
-
-/* Efecto active - cuando el botón es presionado */
-.btn-primary-custom:active {
-    background-color: #1d4290; /* Azul aún más oscuro al presionar */
-    border-color: #16376b;
-    box-shadow: none; /* Elimina la sombra cuando se presiona */
-}
-/* Estilo general para los inputs */
-.form-control {
-    width: 80%; /* Aseguramos que el input ocupe todo el ancho disponible */
-    border-radius: 8px;
-    padding: 10px;
-    background-color: #f4f7fa;
-    border: 1px solid #ccc;
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
-}
-
-/* Inputs de solo lectura */
-.form-control[readonly] {
-    background-color: #e9ecef;
-    border: 1px solid #ddd;
-    cursor: not-allowed; /* Cambia el cursor cuando el campo es solo lectura */
-}
-
-/* Estilo para etiquetas */
-.profile-field label {
-    font-size: 1rem;
-    color: #333;
+/* Estilos para la sección de bienvenida */
+.welcome-section {
+    background: linear-gradient(to right, #000, #333);
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+  }
+  
+  .welcome-section h1 {
+    font-size: 36px;
     font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
-
-/* Íconos dentro de los campos */
-.profile-field i {
-    color: #e99903;
-    margin-right: 10px;
-}
-/* Estilo específico para el campo de Teléfono */
-#telefono {
-    width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px; /* Separación entre los campos */
-}
-
-/* Estilo para el campo Teléfono cuando esté enfocado */
-#telefono:focus {
-    border-color: #007bff; /* Cambia el borde cuando el input de teléfono está enfocado */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra suave al enfocar */
-}
-
-/* Asegurarse de que el placeholder en el input Teléfono tenga el tamaño consistente */
-#telefono::placeholder {
-    text-overflow: ellipsis; /* Si el texto es largo, usar puntos suspensivos */
-    white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
-    overflow: hidden; /* Ocultar cualquier texto que sobrepase el ancho del campo */
-}
+    text-transform: uppercase;
+  }
+  
+  .welcome-section span {
+    color: #f4c10f; /* Resalta 'CALORIFIT' en amarillo dorado */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Efecto de sombra para destacar */
+    font-size: 30px;
+  }
 
