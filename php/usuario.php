@@ -70,7 +70,7 @@ class UsuarioModel {
                 // Contenido del correo
                 $mail->isHTML(true);
                 $mail->Subject = 'Verifica tu correo';
-                $verificationLink = "http://localhost/gyms/vista.php?token=" . $token;
+                $verificationLink = "http://localhost/calorifit/html/inicio.php?token=" . $token;
                 $mail->Body = "Hola $nombre,<br><br>Por favor, verifica tu correo para calorifit clic en el siguiente enlace:<br><br><a href='$verificationLink'>$verificationLink</a>";
 
                 // Enviar correo
