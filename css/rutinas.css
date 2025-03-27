@@ -209,3 +209,26 @@ body {
   .gym-footer {
     margin-top: 80px; /* Espacio encima del footer */
 }
+/* Estilos para la sección de bienvenida */
+.welcome-section {
+    background: linear-gradient(to right, #000, #333);
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+  }
+  
+  .welcome-section h1 {
+    font-size: 36px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .welcome-section span {
+    color: #f4c10f; /* Resalta 'CALORIFIT' en amarillo dorado */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Efecto de sombra para destacar */
+    font-size: 30px;
+  }
+

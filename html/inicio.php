@@ -27,7 +27,11 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <?php include '../php/navbar.php'; ?>
   <?php include '../php/modal_perfil.php'; ?>
 
-
+<!-- Nueva sección de bienvenida -->
+<div class="welcome-section">
+    BIENVENIDO A <span>CALORIFIT</span>
+  </div>
+    
 
   <!-- Sección de Títulos -->
   <section class="text-center my-5">

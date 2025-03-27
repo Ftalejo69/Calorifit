@@ -23,11 +23,14 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
     <script defer src="../js/tyyga.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Rutina de Gym</h1>
-    </header>
+    
     <?php include '../php/navbar.php'; ?>
     <?php include '../php/modal_perfil.php'; ?>
+    <!-- Nueva sección de bienvenida -->
+<div class="welcome-section">
+    RUTINAS PREDEFINIDAS <span>CALORIFIT</span>
+  </div>
+    
   
     <!-- Contenedor para agregar nuevas tareas -->
     <div class="add-task-container">
