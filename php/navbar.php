@@ -27,8 +27,4 @@
             </div>
         </div>
     </nav>
-<!-- Nueva sección de bienvenida -->
-<div class="welcome-section">
-    BIENVENIDO A <span>CALORIFIT</span>
-  </div>
-    
+

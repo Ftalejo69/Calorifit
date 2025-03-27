@@ -18,17 +18,20 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <title>CaloriFit</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Estilos personalizados -->
-  <link rel="stylesheet" href="../css/estilo.css">
   <!-- Agregar Font Awesome para los iconos -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="../css/estilo.css">
 </head>
 <body>
   <?php include '../php/navbar.php'; ?>
   <?php include '../php/modal_perfil.php'; ?>
 
-
+<!-- Nueva sección de bienvenida -->
+<div class="welcome-section">
+    BIENVENIDO A <span>CALORIFIT</span>
+  </div>
+    
 
   <!-- Sección de Títulos -->
   <section class="text-center my-5">
@@ -113,6 +116,88 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
       </div>
     </div>
   </div>
+
+ <!-- Tabla de comparación de planes -->
+<section class="container my-5">
+  <h2 class="text-center mb-4" style="font-weight: bold; text-transform: uppercase; color: #f4c10f;">
+    Elige tu plan y <span style="color: #333;">entrena ya</span>
+  </h2>
+  <div class="table-responsive">
+    <table class="table table-hover table-striped text-center align-middle shadow-sm">
+      <thead class="table-gradient">
+        <tr>
+          <th class="text-uppercase">Más beneficios</th>
+          <th class="text-uppercase">Plan Black</th>
+          <th class="text-uppercase">Plan Fit</th>
+          <th class="text-uppercase">Plan calo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Acceso ilimitado a más de 1,700 sedes de la red</td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-times-circle"></i></td>
+          <td><i class="fas fa-times-circle"></i></td>
+        </tr>
+        <tr>
+          <td>Derecho a traer un invitado 5 veces al mes</td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-times-circle"></i></td>
+          <td><i class="fas fa-times-circle"></i></td>
+        </tr>
+        <tr>
+          <td> Spa (Relájate en los sillones de masajes)</td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-times-circle"></i></td>
+          <td><i class="fas fa-times-circle"></i></td>
+        </tr>
+        <tr>
+          <td>Descuentos especiales en marcas aliadas</td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-times-circle"></i></td>
+          <td><i class="fas fa-times-circle"></i></td>
+        </tr>
+        <tr>
+          <td> Fit App (Tu plan de entrenamiento personalizado)</td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-check-circle"></i></td>
+        </tr>
+        <tr>
+          <td> Vital (Seguimiento a tu progreso)</td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-check-circle"></i></td>
+        </tr>
+        <tr>
+          <td> Go (Entrenamientos en línea)</td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-check-circle"></i></td>
+        </tr>
+        <tr>
+          <td>Clases grupales con profesores</td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-check-circle"></i></td>
+        </tr>
+        <tr>
+          <td>Acceso a todas las áreas de la sede</td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-check-circle"></i></td>
+          <td><i class="fas fa-check-circle"></i></td>
+        </tr>
+        <tr class="table-highlight">
+          <td class="table-price">DESDE</td>
+          <td class="table-price"><span>$54,950*</span> mensual por 2 meses, después $109,900/mes</td>
+          <td class="table-price"><span>$34,950*</span> mensual por 2 meses, después $69,900/mes</td>
+          <td class="table-price"><span>$89,900/mes</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="table-note">*Valores promocionales. 12 meses de fidelidad para Plan Black y Plan Fit.</p>
+  </div>
+</section>
 
  <!-- Panel extra (Tarjeta detallada) -->
  <div class="container info-panel" id="infoPanel">
