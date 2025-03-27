@@ -279,7 +279,7 @@ input[type="submit"]:hover {
 
 .table th {
   background: #333; /* Encabezado oscuro */
-  color: #f4c10f; /* Texto amarillo */
+  color: #131313; /* Texto amarillo */
   font-weight: bold;
 }
 
@@ -288,7 +288,7 @@ input[type="submit"]:hover {
 }
 
 .table-warning {
-  background-color: #fff3cd;
+  background-color: #0f0f0f;
 }
 
 .table-warning td {
@@ -296,11 +296,11 @@ input[type="submit"]:hover {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #f9f9f9;
+  background-color: #050505;
 }
 
 .table-striped tbody tr:nth-of-type(even) {
-  background-color: #fff;
+  background-color: #202020;
 }
 
 .table td i {
@@ -317,11 +317,11 @@ input[type="submit"]:hover {
 }
 
 .table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #000000;
 }
 
 .table tbody tr:nth-child(odd) {
-  background-color: #fff;
+  background-color: #000000;
 }
 
 .table tbody tr td:nth-child(2),
@@ -352,22 +352,22 @@ input[type="submit"]:hover {
 }
 
 .table-highlight {
-  background-color: #fff; /* Fondo blanco */
+  background-color: #110f0f; /* Fondo blanco */
   font-weight: bold;
   border-left: 4px solid #ee9b00; /* Borde amarillo */
 }
 
 .table-hover tbody tr:hover {
-  background-color: #f1f1f1; /* Gris claro al pasar el mouse */
+  background-color: #000000; /* Gris claro al pasar el mouse */
   transition: background-color 0.3s ease;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #fff; /* Fondo blanco */
+  background-color: #020202; /* Fondo blanco */
 }
 
 .table-striped tbody tr:nth-of-type(even) {
-  background-color: #f9f9f9; /* Fondo gris claro */
+  background-color: #020202; /* Fondo gris claro */
 }
 
 .table td i {
