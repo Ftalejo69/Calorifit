@@ -125,7 +125,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
           <th class="text-uppercase">Más beneficios</th>
           <th class="text-uppercase">Plan Black</th>
           <th class="text-uppercase">Plan Fit</th>
-          <th class="text-uppercase">Plan Smart</th>
+          <th class="text-uppercase">Plan calo</th>
         </tr>
       </thead>
       <tbody>
@@ -142,7 +142,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
           <td><i class="fas fa-times-circle"></i></td>
         </tr>
         <tr>
-          <td>Smart Spa (Relájate en los sillones de masajes)</td>
+          <td> Spa (Relájate en los sillones de masajes)</td>
           <td><i class="fas fa-check-circle"></i></td>
           <td><i class="fas fa-times-circle"></i></td>
           <td><i class="fas fa-times-circle"></i></td>
@@ -154,19 +154,19 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
           <td><i class="fas fa-times-circle"></i></td>
         </tr>
         <tr>
-          <td>Smart Fit App (Tu plan de entrenamiento personalizado)</td>
+          <td> Fit App (Tu plan de entrenamiento personalizado)</td>
           <td><i class="fas fa-check-circle"></i></td>
           <td><i class="fas fa-check-circle"></i></td>
           <td><i class="fas fa-check-circle"></i></td>
         </tr>
         <tr>
-          <td>Smart Vital (Seguimiento a tu progreso)</td>
+          <td> Vital (Seguimiento a tu progreso)</td>
           <td><i class="fas fa-check-circle"></i></td>
           <td><i class="fas fa-check-circle"></i></td>
           <td><i class="fas fa-check-circle"></i></td>
         </tr>
         <tr>
-          <td>Smart Fit Go (Entrenamientos en línea)</td>
+          <td> Go (Entrenamientos en línea)</td>
           <td><i class="fas fa-check-circle"></i></td>
           <td><i class="fas fa-check-circle"></i></td>
           <td><i class="fas fa-check-circle"></i></td>
