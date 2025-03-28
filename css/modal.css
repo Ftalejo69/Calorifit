@@ -1,3 +1,39 @@
+.modal-content {
+    border-radius: 15px;
+    animation: slideIn 0.5s ease-out;
+    background: linear-gradient(to right, #fffffe, #cecec2);
+    color:  #f4c10f;
+}
+
+/* Animación de entrada del modal */
+@keyframes slideIn {
+    0% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Cabecera del modal */
+.modal-header {
+    border-bottom: 2px solid #fff;
+    background-color: #f4c10f;
+    color: #000000;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.modal-title i {
+    margin-right: 10px;
+    font-size: 1.8rem;
+}
 
 /* Sombra de la modal */
 .modal-dialog {
@@ -5,7 +41,7 @@
 }
  /* Aquí va tu código CSS personalizado para el botón */
  .btn-primary-custom {
-    background-color: yellow; /* Azul brillante */
+    background-color: #f4c10f; /* Azul brillante */
     border-color: #ffb310; /* Azul oscuro */
     color: rgb(0, 0, 0);
     font-weight: 600; /* Textos más negritas */
@@ -16,23 +52,15 @@
     letter-spacing: 0.4px; /* Espaciado entre letras */
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Transiciones suaves */
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra ligera para darle profundidad */
-    border: 2px solid yellow; /* Borde azul */
+    border: 2px solid #f4c10f; /* Borde azul */
 }
-
-/* Efecto hover - al pasar el mouse sobre el botón */
-.btn-primary-custom:hover {
-    background-color: rgb(255, 208, 0); /* Azul más oscuro al pasar el mouse */
-    border-color: #ffbb00; /* Borde más oscuro */
-    transform: scale(1.05); /* Efecto de aumentar el tamaño */
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Aumenta la sombra */
-}
-
-/* Efecto focus - cuando el botón es seleccionado */
-.btn-primary-custom:focus {
-    outline: none;
-    box-shadow: 0px 0px 8px rgba(78, 115, 223, 0.6); /* Resalta con un halo azul */
-}
-
+  .btn-primary-custom:hover {
+    background-color: #ffc400f8; /* Color de fondo al hacer hover */
+    color: #000000; /* Cambiar el color del texto */
+    border-color: #ff9204; /* Cambiar el color del borde */
+    transform: scale(1.1); /* Agrandar ligeramente el botón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil para dar profundidad */
+  }
 /* Efecto active - cuando el botón es presionado */
 .btn-primary-custom:active {
     background-color: #1d4290; /* Azul aún más oscuro al presionar */
@@ -81,18 +109,7 @@
     margin-bottom: 15px; /* Separación entre los campos */
 }
 
-/* Estilo para el campo Teléfono cuando esté enfocado */
-#telefono:focus {
-    border-color: #007bff; /* Cambia el borde cuando el input de teléfono está enfocado */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra suave al enfocar */
-}
 
-/* Asegurarse de que el placeholder en el input Teléfono tenga el tamaño consistente */
-#telefono::placeholder {
-    text-overflow: ellipsis; /* Si el texto es largo, usar puntos suspensivos */
-    white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
-    overflow: hidden; /* Ocultar cualquier texto que sobrepase el ancho del campo */
-}
 #nombre{
     width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
     height: 45px; /* Ajusta la altura del input */
