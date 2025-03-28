@@ -29,7 +29,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 
   <!-- Sección de bienvenida -->
   <section class="welcome-section text-center">
-    <h1>Bienvenido a <span>CaloriFit</span></h1>
+    <h1>Bienvenido a <span>CALORIFIT</span></h1>
     <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
 <button id="openProfile" class="btn btn-outline-light mt-3">suscribete ahora</button>
     
