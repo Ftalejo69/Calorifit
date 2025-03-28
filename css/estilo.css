@@ -139,20 +139,48 @@ input[type="submit"]:hover {
 .card {
   background: #1a1a1a; /* Fondo oscuro */
   border: none;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
 }
 
 .card-title {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #f4c10f; /* Cambiar a amarillo vibrante */
+  color: #f4c10f; /* Amarillo vibrante */
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #d4d4d4; /* Texto gris claro */
+}
+
+.price {
+  margin: 10px 0;
+}
+
+.price-discount {
+  color: #a6a6a6; /* Gris tenue */
+}
+
+.price-current {
+  font-size: 1.2rem;
+  color: #f4c10f; /* Amarillo vibrante */
+}
+
+.card-detail {
+  font-size: 0.9rem;
+  color: #a6a6a6; /* Texto gris tenue */
+}
+
+.card-validity {
+  font-size: 0.8rem;
+  color: #777; /* Texto gris oscuro */
 }
 
 .card h5 {
