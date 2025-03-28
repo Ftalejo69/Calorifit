@@ -1,21 +1,21 @@
 body {
   font-family: 'Arial', sans-serif;
-  background: #181818; /* Fondo oscuro minimalista */
-  color: #e0e0e0; /* Texto claro */
+  background: #0d0d0d; /* Fondo negro elegante */
+  color: #d4d4d4; /* Texto gris claro */
   margin: 0;
   padding: 0;
 }
 
 /* Navbar con efecto sombra */
 .navbar {
-  background: #202020; /* Fondo oscuro para la barra de navegación */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  background: #1a1a1a; /* Fondo oscuro para la barra de navegación */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #f4c10f; /* Amarillo elegante */
+  color: #d4d4d4; /* Texto gris claro */
 }
 
 .brand-highlight {
@@ -35,19 +35,19 @@ body {
 }
 
 .navbar-nav .nav-link {
-  color: #b0b0b0 !important; /* Texto gris claro */
+  color: #a6a6a6 !important; /* Texto gris tenue */
   font-size: 1rem;
   transition: color 0.3s ease;
 }
 
 .navbar-nav .nav-link:hover {
-  color: #f4c10f !important; /* Amarillo vibrante */
+  color: #080808 !important; /* Gris más claro */
 }
 
 /* Estilos para la sección de bienvenida */
 .welcome-section {
-  background: #202020; /* Fondo oscuro */
-  color: #e0e0e0;
+  background: #1a1a1a; /* Fondo oscuro */
+  color: #d4d4d4;
   text-align: center;
   padding: 60px 20px;
   font-size: 28px;
@@ -56,7 +56,7 @@ body {
 
 .welcome-section h1 {
   font-size: 32px;
-  color: #f4c10f; /* Amarillo vibrante */
+  color: #000000; /* Gris más claro */
 }
 
 .welcome-section span {
@@ -137,22 +137,22 @@ input[type="submit"]:hover {
 }
 
 .card {
-  background: #202020; /* Fondo oscuro */
+  background: #1a1a1a; /* Fondo oscuro */
   border: none;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
 }
 
 .card-title {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #f4c10f; /* Amarillo vibrante */
+  color: #f4c10f; /* Cambiar a amarillo vibrante */
 }
 
 .card h5 {
@@ -176,8 +176,8 @@ input[type="submit"]:hover {
 
 /* Footer styles */
 .gym-footer {
-  background: #202020; /* Fondo oscuro */
-  color: #b0b0b0; /* Texto gris claro */
+  background: #1a1a1a; /* Fondo oscuro */
+  color: #a6a6a6; /* Texto gris tenue */
   padding: 20px 0;
   text-align: center;
   font-size: 14px;
@@ -219,7 +219,7 @@ input[type="submit"]:hover {
 }
 
 .gym-footer a {
-  color: #f4c10f;
+  color: #808080;
   text-decoration: none;
 }
 
@@ -262,29 +262,68 @@ input[type="submit"]:hover {
 }
 
 .table {
-  border-collapse: collapse;
+  border-collapse: separate;
   width: 100%;
   margin-top: 20px;
-  background: #202020; /* Fondo oscuro */
-  border-radius: 8px;
+  background: #1a1a1a; /* Fondo oscuro */
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra elegante */
 }
 
 .table th, .table td {
   padding: 15px;
   text-align: center;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #333; /* Línea divisoria tenue */
 }
 
 .table th {
-  background: #333; /* Encabezado oscuro */
-  color: #131313; /* Texto amarillo */
+  background: #262626; /* Fondo más oscuro para el encabezado */
+  color: #d4d4d4; /* Texto gris claro */
   font-weight: bold;
+  text-transform: uppercase;
+}
+
+.table td {
+  color: #131313; /* Texto gris tenue */
 }
 
 .table-hover tbody tr:hover {
-  background: #2a2a2a; /* Gris oscuro */
+  background: #333; /* Resaltar fila con gris oscuro */
+  transition: background-color 0.3s ease;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #1f1f1f; /* Gris oscuro */
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+  background-color: #2a2a2a; /* Gris ligeramente más claro */
+}
+
+.table td i.fa-check-circle {
+  color: #4caf50; /* Verde elegante para los íconos de check */
+}
+
+.table td i.fa-times-circle {
+  color: #e53935; /* Rojo elegante para los íconos de X */
+}
+
+.table-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #d4d4d4; /* Texto gris claro */
+}
+
+.table-price span {
+  color: #f4c10f; /* Amarillo para destacar precios */
+}
+
+.table-note {
+  font-size: 12px;
+  color: #a6a6a6; /* Texto gris tenue */
+  text-align: left;
+  margin-top: 10px;
 }
 
 .table-warning {
@@ -305,11 +344,11 @@ input[type="submit"]:hover {
 
 .table td i {
   font-size: 20px;
-  color: #f4c10f; /* Amarillo para los íconos de check */
+  color: #808080; /* Gris más claro */
 }
 
 .table td i.fa-times-circle {
-  color: #ff4d4d; /* Rojo suave */
+  color: #b30000; /* Rojo oscuro */
 }
 
 .table-responsive {
