@@ -7,7 +7,12 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
-$usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
+// Verificar si $_SESSION['usuario'] es un array o una cadena
+if (is_array($_SESSION['usuario'])) {
+    $usuario = $_SESSION['usuario']; // Mantener el array si es necesario
+} else {
+    $usuario = htmlspecialchars($_SESSION['usuario']); // Escapar si es una cadena
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,50 +42,44 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 
   <!-- Sección de planes -->
   <section class="container my-5">
-    <h2 class="text-center sub-title">Nuestros Planes</h2>
+    <h2 class="text-center sub-title mb-4">Nuestros Planes</h2>
     <div class="row gy-4">
       <!-- Tarjeta 1 -->
       <div class="col-md-4">
-        <div class="card h-100">
+        <div class="card plan-card h-100 text-center">
           <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/05/20/16846178754107.jpg" class="card-img-top" alt="Plan FIT">
-          <div class="card-body text-center">
-            <h5 class="card-title">FIT</h5>
+          <div class="card-body">
+            <h5 class="card-title fw-bold">FIT</h5>
             <p class="card-text">Acceso a contenido exclusivo para mejorar tu entrenamiento.</p>
-            <p class="price">
-              <span class="price-discount text-decoration-line-through">$70.000</span>
-              <span class="price-current text-warning fw-bold">$40.000</span>
-            </p>
-            <button class="btn btn-outline-warning">Ver más</button>
+            <h3 class="price">$40.000<span class="fs-6">/mes</span></h3>
+            <p class="price-discount text-decoration-line-through">$70.000</p>
+            <button class="btn btn-outline-secondary w-100 mt-3">Ver más</button>
           </div>
         </div>
       </div>
       <!-- Tarjeta 2 -->
       <div class="col-md-4">
-        <div class="card h-100">
+        <div class="card plan-card h-100 text-center">
           <img src="arnold.jpg" class="card-img-top" alt="Plan BLACK">
-          <div class="card-body text-center">
-            <h5 class="card-title">BLACK</h5>
+          <div class="card-body">
+            <h5 class="card-title fw-bold">BLACK</h5>
             <p class="card-text">Acceso premium con beneficios exclusivos.</p>
-            <p class="price">
-              <span class="price-discount text-decoration-line-through">$90.000</span>
-              <span class="price-current text-warning fw-bold">$60.000</span>
-            </p>
-            <button class="btn btn-outline-warning">Ver más</button>
+            <h3 class="price">$60.000<span class="fs-6">/mes</span></h3>
+            <p class="price-discount text-decoration-line-through">$90.000</p>
+            <button class="btn btn-outline-secondary w-100 mt-3">Ver más</button>
           </div>
         </div>
       </div>
       <!-- Tarjeta 3 -->
       <div class="col-md-4">
-        <div class="card h-100">
+        <div class="card plan-card h-100 text-center">
           <img src="https://th.bing.com/th/id/R.75c2ef94bc631ceb46e613eed9ab5471?rik=ylWJYGFtp4ZBwQ&riu=http%3a%2f%2f5b0988e595225.cdn.sohucs.com%2fimages%2f20190403%2f7f7a1ae827d64742b6e3c71131b11fc8.jpg&ehk=pgvHntSg5eORVPol8OfQnbRlsbz%2fenpbL7mVEChnag4%3d&risl=&pid=ImgRaw&r=0" class="card-img-top" alt="Plan CALO">
-          <div class="card-body text-center">
-            <h5 class="card-title">CALO</h5>
+          <div class="card-body">
+            <h5 class="card-title fw-bold">CALO</h5>
             <p class="card-text">Acceso completo a todas las áreas y servicios.</p>
-            <p class="price">
-              <span class="price-discount text-decoration-line-through">$120.000</span>
-              <span class="price-current text-warning fw-bold">$80.000</span>
-            </p>
-            <button class="btn btn-outline-warning">Ver más</button>
+            <h3 class="price">$80.000<span class="fs-6">/mes</span></h3>
+            <p class="price-discount text-decoration-line-through">$120.000</p>
+            <button class="btn btn-outline-secondary w-100 mt-3">Ver más</button>
           </div>
         </div>
       </div>
@@ -91,13 +90,13 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <section class="container my-5">
     <h2 class="text-center mb-4 sub-title">Comparación de Planes</h2>
     <div class="table-responsive">
-      <table class="table table-hover table-striped text-center align-middle shadow-sm">
-        <thead class="table-gradient">
+      <table class="table plan-comparison-table text-center align-middle">
+        <thead>
           <tr>
-            <th class="text-uppercase">Beneficios</th>
-            <th class="text-uppercase">Plan Black</th>
-            <th class="text-uppercase">Plan Fit</th>
-            <th class="text-uppercase">Plan Calo</th>
+            <th>Beneficios</th>
+            <th>Plan Black</th>
+            <th>Plan Fit</th>
+            <th>Plan Calo</th>
           </tr>
         </thead>
         <tbody>
@@ -155,15 +154,15 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             <td><i class="fas fa-check-circle"></i></td>
             <td><i class="fas fa-check-circle"></i></td>
           </tr>
-          <tr class="table-highlight">
-            <td class="table-price">Desde</td>
-            <td class="table-price"><span>$54,950*</span> mensual</td>
-            <td class="table-price"><span>$34,950*</span> mensual</td>
-            <td class="table-price"><span>$89,900</span> mensual</td>
+          <tr>
+            <td class="fw-bold">Desde</td>
+            <td class="fw-bold">$54,950/mes</td>
+            <td class="fw-bold">$34,950/mes</td>
+            <td class="fw-bold">$89,900/mes</td>
           </tr>
         </tbody>
       </table>
-      <p class="table-note">*Valores promocionales. Aplican términos y condiciones.</p>
+      <p class="table-note text-muted">*Valores promocionales. Aplican términos y condiciones.</p>
     </div>
   </section>
 

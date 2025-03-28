@@ -1,33 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
-  var modal = document.getElementById("profileModal");
-  var openBtn = document.getElementById("openProfile");
-  var closeBtn = document.getElementById("closeProfile");
+  // Modal de perfil
+  const modal = document.getElementById("profileModal");
+  const openBtn = document.getElementById("openProfile");
+  const closeBtn = document.getElementById("closeProfile");
 
-  openBtn.addEventListener("click", function (event) {
-    event.preventDefault();
-    modal.style.display = "flex";
-  });
+  if (modal && openBtn && closeBtn) {
+    openBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+      modal.style.display = "flex";
+    });
 
-  closeBtn.addEventListener("click", function () {
-    modal.style.display = "none";
-  });
-
-  window.addEventListener("click", function (event) {
-    if (event.target === modal) {
+    closeBtn.addEventListener("click", function () {
       modal.style.display = "none";
-    }
-  });
-});
+    });
 
-document.addEventListener("DOMContentLoaded", function () {
+    window.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  }
+
   // Verificar si Font Awesome está cargado
   if (!document.querySelector('link[href*="font-awesome"]')) {
     console.warn("Font Awesome no está cargado. Asegúrate de incluirlo en tu HTML.");
   }
-});
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Verificar si los íconos están presentes en la tabla
+  // Verificar íconos en la tabla
   const checkIcons = document.querySelectorAll(".fa-check-circle");
   const timesIcons = document.querySelectorAll(".fa-times-circle");
 
