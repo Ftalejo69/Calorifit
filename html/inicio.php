@@ -7,12 +7,7 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
-// Verificar si $_SESSION['usuario'] es un array o una cadena
-if (is_array($_SESSION['usuario'])) {
-    $usuario = $_SESSION['usuario']; // Mantener el array si es necesario
-} else {
-    $usuario = htmlspecialchars($_SESSION['usuario']); // Escapar si es una cadena
-}
+$usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +55,7 @@ if (is_array($_SESSION['usuario'])) {
       <!-- Tarjeta 2 -->
       <div class="col-md-4">
         <div class="card plan-card h-100 text-center">
-          <img src="arnold.jpg" class="card-img-top" alt="Plan BLACK">
+          <img src="../imagenes/arnold.jpg" class="card-img-top" alt="Plan BLACK">
           <div class="card-body">
             <h5 class="card-title fw-bold">BLACK</h5>
             <p class="card-text">Acceso premium con beneficios exclusivos.</p>
