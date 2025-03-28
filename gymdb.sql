@@ -43,8 +43,8 @@ CREATE TABLE `ejercicios` (
 
 CREATE TABLE `inscripciones` (
   `id` int(11) NOT NULL,
-  `usuario_id` int(11) DEFAULT NULL,
-  `membresia_id` int(11) DEFAULT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `membresia_id` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -73,7 +73,7 @@ CREATE TABLE `pagos` (
   `id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `monto` decimal(10,2) NOT NULL,
-  `fecha_pago` timestamp NOT NULL DEFAULT current_timestamp(),
+  `fecha_pago` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `metodo_pago` enum('Efectivo','Tarjeta','Transferencia') NOT NULL,
   `inscripcion_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -89,9 +89,9 @@ CREATE TABLE `progreso_usuario` (
   `usuario_id` int(11) DEFAULT NULL,
   `ejercicio_id` int(11) DEFAULT NULL,
   `fecha` date NOT NULL,
-  `series` int(11) DEFAULT NULL,
-  `repeticiones` int(11) DEFAULT NULL,
-  `peso` decimal(5,2) DEFAULT NULL
+  `series` int(11) NOT NULL,
+  `repeticiones` int(11) NOT NULL,
+  `peso` decimal(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -102,7 +102,7 @@ CREATE TABLE `progreso_usuario` (
 
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
+  `nombre` varchar(50) NOT NULL DEFAULT 'Sin especificar'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -131,7 +131,7 @@ CREATE TABLE `rutina_ejercicios` (
   `ejercicio_id` int(11) DEFAULT NULL,
   `series` int(11) NOT NULL,
   `repeticiones` int(11) NOT NULL,
-  `peso` decimal(5,2) DEFAULT NULL,
+  `peso` decimal(5,2) NOT NULL,
   `descanso_seg` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -187,6 +187,7 @@ CREATE TABLE `tareas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   `dia` varchar(50) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -264,7 +265,8 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `usuarios_roles`
   ADD PRIMARY KEY (`usuario_id`,`rol_id`),
-  ADD KEY `rol_id` (`rol_id`);
+  ADD KEY `usuario_id_idx` (`usuario_id`),
+  ADD KEY `rol_id_idx` (`rol_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -368,6 +370,20 @@ ALTER TABLE `rutina_ejercicios`
 ALTER TABLE `usuarios_roles`
   ADD CONSTRAINT `usuarios_roles_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `usuarios_roles_ibfk_2` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `tareas`
+--
+ALTER TABLE `tareas`
+  ADD CONSTRAINT `tareas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
+
+-- Modificación de la tabla `tareas` para agregar relaciones con `rutinas` y `ejercicios`
+ALTER TABLE `tareas`
+  ADD COLUMN `rutina_id` int(11) DEFAULT NULL AFTER `usuario_id`,
+  ADD COLUMN `ejercicio_id` int(11) DEFAULT NULL AFTER `rutina_id`,
+  ADD CONSTRAINT `tareas_ibfk_2` FOREIGN KEY (`rutina_id`) REFERENCES `rutinas` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tareas_ibfk_3` FOREIGN KEY (`ejercicio_id`) REFERENCES `ejercicios` (`id`) ON DELETE CASCADE;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
