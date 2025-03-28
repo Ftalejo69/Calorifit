@@ -97,8 +97,8 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
     </div>
 
     <!-- Modal para confirmar eliminación -->
-    <div id="deleteModal" class="modal">
-        <div class="modal-content">
+    <div id="deleteModal" class="modall">
+        <div class="modall-content">
             <p>¿Estás seguro de que deseas eliminar esta tarea?</p>
             <button id="confirmDelete" class="confirm">Eliminar</button>
             <button id="cancelDelete" class="cancel">Cancelar</button>
