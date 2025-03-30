@@ -31,55 +31,58 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <section class="welcome-section text-center">
     <h1>Bienvenido a <span>CALORIFIT</span></h1>
     <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
-<button id="openProfile" class="btn btn-outline-light mt-3">suscribete ahora</button>
+    <button id="openProfile" class="btn btn-outline-light mt-3" onclick="location.href='#planes'">suscribete ahora</button>
+
     
   </section>
 
   <!-- Sección de planes -->
-  <section class="container my-5">
-    <h2 class="text-center sub-title mb-4">Nuestros Planes</h2>
+
+  <!-- Sección mejorada -->
+<section id="planes" class="container section-container">
+    <h2 class="text-center professional-title">Nuestros Planes</h2>
     <div class="row gy-4">
       <!-- Tarjeta 1 -->
       <div class="col-md-4">
-        <div class="card plan-card h-100 text-center">
+        <div class="card h-100 text-center">
           <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/05/20/16846178754107.jpg" class="card-img-top" alt="Plan FIT">
           <div class="card-body">
-            <h5 class="card-title fw-bold">FIT</h5>
-            <p class="card-text">Acceso a contenido exclusivo para mejorar tu entrenamiento.</p>
+            <h5 class="card-title">FIT</h5>
+            <p class="card-text">Acceso a contenido exclusivo.</p>
             <h3 class="price">$40.000<span class="fs-6">/mes</span></h3>
             <p class="price-discount text-decoration-line-through">$70.000</p>
-            <button class="btn btn-outline-secondary w-100 mt-3">Ver más</button>
+            <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>
           </div>
         </div>
       </div>
       <!-- Tarjeta 2 -->
       <div class="col-md-4">
-        <div class="card plan-card h-100 text-center">
+        <div class="card h-100 text-center">
           <img src="../imagenes/arnold.jpg" class="card-img-top" alt="Plan BLACK">
           <div class="card-body">
-            <h5 class="card-title fw-bold">BLACK</h5>
+            <h5 class="card-title">BLACK</h5>
             <p class="card-text">Acceso premium con beneficios exclusivos.</p>
             <h3 class="price">$60.000<span class="fs-6">/mes</span></h3>
             <p class="price-discount text-decoration-line-through">$90.000</p>
-            <button class="btn btn-outline-secondary w-100 mt-3">Ver más</button>
+            <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>
           </div>
         </div>
       </div>
       <!-- Tarjeta 3 -->
       <div class="col-md-4">
-        <div class="card plan-card h-100 text-center">
+        <div class="card h-100 text-center">
           <img src="https://th.bing.com/th/id/R.75c2ef94bc631ceb46e613eed9ab5471?rik=ylWJYGFtp4ZBwQ&riu=http%3a%2f%2f5b0988e595225.cdn.sohucs.com%2fimages%2f20190403%2f7f7a1ae827d64742b6e3c71131b11fc8.jpg&ehk=pgvHntSg5eORVPol8OfQnbRlsbz%2fenpbL7mVEChnag4%3d&risl=&pid=ImgRaw&r=0" class="card-img-top" alt="Plan CALO">
           <div class="card-body">
-            <h5 class="card-title fw-bold">CALO</h5>
+            <h5 class="card-title">CALO</h5>
             <p class="card-text">Acceso completo a todas las áreas y servicios.</p>
             <h3 class="price">$80.000<span class="fs-6">/mes</span></h3>
             <p class="price-discount text-decoration-line-through">$120.000</p>
-            <button class="btn btn-outline-secondary w-100 mt-3">Ver más</button>
+            <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>
           </div>
         </div>
       </div>
     </div>
-  </section>
+</section>
 
   <!-- Tabla de comparación de planes -->
   <section class="container my-5">

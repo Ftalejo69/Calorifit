@@ -27,10 +27,14 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 <?php include '../php/navbar.php'; ?>
 
 <?php include '../php/modal_perfil.php'; ?>
-<!-- Nueva sección de bienvenida -->
-<div class="welcome-section">
-    EJERCICIOS <span>CALORIFIT</span>
-  </div>
+  <!-- Sección de bienvenida -->
+  <section class="welcome-section text-center">
+    <h1>EJERCICIOS <span>CALORIFIT</span></h1>
+    <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
+<button id="openProfile" class="btn btn-outline-light mt-3">EJERCICIOS</button>
+    
+  </section>
+
     
 
   <div class="container1">

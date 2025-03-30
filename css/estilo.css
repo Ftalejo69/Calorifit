@@ -302,7 +302,7 @@ button:hover {
 
 /* Estilos para el p */
 .welcome-section p {
-  font-size: 18px; /* Tamaño de fuente moderado */
+  font-size: 25px; /* Tamaño de fuente moderado */
   font-family: 'Roboto', sans-serif; /* Fuente más elegante y moderna */
   color: #ccc; /* Color gris claro para el párrafo */
   line-height: 1.6; /* Espaciado entre líneas para mayor legibilidad */
@@ -337,4 +337,68 @@ button:hover {
 
 #openProfile:focus {
   outline: none; /* Quitar el contorno del botón cuando está en foco */
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+.section-container {
+    background: linear-gradient(to right, #000, #333);
+    padding: 4rem;
+    border-radius: 2rem;
+    margin-top: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.professional-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #FBBF24;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+    margin-bottom: 3rem;
+}
+
+.card {
+    background-color: #1F2937;
+    border: none;
+    border-radius: 2rem;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.7);
+}
+
+.card-title, .card-text, .price, .price-discount {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+.card-title{
+  color: #FBBF24;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.card-text{
+  color: #495057;
+}
+.price {
+    color: #FBBF24;
+    font-size: 1.5rem;
+}
+
+.price-discount {
+    color: #888;
+}
+
+.btn-outline-warning {
+    border-color: #FBBF24;
+    color: #FBBF24;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-outline-warning:hover {
+    background-color: #FBBF24;
+    color: black;
 }

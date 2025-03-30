@@ -25,17 +25,20 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 
 <?php include '../php/navbar.php'; ?>
 <?php include '../php/modal_perfil.php'; ?>
-<!-- Nueva sección de bienvenida -->
-<div class="welcome-section">
-    RUTINAS <span>CALORIFIT</span>
-  </div>
+
+ <!-- Sección de bienvenida -->
+ <section class="welcome-section text-center">
+    <h1> RUTINAS <span>CALORIFIT</span></h1>
+    <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
+<button id="openProfile" class="btn btn-outline-light mt-3"onclick="location.href='#rutinas'">ver las rutinas</button>
     
+  </section>
 <div class="header">
         <h1 class="titulo">IMPULSA <span class="resaltar">TU COMPROMISO Y MOTIVACIÓN</span></h1>
         <p class="subtitulo">Elige tu programa de acompañamiento y seguimiento según tu objetivo</p>
     </div>
     
-    <div class="contenedor-tarjetas">
+    <div id="rutinas" class="contenedor-tarjetas">
         <div class="tarjeta">
             <img src="https://www.ific.es/blog/wp-content/uploads/2015/10/novato.jpg" alt="Principiante">
             <div class="contenido">
