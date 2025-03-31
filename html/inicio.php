@@ -167,22 +167,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="gym-footer">
-    <div class="footer-content text-center">
-      <h3>CaloriFit</h3>
-      <p>Transformando cuerpos y mentes, un entrenamiento a la vez.</p>
-      <ul class="socials d-flex justify-content-center list-unstyled">
-        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-      </ul>
-    </div>
-    <div class="footer-bottom text-center">
-      <p>© 2025 CaloriFit. Todos los derechos reservados.</p>
-    </div>
-  </footer>
- 
+  <?php include '../html/footer.php'; ?>
   
   <script>
     const monthlyButton = document.getElementById('monthlyButton');

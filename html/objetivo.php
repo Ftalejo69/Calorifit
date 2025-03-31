@@ -47,6 +47,11 @@ if (!isset($_SESSION['usuario'])) {
             </div>
         </div>
     </div>
+
+    <?php include '../html/footer.php'; ?>
+   
+    <!-- FontAwesome para los iconos -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="../js/objetivo.js"></script>
 </body>
 </html>
