@@ -44,7 +44,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             <div class="contenido">
                 <h2>PRINCIPIANTE</h2>
                 <p>Empieza desde cero con un programa adaptado a ti.</p>
-                <button class="boton" onclick="location.href='objetivo.php'">Ver Rutina</button>
+                <button class="boton" onclick="redirigirNivel('Principiante')">Seleccionar Nivel</button>
             </div>
         </div>
         
@@ -53,7 +53,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             <div class="contenido">
                 <h2>INTERMEDIO</h2>
                 <p>Mejora tu rendimiento y lleva tu entrenamiento al siguiente nivel.</p>
-                <button class="boton" onclick="location.href='objetivo.php'">Ver Rutina</button>
+                <button class="boton" onclick="redirigirNivel('Intermedio')">Seleccionar Nivel</button>
             </div>
         </div>
         
@@ -62,7 +62,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             <div class="contenido">
                 <h2>AVANZADO</h2>
                 <p>Desafía tus límites y alcanza el máximo potencial.</p>
-                <button class="boton" onclick="location.href='objetivo.php'">Ver Rutina</button>
+                <button class="boton" onclick="redirigirNivel('Avanzado')">Seleccionar Nivel</button>
             </div>
         </div>
     </div>
@@ -104,5 +104,10 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
         <!-- Footer -->
         <?php include '../html/footer.php'; ?>
       <script src="https://i.pinimg.com/originals/f2/ff/e4/f2ffe4ca8602818a4fd4abf1e3563964.jpg" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <script>
+        function redirigirNivel(nivel) {
+            location.href = `objetivo.php?nivel=${encodeURIComponent(nivel)}`;
+        }
+        </script>
 </body>
 </html>
