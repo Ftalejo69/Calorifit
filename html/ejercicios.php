@@ -37,23 +37,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 
     
 
-  <div class="container1">
-    <h1>Creación de Planes de Entrenamiento</h1>
-    <form id="plan-form">
-        <label for="tipo-entrenamiento">Tipo de Entrenamiento:</label>
-        <select id="tipo-entrenamiento">
-            <option value="fuerza">Fuerza</option>
-            <option value="resistencia">Resistencia</option>
-            <option value="flexibilidad">Flexibilidad</option>
-        </select>
-        <button type="button" id="agregar-ejercicio">Agregar Ejercicio</button>
-    </form>
-    
-    <div id="lista-ejercicios"></div>
-    <button id="guardar-plan">Guardar Plan</button>
-    <h2>Mis Planes</h2>
-    <div id="planes-guardados"></div>
-</div>
+ 
        <!-- Footer -->
 <footer class="gym-footer">
     <div class="footer-content">
