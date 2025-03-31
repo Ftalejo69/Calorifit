@@ -35,52 +35,55 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 
     
   </section>
-
-  <!-- Sección de planes -->
-
-  <!-- Sección mejorada -->
-<section id="planes" class="container section-container">
-    <h2 class="text-center professional-title">Nuestros Planes</h2>
-    <div class="row gy-4">
-      <!-- Tarjeta 1 -->
-      <div class="col-md-4">
-        <div class="card h-100 text-center">
-          <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/05/20/16846178754107.jpg" class="card-img-top" alt="Plan FIT">
-          <div class="card-body">
-            <h5 class="card-title">FIT</h5>
-            <p class="card-text">Acceso a contenido exclusivo.</p>
-            <h3 class="price">$40.000<span class="fs-6">/mes</span></h3>
-            <p class="price-discount text-decoration-line-through">$70.000</p>
-            <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>
-          </div>
+  <section id="planes" class="container section-container">
+    <h2 class="text-center professional-title" style="color: #FFD700;">ELIGE EL MEJOR PLAN PARA TI</h2>
+    <p class="text-center subtitle">AHORRA HASTA 30%</p>
+    <div class="text-center mb-4">
+        <div class="toggle-container">
+            <button id="monthlyButton" class="toggle-btn active">MENSUAL</button>
+            <button id="annualButton" class="toggle-btn">ANUAL EN CUOTAS</button>
         </div>
-      </div>
-      <!-- Tarjeta 2 -->
-      <div class="col-md-4">
-        <div class="card h-100 text-center">
-          <img src="../imagenes/arnold.jpg" class="card-img-top" alt="Plan BLACK">
-          <div class="card-body">
-            <h5 class="card-title">BLACK</h5>
-            <p class="card-text">Acceso premium con beneficios exclusivos.</p>
-            <h3 class="price">$60.000<span class="fs-6">/mes</span></h3>
-            <p class="price-discount text-decoration-line-through">$90.000</p>
-            <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>
-          </div>
+    </div>
+    <div class="row gy-4" id="plansContainer">
+        <!-- Tarjeta 1 -->
+        <div class="col-md-4">
+            <div class="card h-100 text-center">
+                <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/05/20/16846178754107.jpg" class="card-img-top" alt="Plan FIT">
+                <div class="card-body">
+                    <h5 class="card-title">FIT</h5>
+                    <p class="card-text">Acceso a contenido exclusivo.</p>
+                    <h3 class="price plan-price" data-monthly="40000" data-annual="320000">$40.000<span class="fs-6">/mes</span></h3>
+                    <p class="price-discount text-decoration-line-through" data-monthly="70000" data-annual="560000">$70.000</p>
+                    <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>
+                </div>
+            </div>
         </div>
-      </div>
-      <!-- Tarjeta 3 -->
-      <div class="col-md-4">
-        <div class="card h-100 text-center">
-          <img src="https://th.bing.com/th/id/R.75c2ef94bc631ceb46e613eed9ab5471?rik=ylWJYGFtp4ZBwQ&riu=http%3a%2f%2f5b0988e595225.cdn.sohucs.com%2fimages%2f20190403%2f7f7a1ae827d64742b6e3c71131b11fc8.jpg&ehk=pgvHntSg5eORVPol8OfQnbRlsbz%2fenpbL7mVEChnag4%3d&risl=&pid=ImgRaw&r=0" class="card-img-top" alt="Plan CALO">
-          <div class="card-body">
-            <h5 class="card-title">CALO</h5>
-            <p class="card-text">Acceso completo a todas las áreas y servicios.</p>
-            <h3 class="price">$80.000<span class="fs-6">/mes</span></h3>
-            <p class="price-discount text-decoration-line-through">$120.000</p>
-            <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>
-          </div>
+        <!-- Tarjeta 2 -->
+        <div class="col-md-4">
+            <div class="card h-100 text-center">
+                <img src="../imagenes/arnold.jpg" class="card-img-top" alt="Plan BLACK">
+                <div class="card-body">
+                    <h5 class="card-title">BLACK</h5>
+                    <p class="card-text">Acceso premium con beneficios exclusivos.</p>
+                    <h3 class="price plan-price" data-monthly="60000" data-annual="480000">$60.000<span class="fs-6">/mes</span></h3>
+                    <p class="price-discount text-decoration-line-through" data-monthly="90000" data-annual="720000">$90.000</p>
+                    <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>
+                </div>
+            </div>
         </div>
-      </div>
+        <!-- Tarjeta 3 -->
+        <div class="col-md-4">
+            <div class="card h-100 text-center">
+                <img src="https://th.bing.com/th/id/R.75c2ef94bc631ceb46e613eed9ab5471?rik=ylWJYGFtp4ZBwQ&riu=http%3a%2f%2f5b0988e595225.cdn.sohucs.com%2fimages%2f20190403%2f7f7a1ae827d64742b6e3c71131b11fc8.jpg&ehk=pgvHntSg5eORVPol8OfQnbRlsbz%2fenpbL7mVEChnag4%3d&risl=&pid=ImgRaw&r=0" class="card-img-top" alt="Plan CALO">
+                <div class="card-body">
+                    <h5 class="card-title">CALO</h5>
+                    <p class="card-text">Acceso completo a todas las áreas y servicios.</p>
+                    <h3 class="price plan-price" data-monthly="80000" data-annual="640000">$80.000<span class="fs-6">/mes</span></h3>
+                    <p class="price-discount text-decoration-line-through" data-monthly="120000" data-annual="960000">$120.000</p>
+                    <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -179,6 +182,38 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
       <p>© 2025 CaloriFit. Todos los derechos reservados.</p>
     </div>
   </footer>
+ 
+  
+  <script>
+    const monthlyButton = document.getElementById('monthlyButton');
+    const annualButton = document.getElementById('annualButton');
+    const prices = document.querySelectorAll('.plan-price');
+    const discounts = document.querySelectorAll('.price-discount');
+
+    monthlyButton.addEventListener('click', () => {
+        togglePlan('monthly');
+        monthlyButton.classList.add('active');
+        annualButton.classList.remove('active');
+    });
+
+    annualButton.addEventListener('click', () => {
+        togglePlan('annual');
+        annualButton.classList.add('active');
+        monthlyButton.classList.remove('active');
+    });
+
+    function togglePlan(type) {
+        prices.forEach(price => {
+            const priceValue = price.getAttribute(`data-${type}`);
+            price.innerHTML = `$${(priceValue / 1000).toLocaleString()}.000<span class="fs-6">/${type === 'monthly' ? 'mes' : 'año'}</span>`;
+        });
+        
+        discounts.forEach(discount => {
+            const discountValue = discount.getAttribute(`data-${type}`);
+            discount.innerHTML = `$${(discountValue / 1000).toLocaleString()}.000`;
+        });
+    }
+</script>
 
   <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

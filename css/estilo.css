@@ -402,3 +402,42 @@ button:hover {
     background-color: #FBBF24;
     color: black;
 }
+.professional-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #FFC300;
+}
+
+.subtitle {
+  color: grey;
+  font-size: 1rem;
+}
+
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  background-color: #5c5c5c;
+  border-radius: 30px;
+  padding: 5px;
+  width: 320px;
+  margin: 0 auto 20px;
+}
+
+.toggle-btn {
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: bold;
+}
+
+.toggle-btn.active {
+  background-color: #FFC300;
+  color: white;
+}
+
+.toggle-btn:not(.active) {
+  background-color: rgb(236, 232, 232);
+  color: black;
+}
