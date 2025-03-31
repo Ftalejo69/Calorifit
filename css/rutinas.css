@@ -209,27 +209,89 @@ body {
   .gym-footer {
     margin-top: 80px; /* Espacio encima del footer */
 }
-/* Estilos para la sección de bienvenida */
+/* Estilos para la sección */
 .welcome-section {
-    background: linear-gradient(to right, #000, #333);
-    color: #fff;
-    text-align: center;
-    padding: 100px 20px;
-    font-family: 'Arial', sans-serif;
-    font-size: 30px;
-    font-weight: 900;
+    background-color: #333; /* Fondo oscuro para resaltar el texto */
+    color: white; /* Color de texto blanco para los elementos de la sección */
+    padding: 50px 20px; /* Espaciado alrededor de la sección */
+    text-align: center; /* Centrar todo el contenido */
+    font-family: 'Arial', sans-serif; /* Familia de fuente general */
+    opacity: 0; /* Comienza invisible para la animación */
+    animation: fadeIn 2s ease-out forwards, slideUp 2s ease-out forwards; /* Animaciones */
   }
   
+  /* Animación de desvanecimiento */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0; /* Comienza invisible */
+    }
+    100% {
+      opacity: 1; /* Se hace visible al final */
+    }
+  }
+  
+  /* Animación de deslizamiento desde abajo */
+  @keyframes slideUp {
+    0% {
+      transform: translateY(30px); /* Comienza 30px abajo */
+    }
+    100% {
+      transform: translateY(0); /* Se mueve a su posición original */
+    }
+  }
+  
+  /* Estilos para el h1 */
   .welcome-section h1 {
-    font-size: 36px;
-    font-weight: bold;
-    text-transform: uppercase;
+    font-size: 40px; /* Tamaño de texto grande */
+    font-weight: bold; /* Negrita para el encabezado */
+    margin-bottom: 20px; /* Separación hacia abajo */
+    color: white; /* Color blanco para el h1 */
+    opacity: 0; /* Comienza invisible */
+    animation: fadeIn 2s ease-out 0.5s forwards, slideUp 2s ease-out 0.5s forwards; /* Animación */
   }
   
-  .welcome-section span {
-    color: #f4c10f; /* Resalta 'CALORIFIT' en amarillo dorado */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Efecto de sombra para destacar */
-    font-size: 30px;
+  /* Estilos para el span */
+  .welcome-section h1 span {
+    color: #ffe600; /* Color naranja para el texto dentro del span */
+    font-size: 40px; /* Mismo tamaño de letra que el h1 */
+    font-weight: bold; /* Negrita para resaltar */
+  }
+  
+  /* Estilos para el p */
+  .welcome-section p {
+    font-size: 25px; /* Tamaño de fuente moderado */
+    font-family: 'Roboto', sans-serif; /* Fuente más elegante y moderna */
+    color: #ccc; /* Color gris claro para el párrafo */
+    line-height: 1.6; /* Espaciado entre líneas para mayor legibilidad */
+    margin-bottom: 30px; /* Separación hacia abajo */
+    opacity: 0; /* Comienza invisible */
+    animation: fadeIn 2s ease-out 1s forwards, slideUp 2s ease-out 1s forwards; /* Animación */
+  }
+  #openProfile:hover {
+    background-color: #ffe600; /* Fondo naranja brillante al pasar el cursor */
+    color: #333; /* Color de texto oscuro al pasar el cursor */
+    border-color: #ff6600; /* Borde naranja al pasar el cursor */
+    transform: scale(1.05); /* Aumentar ligeramente el tamaño del botón */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  }
+  /* Estilos para el botón */
+#openProfile {
+    background-color: transparent; /* Fondo transparente */
+    color: #fff; /* Color de texto blanco */
+    border: 2px solid #fff; /* Borde blanco */
+    padding: 12px 30px; /* Espaciado interno del botón */
+    font-size: 16px; /* Tamaño de texto */
+    border-radius: 50px; /* Bordes redondeados */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    font-weight: bold; /* Negrita para el texto */
+    cursor: pointer; /* Cambio de cursor cuando pasa sobre el botón */
+    transition: all 0.3s ease; /* Transición suave para todos los cambios */
+    opacity: 0; /* Comienza invisible */
+    animation: fadeIn 2s ease-out 1.5s forwards, slideUp 2s ease-out 1.5s forwards; /* Animación */
+  }
+  
+  #openProfile:focus {
+    outline: none; /* Quitar el contorno del botón cuando está en foco */
   }
   #correo{
     width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
@@ -268,3 +330,6 @@ body {
     box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
     margin-bottom: 15px; /* Separación entre los campos */
 }
+
+
+  

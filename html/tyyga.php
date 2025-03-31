@@ -26,10 +26,13 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
     
     <?php include '../php/navbar.php'; ?>
     <?php include '../php/modal_perfil.php'; ?>
-    <!-- Nueva sección de bienvenida -->
-<div class="welcome-section">
-    RUTINAS PREDEFINIDAS <span>CALORIFIT</span>
-  </div>
+    <!-- Sección de bienvenida -->
+    <section class="welcome-section text-center">
+    <h1>RUTINAS PREDEFINIDAS <span>CALORIFIT</span></h1>
+    <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
+<button id="openProfile" class="btn btn-outline-light mt-3"onclick="location.href='#predefinidas'">VER RUTINAS PREDEFINIDAS</button>
+    
+  </section>
     
   
     <!-- Contenedor para agregar nuevas tareas -->
@@ -48,7 +51,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
     <div id="totalTaskCounter" class="total-task-counter">Total de tareas: 0</div>
     
     <!-- Contenedor principal de columnas -->
-    <div class="columns">
+    <div id="predefinidas"class="columns">
         <!-- Columna para Lunes -->
         <div class="column" id="lunes"> <!-- Asegúrate de que el ID sea correcto -->
             <h4>🏋️ Lunes - Pecho y Tríceps</h4>
