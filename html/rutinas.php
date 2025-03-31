@@ -44,7 +44,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             <div class="contenido">
                 <h2>PRINCIPIANTE</h2>
                 <p>Empieza desde cero con un programa adaptado a ti.</p>
-                <button class="boton">Ver Rutina</button>
+                <button class="boton" onclick="location.href='objetivo.php'">Ver Rutina</button>
             </div>
         </div>
         
@@ -53,7 +53,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             <div class="contenido">
                 <h2>INTERMEDIO</h2>
                 <p>Mejora tu rendimiento y lleva tu entrenamiento al siguiente nivel.</p>
-                <button class="boton">Ver Rutina</button>
+                <button class="boton" onclick="location.href='objetivo.php'">Ver Rutina</button>
             </div>
         </div>
         
@@ -62,7 +62,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             <div class="contenido">
                 <h2>AVANZADO</h2>
                 <p>Desafía tus límites y alcanza el máximo potencial.</p>
-                <button class="boton">Ver Rutina</button>
+                <button class="boton" onclick="location.href='objetivo.php'">Ver Rutina</button>
             </div>
         </div>
     </div>

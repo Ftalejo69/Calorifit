@@ -1,0 +1,113 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    opacity: 0; /* Estado inicial para la animación */
+    transform: translateY(-50px); /* Estado inicial para la animación */
+    transition: opacity 0.8s ease, transform 0.8s ease; /* Transición */
+}
+
+.header.animated {
+    opacity: 1; /* Estado final */
+    transform: translateY(0); /* Estado final */
+}
+
+.titulo {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.resaltar {
+    color: #FFD700;
+}
+
+.subtitulo {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.contenedor-tarjetas {
+    display: flex;
+    justify-content: space-evenly; /* Distribuir uniformemente las tarjetas */
+    align-items: flex-start; /* Alinear las tarjetas al inicio */
+    gap: 20px; /* Espacio entre tarjetas */
+    margin: 30px auto; /* Centrar las tarjetas */
+    flex-wrap: wrap; /* Permitir que las tarjetas se ajusten en varias filas si es necesario */
+    max-width: 1400px; /* Limitar el ancho del contenedor */
+}
+
+.tarjeta {
+    background-color: white;
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 450px; /* Ancho ajustado */
+    height: 600px; /* Aumentar la altura para dar más espacio */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0; /* Estado inicial para la animación */
+    transform: translateY(50px); /* Estado inicial para la animación */
+}
+
+.tarjeta:hover {
+    transform: scale(1.05);
+}
+
+.tarjeta img {
+    width: 100%;
+    height: 300px; /* Altura fija para todas las imágenes */
+    object-fit: cover; /* Asegurar que la imagen se recorte para llenar el espacio */
+    border-bottom: 2px solid #ddd; /* Separador visual */
+    display: block; /* Asegurar que no haya espacio extra debajo de la imagen */
+}
+
+.contenido {
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    height: auto; /* Ajustar automáticamente según el contenido */
+}
+
+.contenido h2 {
+    font-size: 1.8rem; /* Texto más grande */
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.contenido p {
+    font-size: 1.1rem; /* Texto ligeramente más pequeño */
+    color: #666;
+    margin-bottom: 20px; /* Más espacio debajo del texto */
+}
+
+.boton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 30px; /* Botón más grande */
+    border-radius: 8px; /* Bordes más redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Agregar transición para hover */
+    text-align: center;
+    font-size: 1.2rem; /* Texto más grande */
+    margin-top: auto; /* Asegurar que el botón quede al final */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para destacar el botón */
+}
+
+.boton:hover {
+    background-color: #45a049;
+    transform: scale(1.05); /* Efecto de agrandamiento al pasar el mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más intensa al pasar el mouse */
+}
