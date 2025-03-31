@@ -41,7 +41,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
     <div class="text-center mb-4">
         <div class="toggle-container">
             <button id="monthlyButton" class="toggle-btn active">MENSUAL</button>
-            <button id="annualButton" class="toggle-btn">ANUAL EN CUOTAS</button>
+            <button id="annualButton" class="toggle-btn">ANUAL</button>
         </div>
     </div>
     <div class="row gy-4" id="plansContainer">

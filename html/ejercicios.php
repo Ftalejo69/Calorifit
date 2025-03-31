@@ -29,9 +29,9 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   
 <!-- Sección de bienvenida -->
 <section class="welcome-section text-center">
-  <h1>EJERCICIOS <span>CALORIFIT</span></h1>
+  <h1>HISTORIAL <span>CALORIFIT</span></h1>
   <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
-  <button id="openProfile" class="btn btn-outline-light mt-3">EJERCICIOS</button>
+  <button id="openProfile" class="btn btn-outline-light mt-3" onclick="location.href='#historial'">HISTORIAL</button>
 </section>
 
 <section class="history-section">
@@ -55,7 +55,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
         </form>
     </div>
 
-    <div class="history-container">
+    <div id="historial"class="history-container">
         <!-- Aquí se generarán las tarjetas con los entrenamientos -->
         <div class="row">
             <div class="col-md-4">
