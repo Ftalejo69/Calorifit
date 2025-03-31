@@ -341,7 +341,7 @@ button:hover {
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 .section-container {
-    background: linear-gradient(to right, #000, #333);
+   
     padding: 4rem;
     border-radius: 2rem;
     margin-top: 3rem;
@@ -416,10 +416,10 @@ button:hover {
 .toggle-container {
   display: flex;
   justify-content: center;
-  background-color: #5c5c5c;
+  background-color: #2b2929;
   border-radius: 30px;
   padding: 5px;
-  width: 320px;
+  width: 220px;
   margin: 0 auto 20px;
 }
 

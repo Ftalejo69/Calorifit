@@ -102,20 +102,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 
 
         <!-- Footer -->
-        <footer class="gym-footer">
-    <div class="footer-content">
-      <h3>CaloriFit</h3>
-      <p>Transformando cuerpos y mentes, un entrenamiento a la vez.</p>
-      <ul class="socials">
-        <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a></li>
-        <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Instagram"></a></li>
-        <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Twitter"></a></li>
-      </ul>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 CaloriFit. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+        <?php include '../html/footer.php'; ?>
       <script src="https://i.pinimg.com/originals/f2/ff/e4/f2ffe4ca8602818a4fd4abf1e3563964.jpg" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -29,9 +29,9 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   
 <!-- Sección de bienvenida -->
 <section class="welcome-section text-center">
-  <h1>EJERCICIOS <span>CALORIFIT</span></h1>
+  <h1>HISTORIAL <span>CALORIFIT</span></h1>
   <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
-  <button id="openProfile" class="btn btn-outline-light mt-3">EJERCICIOS</button>
+  <button id="openProfile" class="btn btn-outline-light mt-3" onclick="location.href='#historial'">HISTORIAL</button>
 </section>
 
 <section class="history-section">
@@ -55,7 +55,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
         </form>
     </div>
 
-    <div class="history-container">
+    <div id="historial"class="history-container">
         <!-- Aquí se generarán las tarjetas con los entrenamientos -->
         <div class="row">
             <div class="col-md-4">
@@ -126,22 +126,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
     </div>
 </section>
 
-<footer class="custom-footer">
-  <div class="footer-container">
-    <div class="footer-content">
-      <h3>CaloriFit</h3>
-      <p>Transformando cuerpos y mentes, un entrenamiento a la vez.</p>
-    </div>
-    <ul class="socials">
-      <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a></li>
-      <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Instagram"></a></li>
-      <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Twitter"></a></li>
-    </ul>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 CaloriFit. Todos los derechos reservados.</p>
-  </div>
-</footer>
+<?php include '../html/footer.php'; ?>
 
 
 <script src="ejercicio.js"></script>
