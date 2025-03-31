@@ -29,7 +29,7 @@ $nivel = isset($_GET['nivel']) ? $_GET['nivel'] : 'Principiante'; // Obtener el 
             <div class="contenido">
                 <h2>BAJAR DE PESO</h2>
                 <p>Reduce grasa corporal con rutinas diseñadas para ti.</p>
-                <button class="boton" onclick="redirigir('Bajar de Peso')">Comenzar</button>
+                <button class="boton1" onclick="redirigir('Bajar de Peso')">Comenzar</button>
             </div>
         </div>
         <div class="tarjeta" id="ganar-musculo">
@@ -45,7 +45,7 @@ $nivel = isset($_GET['nivel']) ? $_GET['nivel'] : 'Principiante'; // Obtener el 
             <div class="contenido">
                 <h2>MANTENIMIENTO</h2>
                 <p>Mantén tu forma física con rutinas equilibradas.</p>
-                <button class="boton" onclick="redirigir('Mantenimiento')">Comenzar</button>
+                <button class="boton3" onclick="redirigir('Mantenimiento')">Comenzar</button>
             </div>
         </div>
     </div>
