@@ -11,20 +11,26 @@ if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
 
-// Obtener el objetivo seleccionado (por ejemplo, desde un parámetro GET)
+// Obtener el objetivo y nivel seleccionados (por ejemplo, desde un parámetro GET)
 $objetivo = isset($_GET['objetivo']) ? $_GET['objetivo'] : 'Rutina Personalizada';
+$nivel = isset($_GET['nivel']) ? $_GET['nivel'] : 'Principiante'; // Asegúrate de que el nivel se obtenga correctamente
 
-// Consultar los ejercicios desde la base de datos según el objetivo
+// Consultar los ejercicios desde la base de datos según el objetivo y nivel
 $stmt = $conexion->prepare("
     SELECT e.nombre, re.series, re.repeticiones, re.descanso_seg 
     FROM rutina_ejercicios re
     INNER JOIN ejercicios e ON re.ejercicio_id = e.id
     INNER JOIN rutinas r ON re.rutina_id = r.id
-    WHERE r.nombre = ?
+    WHERE r.nombre = ? AND r.nivel = ?
 ");
-$stmt->bind_param('s', $objetivo);
+$stmt->bind_param('ss', $objetivo, $nivel); // Asegúrate de que los parámetros coincidan con los datos en la base de datos
 $stmt->execute();
 $resultado = $stmt->get_result();
+
+// Verificar si la consulta devuelve resultados
+if ($resultado->num_rows === 0) {
+    error_log("No se encontraron ejercicios para el objetivo '$objetivo' y nivel '$nivel'.");
+}
 
 // Almacenar los ejercicios en un array
 $lista_ejercicios = [];

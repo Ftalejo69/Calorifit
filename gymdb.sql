@@ -116,7 +116,9 @@ CREATE TABLE `rutinas` (
   `usuario_id` int(11) DEFAULT NULL,
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
-  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp()
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `categoria` varchar(50) DEFAULT NULL,
+  `nivel` ENUM('Principiante', 'Intermedio', 'Avanzado') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -188,6 +190,8 @@ CREATE TABLE `tareas` (
   `nombre` varchar(255) NOT NULL,
   `dia` varchar(50) NOT NULL,
   `usuario_id` int(11) NOT NULL,
+  `rutina_id` int(11) DEFAULT NULL,
+  `ejercicio_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -375,14 +379,26 @@ ALTER TABLE `usuarios_roles`
 -- Filtros para la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  ADD CONSTRAINT `tareas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
-
--- Modificación de la tabla `tareas` para agregar relaciones con `rutinas` y `ejercicios`
-ALTER TABLE `tareas`
-  ADD COLUMN `rutina_id` int(11) DEFAULT NULL AFTER `usuario_id`,
-  ADD COLUMN `ejercicio_id` int(11) DEFAULT NULL AFTER `rutina_id`,
+  ADD CONSTRAINT `tareas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `tareas_ibfk_2` FOREIGN KEY (`rutina_id`) REFERENCES `rutinas` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `tareas_ibfk_3` FOREIGN KEY (`ejercicio_id`) REFERENCES `ejercicios` (`id`) ON DELETE CASCADE;
+
+-- Actualizar datos iniciales para incluir niveles
+UPDATE `rutinas` SET `nivel` = 'Principiante' WHERE `nombre` = 'Bajar de Peso';
+UPDATE `rutinas` SET `nivel` = 'Intermedio' WHERE `nombre` = 'Ganar Músculo';
+UPDATE `rutinas` SET `nivel` = 'Avanzado' WHERE `nombre` = 'Mantenimiento';
+
+-- Insertar nuevas rutinas para cada nivel y objetivo
+INSERT INTO `rutinas` (`id`, `usuario_id`, `nombre`, `descripcion`, `fecha_creacion`, `nivel`) VALUES
+(4, NULL, 'Bajar de Peso', 'Rutina para principiantes.', NOW(), 'Principiante'),
+(5, NULL, 'Bajar de Peso', 'Rutina para intermedios.', NOW(), 'Intermedio'),
+(6, NULL, 'Bajar de Peso', 'Rutina para avanzados.', NOW(), 'Avanzado'),
+(7, NULL, 'Ganar Músculo', 'Rutina para principiantes.', NOW(), 'Principiante'),
+(8, NULL, 'Ganar Músculo', 'Rutina para intermedios.', NOW(), 'Intermedio'),
+(9, NULL, 'Ganar Músculo', 'Rutina para avanzados.', NOW(), 'Avanzado'),
+(10, NULL, 'Mantenimiento', 'Rutina para principiantes.', NOW(), 'Principiante'),
+(11, NULL, 'Mantenimiento', 'Rutina para intermedios.', NOW(), 'Intermedio'),
+(12, NULL, 'Mantenimiento', 'Rutina para avanzados.', NOW(), 'Avanzado');
 
 -- Datos iniciales para la tabla `rutinas`
 INSERT INTO `rutinas` (`id`, `usuario_id`, `nombre`, `descripcion`, `fecha_creacion`) VALUES
@@ -413,6 +429,21 @@ INSERT INTO `rutina_ejercicios` (`id`, `rutina_id`, `ejercicio_id`, `series`, `r
 (7, 3, 7, 0, 0, 0, 0), -- Bicicleta Estática (Mantenimiento)
 (8, 3, 8, 3, 12, 0, 45), -- Flexiones (Mantenimiento)
 (9, 3, 9, 3, 20, 0, 30); -- Abdominales (Mantenimiento)
+
+-- Datos adicionales para la tabla `rutina_ejercicios`
+INSERT INTO `rutina_ejercicios` (`id`, `rutina_id`, `ejercicio_id`, `series`, `repeticiones`, `peso`, `descanso_seg`) VALUES
+(10, 1, 7, 0, 0, 0, 0), -- Bicicleta Estática (Bajar de Peso)
+(11, 1, 8, 3, 12, 0, 45), -- Flexiones (Bajar de Peso)
+(12, 2, 2, 4, 10, 0, 60), -- Sentadillas (Ganar Músculo)
+(13, 2, 3, 3, 1, 0, 30), -- Plancha (Ganar Músculo)
+(14, 3, 4, 3, 8, 50, 60), -- Press de Banca (Mantenimiento)
+(15, 3, 5, 3, 10, 0, 60); -- Dominadas (Mantenimiento)
+
+-- Verificar los datos en la tabla `rutinas`
+SELECT * FROM rutinas;
+
+-- Verificar los datos en la tabla `rutina_ejercicios`
+SELECT * FROM rutina_ejercicios;
 
 COMMIT;
 

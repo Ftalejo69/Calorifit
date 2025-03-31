@@ -36,11 +36,13 @@ body {
 
 .contenedor-tarjetas {
     display: flex;
+    flex-wrap: nowrap; /* Evitar que las tarjetas se ajusten en varias filas */
+    overflow-x: auto; /* Habilitar desplazamiento horizontal */
+    gap: 20px; /* Espacio entre tarjetas */
+    padding: 20px; /* Espaciado interno para el contenedor */
     justify-content: space-evenly; /* Distribuir uniformemente las tarjetas */
     align-items: flex-start; /* Alinear las tarjetas al inicio */
-    gap: 20px; /* Espacio entre tarjetas */
     margin: 30px auto; /* Centrar las tarjetas */
-    flex-wrap: wrap; /* Permitir que las tarjetas se ajusten en varias filas si es necesario */
     max-width: 1400px; /* Limitar el ancho del contenedor */
 }
 
