@@ -384,6 +384,36 @@ ALTER TABLE `tareas`
   ADD CONSTRAINT `tareas_ibfk_2` FOREIGN KEY (`rutina_id`) REFERENCES `rutinas` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `tareas_ibfk_3` FOREIGN KEY (`ejercicio_id`) REFERENCES `ejercicios` (`id`) ON DELETE CASCADE;
 
+-- Datos iniciales para la tabla `rutinas`
+INSERT INTO `rutinas` (`id`, `usuario_id`, `nombre`, `descripcion`, `fecha_creacion`) VALUES
+(1, NULL, 'Bajar de Peso', 'Rutina diseñada para reducir grasa corporal.', NOW()),
+(2, NULL, 'Ganar Músculo', 'Rutina diseñada para aumentar masa muscular.', NOW()),
+(3, NULL, 'Mantenimiento', 'Rutina diseñada para mantener la forma física.', NOW());
+
+-- Datos iniciales para la tabla `ejercicios`
+INSERT INTO `ejercicios` (`id`, `nombre`, `descripcion`, `musculo_principal`, `equipo_necesario`) VALUES
+(1, 'Cinta de Correr', 'Ejercicio cardiovascular para quemar calorías.', 'Cardio', 'Cinta de correr'),
+(2, 'Sentadillas', 'Ejercicio para fortalecer las piernas.', 'Piernas', 'Ninguno'),
+(3, 'Plancha', 'Ejercicio para fortalecer el core.', 'Abdomen', 'Ninguno'),
+(4, 'Press de Banca', 'Ejercicio para fortalecer el pecho.', 'Pecho', 'Banco y barra'),
+(5, 'Dominadas', 'Ejercicio para fortalecer la espalda.', 'Espalda', 'Barra de dominadas'),
+(6, 'Peso Muerto', 'Ejercicio para fortalecer la espalda baja y piernas.', 'Espalda', 'Barra'),
+(7, 'Bicicleta Estática', 'Ejercicio cardiovascular para mantener la forma.', 'Cardio', 'Bicicleta estática'),
+(8, 'Flexiones', 'Ejercicio para fortalecer el pecho y tríceps.', 'Pecho', 'Ninguno'),
+(9, 'Abdominales', 'Ejercicio para fortalecer el abdomen.', 'Abdomen', 'Ninguno');
+
+-- Datos iniciales para la tabla `rutina_ejercicios`
+INSERT INTO `rutina_ejercicios` (`id`, `rutina_id`, `ejercicio_id`, `series`, `repeticiones`, `peso`, `descanso_seg`) VALUES
+(1, 1, 1, 0, 0, 0, 0), -- Cinta de Correr (Bajar de Peso)
+(2, 1, 2, 3, 15, 0, 60), -- Sentadillas (Bajar de Peso)
+(3, 1, 3, 3, 1, 0, 30), -- Plancha (Bajar de Peso)
+(4, 2, 4, 4, 10, 50, 90), -- Press de Banca (Ganar Músculo)
+(5, 2, 5, 3, 8, 0, 60), -- Dominadas (Ganar Músculo)
+(6, 2, 6, 4, 8, 70, 90), -- Peso Muerto (Ganar Músculo)
+(7, 3, 7, 0, 0, 0, 0), -- Bicicleta Estática (Mantenimiento)
+(8, 3, 8, 3, 12, 0, 45), -- Flexiones (Mantenimiento)
+(9, 3, 9, 3, 20, 0, 30); -- Abdominales (Mantenimiento)
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

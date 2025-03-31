@@ -27,7 +27,7 @@ if (!isset($_SESSION['usuario'])) {
             <div class="contenido">
                 <h2>BAJAR DE PESO</h2>
                 <p>Reduce grasa corporal con rutinas diseñadas para ti.</p>
-                <button class="boton" onclick="location.href='rutina_bajar_peso.php'">Comenzar</button>
+                <button class="boton" onclick="location.href='rutina_personalizada.php?objetivo=Bajar de Peso'">Comenzar</button>
             </div>
         </div>
         <div class="tarjeta" id="ganar-musculo">
@@ -35,7 +35,7 @@ if (!isset($_SESSION['usuario'])) {
             <div class="contenido">
                 <h2>GANANCIA DE MÚSCULO</h2>
                 <p>Construye masa muscular con entrenamientos efectivos.</p>
-                <button class="boton" onclick="location.href='rutina_ganar_musculo.php'">Comenzar</button>
+                <button class="boton" onclick="location.href='rutina_personalizada.php?objetivo=Ganar Músculo'">Comenzar</button>
             </div>
         </div>
         <div class="tarjeta" id="mantenimiento">
@@ -43,7 +43,7 @@ if (!isset($_SESSION['usuario'])) {
             <div class="contenido">
                 <h2>MANTENIMIENTO</h2>
                 <p>Mantén tu forma física con rutinas equilibradas.</p>
-                <button class="boton" onclick="location.href='rutina_mantenimiento.php'">Comenzar</button>
+                <button class="boton" onclick="location.href='rutina_personalizada.php?objetivo=Mantenimiento'">Comenzar</button>
             </div>
         </div>
     </div>
