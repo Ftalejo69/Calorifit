@@ -116,7 +116,8 @@ CREATE TABLE `rutinas` (
   `usuario_id` int(11) DEFAULT NULL,
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
-  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp()
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `categoria` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -413,6 +414,15 @@ INSERT INTO `rutina_ejercicios` (`id`, `rutina_id`, `ejercicio_id`, `series`, `r
 (7, 3, 7, 0, 0, 0, 0), -- Bicicleta Estática (Mantenimiento)
 (8, 3, 8, 3, 12, 0, 45), -- Flexiones (Mantenimiento)
 (9, 3, 9, 3, 20, 0, 30); -- Abdominales (Mantenimiento)
+
+-- Datos adicionales para la tabla `rutina_ejercicios`
+INSERT INTO `rutina_ejercicios` (`id`, `rutina_id`, `ejercicio_id`, `series`, `repeticiones`, `peso`, `descanso_seg`) VALUES
+(10, 1, 7, 0, 0, 0, 0), -- Bicicleta Estática (Bajar de Peso)
+(11, 1, 8, 3, 12, 0, 45), -- Flexiones (Bajar de Peso)
+(12, 2, 2, 4, 10, 0, 60), -- Sentadillas (Ganar Músculo)
+(13, 2, 3, 3, 1, 0, 30), -- Plancha (Ganar Músculo)
+(14, 3, 4, 3, 8, 50, 60), -- Press de Banca (Mantenimiento)
+(15, 3, 5, 3, 10, 0, 60); -- Dominadas (Mantenimiento)
 
 COMMIT;
 
