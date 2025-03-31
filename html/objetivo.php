@@ -4,6 +4,8 @@ if (!isset($_SESSION['usuario'])) {
     echo "Por favor, inicie sesión para continuar.";
     exit;
 }
+
+$nivel = isset($_GET['nivel']) ? $_GET['nivel'] : 'Principiante'; // Obtener el nivel de la URL
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +29,7 @@ if (!isset($_SESSION['usuario'])) {
             <div class="contenido">
                 <h2>BAJAR DE PESO</h2>
                 <p>Reduce grasa corporal con rutinas diseñadas para ti.</p>
-                <button class="boton" onclick="location.href='rutina_personalizada.php?objetivo=Bajar de Peso'">Comenzar</button>
+                <button class="boton" onclick="redirigir('Bajar de Peso')">Comenzar</button>
             </div>
         </div>
         <div class="tarjeta" id="ganar-musculo">
@@ -35,7 +37,7 @@ if (!isset($_SESSION['usuario'])) {
             <div class="contenido">
                 <h2>GANANCIA DE MÚSCULO</h2>
                 <p>Construye masa muscular con entrenamientos efectivos.</p>
-                <button class="boton" onclick="location.href='rutina_personalizada.php?objetivo=Ganar Músculo'">Comenzar</button>
+                <button class="boton" onclick="redirigir('Ganar Músculo')">Comenzar</button>
             </div>
         </div>
         <div class="tarjeta" id="mantenimiento">
@@ -43,7 +45,7 @@ if (!isset($_SESSION['usuario'])) {
             <div class="contenido">
                 <h2>MANTENIMIENTO</h2>
                 <p>Mantén tu forma física con rutinas equilibradas.</p>
-                <button class="boton" onclick="location.href='rutina_personalizada.php?objetivo=Mantenimiento'">Comenzar</button>
+                <button class="boton" onclick="redirigir('Mantenimiento')">Comenzar</button>
             </div>
         </div>
     </div>
@@ -53,5 +55,11 @@ if (!isset($_SESSION['usuario'])) {
     <!-- FontAwesome para los iconos -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="../js/objetivo.js"></script>
+    <script>
+    function redirigir(objetivo) {
+        const nivel = "<?php echo htmlspecialchars($nivel); ?>"; // Verificar que el nivel se pase correctamente
+        location.href = `rutina_personalizada.php?objetivo=${encodeURIComponent(objetivo)}&nivel=${encodeURIComponent(nivel)}`;
+    }
+    </script>
 </body>
 </html>

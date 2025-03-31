@@ -3,11 +3,18 @@ header('Content-Type: application/json');
 include 'conexion.php'; // Asegúrate de tener la conexión a la base de datos
 
 $categoria = $_GET['categoria'] ?? '';
-$query = "SELECT * FROM rutinas WHERE categoria = ?";
+$nivel = $_GET['nivel'] ?? 'Principiante'; // Asegúrate de que el nivel se obtenga correctamente
+$query = "SELECT * FROM rutinas WHERE categoria = ? AND nivel = ?";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("s", $categoria);
+$stmt->bind_param("ss", $categoria, $nivel); // Confirmar que los parámetros coincidan con los datos en la base de datos
 $stmt->execute();
 $result = $stmt->get_result();
+
+// Verificar si la consulta devuelve resultados
+if ($result->num_rows === 0) {
+    error_log("No se encontraron rutinas para la categoría '$categoria' y nivel '$nivel'.");
+}
+
 $rutinas = [];
 
 while ($row = $result->fetch_assoc()) {

@@ -36,11 +36,13 @@ body {
 
 .contenedor-tarjetas {
     display: flex;
+    flex-wrap: nowrap; /* Evitar que las tarjetas se ajusten en varias filas */
+    overflow-x: auto; /* Habilitar desplazamiento horizontal */
+    gap: 20px; /* Espacio entre tarjetas */
+    padding: 20px; /* Espaciado interno para el contenedor */
     justify-content: space-evenly; /* Distribuir uniformemente las tarjetas */
     align-items: flex-start; /* Alinear las tarjetas al inicio */
-    gap: 20px; /* Espacio entre tarjetas */
     margin: 30px auto; /* Centrar las tarjetas */
-    flex-wrap: wrap; /* Permitir que las tarjetas se ajusten en varias filas si es necesario */
     max-width: 1400px; /* Limitar el ancho del contenedor */
 }
 
@@ -111,3 +113,40 @@ body {
     transform: scale(1.05); /* Efecto de agrandamiento al pasar el mouse */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más intensa al pasar el mouse */
 }
+#correo{
+    width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px; /* Separación entre los campos */
+  }
+  #peso{
+    width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px; /* Separación entre los campos */
+  
+  }
+  #altura{
+    width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px; /* Separación entre los campos */
+  }
+  #fecha_registro{
+    width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px; /* Separación entre los campos */
+  }
