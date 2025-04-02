@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'conexion.php';
+require '../configuracion/conexion.php';
 
 if (!isset($_SESSION['usuario_id'])) {
     echo json_encode(["error" => "Usuario no autenticado"]);

@@ -7,7 +7,7 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
-require "conexion.php"; // Asegúrate de que este archivo existe y está correcto
+require "../configuracion/conexion.php"; // Asegúrate de que este archivo existe y está correcto
 
 $user_id = $_SESSION["user_id"];
 $query = $conn->prepare("SELECT nombre, edad, peso, altura FROM usuarios WHERE id = ?");

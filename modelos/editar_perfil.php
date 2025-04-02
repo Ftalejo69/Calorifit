@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'conexion.php';
+include_once '../configuracion/conexion.php';
 
 // Verificar si el usuario está logueado
 if (!isset($_SESSION['usuario'])) {
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['usuario']['altura'] = $altura;
 
         // Redirigir con mensaje de éxito
-        echo '<script>alert("Perfil actualizado correctamente."); window.location.href="../html/inicio.php";</script>';
+        echo '<script>alert("Perfil actualizado correctamente."); window.location.href="../vista/inicio.php";</script>';
     } else {
         echo "Hubo un error al actualizar su perfil: " . $stmt->error;
     }

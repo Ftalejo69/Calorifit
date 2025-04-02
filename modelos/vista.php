@@ -1,6 +1,6 @@
 <?php
 include_once 'usuario.php';
-include_once 'conexion.php';
+include_once '../configuracion/conexion.php';
 
 if (isset($_GET['token'])) {
     $token = $_GET['token'];

@@ -1,6 +1,6 @@
 <?php
 // usuario.php
-include_once 'conexion.php';
+include_once '../configuracion/conexion.php';
 require __DIR__ . '/../vendor/autoload.php';
 // conexion Composer haya instalado PHPMailer
 
