@@ -183,7 +183,7 @@
 
             if (data.includes("exitoso")) {
               clearForm(form, alertDiv);
-              setTimeout(() => window.location.href = "../html/inicio.php", 1000);
+              setTimeout(() => window.location.href = "../vista/inicio.php", 1000);
             }
           });
       });

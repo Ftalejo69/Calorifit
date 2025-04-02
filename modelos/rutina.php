@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-include 'conexion.php'; // Asegúrate de tener la conexión a la base de datos
+include '../configuracion/conexion.php'; // Asegúrate de tener la conexión a la base de datos
 
 $categoria = $_GET['categoria'] ?? '';
 $nivel = $_GET['nivel'] ?? 'Principiante'; // Asegúrate de que el nivel se obtenga correctamente
