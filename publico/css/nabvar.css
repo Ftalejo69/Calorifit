@@ -1,6 +1,6 @@
 .navbar {
     background-color: black !important;
-    background: linear-gradient(to right, #000, #333);
+    background: linear-gradient(to right, #000, #50504f);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 .navbar-brand {

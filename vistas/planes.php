@@ -42,8 +42,8 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <!-- Sección de Entrenadores -->
 
 
-<?php include '../php/navbar.php'; ?>
-<?php include '../php/modal_perfil.php'; ?>
+<?php include '../vistas/navbar.php'; ?>
+<?php include '../vistas/modal_perfil.php'; ?>
   <!-- Main Banner -->
   <section class="container text-center my-5">
     <h2 class="section-title">Nuestros Entrenadores</h2>
@@ -54,7 +54,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
    
       <!-- Entrenador 2 -->
       <div class="col-6">
-        <img src="../imagenes/nosotros.png" alt="Entrenador 2" class="image-card">
+        <img src="../publico/imagenes/nosotros.png" alt="Entrenador 2" class="image-card">
       
       </div>
 
@@ -64,19 +64,19 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
       
   </section>
    <div class="col-md-4">
-        <img src="../imagenes/entrenador1.jpg" alt="Entrenador 1" class="image-card">
+        <img src="../publico/imagenes/solno.jpeg" alt="Entrenador 1" class="image-card">
         <p class="trainer-description">Entrenador 1: Especialista en nutrición y entrenamiento físico.</p>
       </div>
 
       <!-- Entrenador 2 -->
       <div class="col-md-4">
-        <img src="../imagenes/entrenador2.jpg" alt="Entrenador 2" class="image-card">
+        <img src="../publico/imagenes/eddy.jpeg" alt="Entrenador 2" class="image-card">
         <p class="trainer-description">Entrenador 2: Experto en desarrollo de fuerza y resistencia.</p>
       </div>
 
       <!-- Entrenador 3 -->
       <div class="col-md-4">
-        <img src="../imagenes/entrenador3.jpg" alt="Entrenador 3" class="image-card">
+        <img src="../publico/imagenes/borja.jpeg" alt="Entrenador 3" class="image-card">
         <p class="trainer-description">Entrenador 3: Líder en programas de entrenamiento funcional.</p>
       </div>
     </div>

@@ -1,96 +1,87 @@
- /* Estilos para el footer */
+/* Estilos para el footer */
 .custom-footer {
   width: 100%;
-  background-color: #111; /* Fondo oscuro */
-  color: #fff; /* Color blanco para el texto */
+  background-color: #0d0d0d; /* Fondo negro elegante */
+  color: #e0e0e0; /* Texto gris claro */
   padding: 50px 20px;
-  text-align: center;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Roboto', sans-serif;
   position: relative;
-  z-index: 10;
-  overflow: hidden; /* Para ocultar lo que sobresale de la forma */
+  text-align: center;
 }
 
-/* Forma de ola en el borde superior */
-.custom-footer::before {
-  content: '';
-  position: absolute;
-  top: -40px; /* Mueve la ola hacia arriba */
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: #f4c10f; /* Color amarillo */
-  clip-path: polygon(0 40%, 5% 50%, 20% 40%, 40% 50%, 60% 40%, 80% 50%, 100% 40%, 100% 100%, 0 100%);
-}
-
-/* Contenedor central del footer */
+/* Contenedor principal del footer */
 .footer-container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 20px 0;
+  gap: 30px;
 }
 
 /* Contenido principal del footer */
 .footer-content h3 {
-  font-size: 28px;
-  color: #f4c10f; /* Color amarillo */
-  font-weight: bold;
+  font-size: 36px;
+  color: #f4c10f; /* Amarillo vibrante */
+  font-weight: 700;
   margin-bottom: 10px;
 }
 
 .footer-content p {
   font-size: 16px;
-  color: #bbb;
-  margin-bottom: 20px;
-  line-height: 1.5;
+  color: #b3b3b3;
+  line-height: 1.8;
 }
 
-/* Estilo de los iconos de redes sociales */
+/* Redes sociales */
 .socials {
-  list-style: none;
   display: flex;
-  gap: 25px;
-  padding: 0;
+  gap: 15px;
 }
 
-.socials li {
+.socials a {
   display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-color: #1a1a1a;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.socials img {
-  width: 40px;
-  height: 40px;
-  transition: transform 0.3s ease, filter 0.3s ease;
+.socials a img {
+  width: 24px;
+  height: 24px;
 }
 
-.socials img:hover {
-  transform: scale(1.2); /* Agranda los íconos al pasar el cursor */
-  filter: brightness(1.2); /* Brillo adicional al hacer hover */
+.socials a:hover {
+  background-color: #f4c10f;
+  transform: scale(1.1);
 }
 
 /* Pie de página */
 .footer-bottom {
-  margin-top: 30px;
+  margin-top: 40px;
   font-size: 14px;
-  color: #777;
-  padding: 10px 0;
+  color: #666;
+  border-top: 1px solid #333;
+  padding-top: 20px;
 }
 
-/* Animación para suavizar la entrada */
+/* Animación de entrada */
 @keyframes fadeIn {
-  0% {
+  from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
 .custom-footer {
-  animation: fadeIn 1.5s ease-out;
+  animation: fadeIn 1s ease-in-out;
 }
