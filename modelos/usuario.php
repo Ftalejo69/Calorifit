@@ -25,11 +25,10 @@ class UsuarioModel {
 
     // Valida que la contraseña tenga mínimo 8 caracteres, una mayúscula, un número y un símbolo.
     public function validatePassword($password) {
-        if (strlen($password) < 8) return false;
-        if (!preg_match('/[A-Z]/', $password)) return false;
-        if (!preg_match('/[0-9]/', $password)) return false;
-        if (!preg_match('/[\W]/', $password)) return false;
-        return true;
+        return strlen($password) >= 8 &&
+               preg_match('/[A-Z]/', $password) &&
+               preg_match('/[0-9]/', $password) &&
+               preg_match('/[\W]/', $password);
     }
 
     // Registra un usuario y envía el correo de verificación

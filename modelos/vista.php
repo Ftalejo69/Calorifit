@@ -2,6 +2,7 @@
 include_once 'usuario.php';
 include_once '../configuracion/conexion.php';
 
+// Verifica el token proporcionado en la URL para validar el correo
 if (isset($_GET['token'])) {
     $token = $_GET['token'];
     $model = new UsuarioModel($conexion);
