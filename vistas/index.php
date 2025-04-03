@@ -23,7 +23,7 @@
     <div class="tab-content">
       <!-- Formulario de Registro -->
       <div class="tab-pane fade show active" id="register">
-        <form id="registerForm">
+        <form id="registerForm" action="../modelos/registro.php" method="POST">
           <input type="hidden" name="action" value="register">
           <div class="mb-3">
             <label class="form-label">Nombre</label>
@@ -48,7 +48,7 @@
 
       <!-- Formulario de Inicio de Sesión -->
       <div class="tab-pane fade" id="login">
-        <form id="loginForm">
+        <form id="loginForm" action="../modelos/login.php" method="POST">
           <input type="hidden" name="action" value="login">
           <div class="mb-3">
             <label class="form-label">Correo</label>

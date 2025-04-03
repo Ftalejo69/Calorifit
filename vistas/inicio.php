@@ -35,7 +35,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   </section>
   
   <section id="planes" class="container section-container">
-    <h2 class="text-center professional-title" style="color: #FFD700;">ELIGE EL MEJOR PLAN PARA TI</h2>
+    <h2 class="text-center professional-title text-warning">ELIGE EL MEJOR PLAN PARA TI</h2>
     <p class="text-center subtitle">AHORRA HASTA 30%</p>
     <div class="text-center mb-4">
         <div class="toggle-container">
@@ -76,7 +76,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
                 <img src="https://th.bing.com/th/id/R.75c2ef94bc631ceb46e613eed9ab5471?rik=ylWJYGFtp4ZBwQ&riu=http%3a%2f%2f5b0988e595225.cdn.sohucs.com%2fimages%2f20190403%2f7f7a1ae827d64742b6e3c71131b11fc8.jpg&ehk=pgvHntSg5eORVPol8OfQnbRlsbz%2fenpbL7mVEChnag4%3d&risl=&pid=ImgRaw&r=0" class="card-img-top" alt="Plan CALO">
                 <div class="card-body">
                     <h5 class="card-title">CALO</h5>
-                    <p class="card-text">Acceso completo a todas las áreas y servicios.</p>
+                    <p class="card-text">Acceso completo a todas las áreas.</p>
                     <h3 class="price plan-price" data-monthly="80000" data-annual="640000">$80.000<span class="fs-6">/mes</span></h3>
                     <p class="price-discount text-decoration-line-through" data-monthly="120000" data-annual="960000">$120.000</p>
                     <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>

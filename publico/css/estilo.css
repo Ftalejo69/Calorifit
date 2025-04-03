@@ -68,8 +68,8 @@ button {
 }
 
 button:hover {
-  background: #005f73;
-  color: #ffffff;
+  background: #c4c2bd; /* Change to yellow hover effect */
+  color: black; /* Change text color to black */
 }
 
 /* Tarjetas */
@@ -356,14 +356,35 @@ button:hover {
     position: relative;
     overflow: hidden;
 }
+.subtitle {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  color: black;
+  letter-spacing: 2px;
+  opacity: 0;
+  transform: scale(0.9);
+  animation: fadeInZoom 1s ease-in-out forwards;
+}
 
-.professional-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 3rem;
-    font-weight: 700;
-    color: #FBBF24;
-    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
-    margin-bottom: 3rem;
+/* Animación de aparición */
+@keyframes fadeInZoom {
+  0% {
+      opacity: 0;
+      transform: scale(0.9);
+  }
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+/* Efecto al pasar el cursor */
+.subtitle:hover {
+  color: #3d3d3d; /* Cambio de color al pasar el cursor */
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
 }
 
 .card {
@@ -427,25 +448,37 @@ button:hover {
   background-color: #2b2929;
   border-radius: 30px;
   padding: 5px;
-  width: 220px;
+  width: 240px;
   margin: 0 auto 20px;
 }
 
 .toggle-btn {
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 30px;
-  transition: background-color 0.3s, color 0.3s;
+flex: 1;
+  padding: 12px 25px;
+  font-size: 1rem;
   font-weight: bold;
+  color: #FFC300; /* Default text color */
+  background: none; /* No background by default */
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 }
 
 .toggle-btn.active {
-  background-color: #FFC300;
-  color: white;
+  background: linear-gradient(135deg, #FFC300, #FF5733); /* Background when active */
+  color: white; /* Text color when active */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow when active */
+  transform: scale(1.05);
 }
 
-.toggle-btn:not(.active) {
-  background-color: rgb(236, 232, 232);
-  color: black;
+.toggle-btn:not(.active):hover {
+  color: #111111; /* Light gray text on hover */
+}
+
+.toggle-btn:focus {
+  outline: none;
 }

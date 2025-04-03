@@ -14,7 +14,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="../vistas/planes.php">Planes</a></li>
                     <li class="nav-item"><a class="nav-link" href="../vistas/rutinas.php">Rutinas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../vistas/ejercicios.php">Ejercicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../vistas/ejercicios.php">Historial</a></li>
                     
                     
                     <li class="nav-item"><a class="btn btn-danger m-1 " style="border-radius: 30px;" href="../vistas/index.php">Cerrar sesión</a></li>

@@ -49,7 +49,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
         </div>
         
         <div class="tarjeta">
-            <img src="../imagenes/David-Laid.jpg" alt="Intermedio">
+            <img src="../publico/imagenes/David-Laid.jpg" alt="Intermedio">
             <div class="contenido">
                 <h2>INTERMEDIO</h2>
                 <p>Mejora tu rendimiento y lleva tu entrenamiento al siguiente nivel.</p>
@@ -58,7 +58,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
         </div>
         
         <div class="tarjeta">
-            <img src="../imagenes/David-Laid.jpg" alt="Avanzado">
+            <img src="../publico/imagenes/David-Laid.jpg" alt="Avanzado">
             <div class="contenido">
                 <h2>AVANZADO</h2>
                 <p>Desafía tus límites y alcanza el máximo potencial.</p>
@@ -82,7 +82,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <div class="routine-section">
     <div>
       <div class="image-container">
-        <img src="../publico/imagenes/arnold.png" alt="Intermedio" class="section-image">
+        <img src="../publico/imagenes/arnold.jpg" alt="Intermedio" class="section-image">
       </div>
       <h2>Intermedio</h2>
       <p>Aumenta la intensidad de tus entrenamientos. Diseñado para aquellos que ya tienen algo de experiencia y quieren llevar su condición física al siguiente nivel.</p>

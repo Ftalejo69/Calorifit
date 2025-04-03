@@ -18,14 +18,14 @@ $nivel = isset($_GET['nivel']) ? $_GET['nivel'] : 'Principiante'; // Obtener el 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <?php include '../php/navbar.php'; ?>
+    <?php include '../vistas/navbar.php'; ?>
     <div class="header text-center">
         <h1 class="titulo">¿CUÁL ES TU <span class="resaltar">OBJETIVO?</span></h1>
         <p class="subtitulo">Selecciona el objetivo que deseas alcanzar para personalizar tu rutina.</p>
     </div>
     <div class="contenedor-tarjetas">
         <div class="tarjeta" id="bajar-peso">
-            <img src="../imagenes/perdidaPeso.jpg" alt="Bajar de Peso">
+            <img src="../publico/imagenes/perdidaPeso.jpg" alt="Bajar de Peso">
             <div class="contenido">
                 <h2>BAJAR DE PESO</h2>
                 <p>Reduce grasa corporal con rutinas diseñadas para ti.</p>
@@ -33,7 +33,7 @@ $nivel = isset($_GET['nivel']) ? $_GET['nivel'] : 'Principiante'; // Obtener el 
             </div>
         </div>
         <div class="tarjeta" id="ganar-musculo">
-            <img src="../imagenes/gananciaMuscular.jpg" alt="Ganancia de Músculo">
+            <img src="../publico/imagenes/gananciaMuscular.jpg" alt="Ganancia de Músculo">
             <div class="contenido">
                 <h2>GANANCIA DE MÚSCULO</h2>
                 <p>Construye masa muscular con entrenamientos efectivos.</p>
@@ -41,7 +41,7 @@ $nivel = isset($_GET['nivel']) ? $_GET['nivel'] : 'Principiante'; // Obtener el 
             </div>
         </div>
         <div class="tarjeta" id="mantenimiento">
-            <img src="../imagenes/turcas.jpg" alt="Mantenimiento">
+            <img src="../publico/imagenes/turcas.jpg" alt="Mantenimiento">
             <div class="contenido">
                 <h2>MANTENIMIENTO</h2>
                 <p>Mantén tu forma física con rutinas equilibradas.</p>
@@ -50,7 +50,7 @@ $nivel = isset($_GET['nivel']) ? $_GET['nivel'] : 'Principiante'; // Obtener el 
         </div>
     </div>
 
-    <?php include '../html/footer.php'; ?>
+    <?php include '../vistas/footer.php'; ?>
    
     <!-- FontAwesome para los iconos -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
