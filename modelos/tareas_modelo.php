@@ -1,5 +1,5 @@
 <?php
-include '../php/db_connection.php'; // Asegúrate de tener un archivo para la conexión a la base de datos.
+include '../configuaricion/conexion.php'; // Asegúrate de tener un archivo para la conexión a la base de datos.
 
 function agregarTarea($nombre, $dia) {
     global $conn;

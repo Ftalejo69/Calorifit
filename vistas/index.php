@@ -155,7 +155,7 @@
         var formData = new FormData(form);
         var alertDiv = document.getElementById("registerAlert");
 
-        fetch("registro.php", { method: "POST", body: formData })
+        fetch("../modelos/registro.php", { method: "POST", body: formData })
           .then(response => response.text())
           .then(data => {
             alertDiv.classList.remove("d-none", "alert-danger", "alert-success");
@@ -174,7 +174,7 @@
         var formData = new FormData(form);
         var alertDiv = document.getElementById("loginAlert");
 
-        fetch("registro.php", { method: "POST", body: formData })
+        fetch("../modelos/registro.php", { method: "POST", body: formData })
           .then(response => response.text())
           .then(data => {
             alertDiv.classList.remove("d-none", "alert-danger", "alert-success");
@@ -183,7 +183,7 @@
 
             if (data.includes("exitoso")) {
               clearForm(form, alertDiv);
-              setTimeout(() => window.location.href = "../vista/inicio.php", 1000);
+              setTimeout(() => window.location.href = "inicio.php", 1000);
             }
           });
       });
