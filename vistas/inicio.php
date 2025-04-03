@@ -24,8 +24,8 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <link rel="stylesheet" href="../publico/css/estilo.css">
 </head>
 <body>
-  <?php include '../php/navbar.php'; ?>
-  <?php include '../php/modal_perfil.php'; ?>
+  <?php include '../vistas/navbar.php'; ?>
+  <?php include '../vistas/modal_perfil.php'; ?>
 
   <!-- Sección de bienvenida -->
   <section class="welcome-section text-center">
@@ -167,7 +167,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
     </div>
   </section>
 
-  <?php include '../html/footer.php'; ?>
+  <?php include '../vistas/footer.php'; ?>
   
   <script>
     const monthlyButton = document.getElementById('monthlyButton');
@@ -202,6 +202,6 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 
   <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../js/script.js"></script>
+  <script src="../publico/js/script.js"></script>
 </body>
 </html>

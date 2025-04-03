@@ -23,9 +23,9 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 </head>
 <body>
 
-<?php include '../php/navbar.php'; ?>
+<?php include '../vistas/navbar.php'; ?>
 
-<?php include '../php/modal_perfil.php'; ?>
+<?php include '../vistas/modal_perfil.php'; ?>
   
 <!-- Sección de bienvenida -->
 <section class="welcome-section text-center">
@@ -126,7 +126,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
     </div>
 </section>
 
-<?php include '../html/footer.php'; ?>
+<?php include '../vistas/footer.php'; ?>
 
 
 <script src="ejercicio.js"></script>
