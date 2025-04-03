@@ -53,7 +53,7 @@ $conexion->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($objetivo); ?></title>
-    <link rel="stylesheet" href="../css/rutina_personalizada.css">
+    <link rel="stylesheet" href="../publico/css/rutina_personalizada.css">
 </head>
 <body>
     <?php include '../php/navbar.php'; ?>

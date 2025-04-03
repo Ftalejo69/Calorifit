@@ -19,7 +19,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
       <!-- Agregar Font Awesome para los iconos -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/predefinidas.css">
+    <link rel="stylesheet" href="../publico/css/predefinidas.css">
     <title>Document</title>
 </head>
 <body>
