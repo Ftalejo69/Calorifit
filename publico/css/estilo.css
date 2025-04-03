@@ -68,8 +68,8 @@ button {
 }
 
 button:hover {
-  background: #005f73;
-  color: #ffffff;
+  background: #c4c2bd; /* Change to yellow hover effect */
+  color: black; /* Change text color to black */
 }
 
 /* Tarjetas */
@@ -359,11 +359,27 @@ button:hover {
 
 .professional-title {
     font-family: 'Poppins', sans-serif;
-    font-size: 3rem;
-    font-weight: 700;
-    color: #FBBF24;
-    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+    font-size: 3.5rem; /* Increase font size */
+    font-weight: 800; /* Make it bolder */
+    color: #FFD700; /* Keep the same color */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6); /* Glowing effect */
+  text-transform: uppercase; /* Make the text uppercase */
+  letter-spacing: 2px; /* Add spacing between letters */
+  opacity: 0; /* Start invisible */
+  animation: fadeInTitle 1.5s ease-out forwards; 
     margin-bottom: 3rem;
+}
+
+/* Animation for the title */
+@keyframes fadeInTitle {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px); /* Start slightly above */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End at the original position */
+  }
 }
 
 .card {
@@ -427,25 +443,37 @@ button:hover {
   background-color: #2b2929;
   border-radius: 30px;
   padding: 5px;
-  width: 220px;
+  width: 240px;
   margin: 0 auto 20px;
 }
 
 .toggle-btn {
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 30px;
-  transition: background-color 0.3s, color 0.3s;
+flex: 1;
+  padding: 12px 25px;
+  font-size: 1rem;
   font-weight: bold;
+  color: #FFC300; /* Default text color */
+  background: none; /* No background by default */
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 }
 
 .toggle-btn.active {
-  background-color: #FFC300;
-  color: white;
+  background: linear-gradient(135deg, #FFC300, #FF5733); /* Background when active */
+  color: white; /* Text color when active */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow when active */
+  transform: scale(1.05);
 }
 
-.toggle-btn:not(.active) {
-  background-color: rgb(236, 232, 232);
-  color: black;
+.toggle-btn:not(.active):hover {
+  color: #111111; /* Light gray text on hover */
+}
+
+.toggle-btn:focus {
+  outline: none;
 }
