@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="../publico/css/nabvar.css">
 <nav class="navbar navbar-expand-lg ">
         <div class="container">
-            <a class="navbar-brand" href="../html/inicio.php">
+            <a class="navbar-brand" href="../vistas/inicio.php">
                 <span class="calori">Calori</span><span class="fit">Fit</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

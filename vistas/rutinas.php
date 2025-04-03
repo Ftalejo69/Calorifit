@@ -23,8 +23,8 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 </head>
 <body >
 
-<?php include '../php/navbar.php'; ?>
-<?php include '../php/modal_perfil.php'; ?>
+<?php include '../vistas/navbar.php'; ?>
+<?php include '../vistas/modal_perfil.php'; ?>
 
  <!-- Sección de bienvenida -->
  <section class="welcome-section text-center">
@@ -82,7 +82,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <div class="routine-section">
     <div>
       <div class="image-container">
-        <img src="../imagenes/David-Laid.jpg" alt="Intermedio" class="section-image">
+        <img src="../publico/imagenes/arnold.png" alt="Intermedio" class="section-image">
       </div>
       <h2>Intermedio</h2>
       <p>Aumenta la intensidad de tus entrenamientos. Diseñado para aquellos que ya tienen algo de experiencia y quieren llevar su condición física al siguiente nivel.</p>
@@ -92,7 +92,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <div class="routine-section">
     <div>
       <div class="image-container">
-        <img src="../imagenes/David-Laid.jpg" alt="Avanzado" class="section-image">
+        <img src="../publico/imagenes/David-Laid.jpg" alt="Avanzado" class="section-image">
       </div>
       <h2>Avanzado</h2>
       <p>Desafíos intensos para maximizar tu rendimiento. Pensado para quienes buscan perfeccionar sus habilidades y superar sus límites con entrenamientos exigentes.</p>
@@ -102,7 +102,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 
 
         <!-- Footer -->
-        <?php include '../html/footer.php'; ?>
+        <?php include '../vistas/footer.php'; ?>
       <script src="https://i.pinimg.com/originals/f2/ff/e4/f2ffe4ca8602818a4fd4abf1e3563964.jpg" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
       <script>
         function redirigirNivel(nivel) {

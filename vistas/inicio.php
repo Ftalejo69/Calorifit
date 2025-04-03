@@ -61,7 +61,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
         <!-- Tarjeta 2 -->
         <div class="col-md-4">
             <div class="card h-100 text-center">
-                <img src="../imagenes/arnold.jpg" class="card-img-top" alt="Plan BLACK">
+                <img src="../publico/imagenes/arnold.jpg" class="card-img-top" alt="Plan BLACK">
                 <div class="card-body">
                     <h5 class="card-title">BLACK</h5>
                     <p class="card-text">Acceso premium con beneficios exclusivos.</p>
