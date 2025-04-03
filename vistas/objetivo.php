@@ -18,7 +18,7 @@ $nivel = isset($_GET['nivel']) ? $_GET['nivel'] : 'Principiante'; // Obtener el 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <?php include '../php/navbar.php'; ?>
+    <?php include '../vistas/navbar.php'; ?>
     <div class="header text-center">
         <h1 class="titulo">¿CUÁL ES TU <span class="resaltar">OBJETIVO?</span></h1>
         <p class="subtitulo">Selecciona el objetivo que deseas alcanzar para personalizar tu rutina.</p>
@@ -50,7 +50,7 @@ $nivel = isset($_GET['nivel']) ? $_GET['nivel'] : 'Principiante'; // Obtener el 
         </div>
     </div>
 
-    <?php include '../html/footer.php'; ?>
+    <?php include '../vistas/footer.php'; ?>
    
     <!-- FontAwesome para los iconos -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>

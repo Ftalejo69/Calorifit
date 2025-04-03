@@ -56,7 +56,7 @@ $conexion->close();
     <link rel="stylesheet" href="../publico/css/rutina_personalizada.css">
 </head>
 <body>
-    <?php include '../php/navbar.php'; ?>
+    <?php include '../vistas/navbar.php'; ?>
     <div class="header text-center">
         <h1 class="titulo"><?php echo htmlspecialchars($objetivo); ?></h1>
         <p class="subtitulo">Sigue esta rutina para alcanzar tus metas.</p>
