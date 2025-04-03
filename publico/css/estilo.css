@@ -356,30 +356,35 @@ button:hover {
     position: relative;
     overflow: hidden;
 }
-
-.professional-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 3.5rem; /* Increase font size */
-    font-weight: 800; /* Make it bolder */
-    color: #FFD700; /* Keep the same color */
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6); /* Glowing effect */
-  text-transform: uppercase; /* Make the text uppercase */
-  letter-spacing: 2px; /* Add spacing between letters */
-  opacity: 0; /* Start invisible */
-  animation: fadeInTitle 1.5s ease-out forwards; 
-    margin-bottom: 3rem;
+.subtitle {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  color: black;
+  letter-spacing: 2px;
+  opacity: 0;
+  transform: scale(0.9);
+  animation: fadeInZoom 1s ease-in-out forwards;
 }
 
-/* Animation for the title */
-@keyframes fadeInTitle {
+/* Animación de aparición */
+@keyframes fadeInZoom {
   0% {
-    opacity: 0;
-    transform: translateY(-20px); /* Start slightly above */
+      opacity: 0;
+      transform: scale(0.9);
   }
   100% {
-    opacity: 1;
-    transform: translateY(0); /* End at the original position */
+      opacity: 1;
+      transform: scale(1);
   }
+}
+
+/* Efecto al pasar el cursor */
+.subtitle:hover {
+  color: #3d3d3d; /* Cambio de color al pasar el cursor */
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
 }
 
 .card {
