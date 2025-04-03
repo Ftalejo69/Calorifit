@@ -17,7 +17,7 @@
                     <li class="nav-item"><a class="nav-link" href="../vistas/ejercicios.php">Ejercicio</a></li>
                     
                     
-                    <li class="nav-item"><a class="btn btn-danger m-1 " style="border-radius: 30px;" href="../php/index.php">Cerrar sesión</a></li>
+                    <li class="nav-item"><a class="btn btn-danger m-1 " style="border-radius: 30px;" href="../vistas/index.php">Cerrar sesión</a></li>
                     <!-- Botón para abrir el modal -->
                     <button type="button" class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#exampleModal">
                           Ver Perfil

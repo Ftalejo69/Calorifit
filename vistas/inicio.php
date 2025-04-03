@@ -32,9 +32,8 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
     <h1>Bienvenido a <span>CALORIFIT</span></h1>
     <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
     <button id="openProfile" class="btn btn-outline-light mt-3" onclick="location.href='#planes'">suscribete ahora</button>
-
-    
   </section>
+  
   <section id="planes" class="container section-container">
     <h2 class="text-center professional-title" style="color: #FFD700;">ELIGE EL MEJOR PLAN PARA TI</h2>
     <p class="text-center subtitle">AHORRA HASTA 30%</p>
