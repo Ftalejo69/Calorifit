@@ -51,36 +51,45 @@ class UsuarioModel {
                 VALUES ('$nombre', '$correo', '$hash', '$telefono', '$token', 0)";
         
         if ($this->conexion->query($sql)) {
-            // **Envío de correo con PHPMailer**
-            $mail = new PHPMailer(true);
-            try {
-                // Configuración del servidor SMTP
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'calorifit131@gmail.com';  // TU CORREO GMAIL
-                $mail->Password = 'qqpi lgla yqoe cfbx';  // TU CONTRASEÑA O APP PASSWORD
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port = 587;
-
-                // Remitente y destinatario
-                $mail->setFrom('tu_correo@gmail.com', 'CaloriFit');
-                $mail->addAddress($correo, $nombre);
-
-                // Contenido del correo
-                $mail->isHTML(true);
-                $mail->Subject = 'Verifica tu correo';
-                $verificationLink = "http://localhost/calorifit/html/inicio.php?token=" . $token;
-                $mail->Body = "Hola $nombre,<br><br>Por favor, verifica tu correo para calorifit clic en el siguiente enlace:<br><br><a href='$verificationLink'>$verificationLink</a>";
-
-                // Enviar correo
-                $mail->send();
-                return array('success' => true, 'message' => '✅ Registro exitoso. Revisa tu correo para verificar tu cuenta.');
-            } catch (Exception $e) {
-                return array('success' => true, 'message' => '✅ Registro exitoso, pero no se pudo enviar el correo. Error: ' . $mail->ErrorInfo);
-            }
+            return array('success' => true, 'message' => '✅ Registro exitoso. Revisa tu correo para verificar tu cuenta.', 'token' => $token);
         } else {
             return array('success' => false, 'message' => '❌ Error al registrar: ' . $this->conexion->error);
+        }
+    }
+
+    public function sendVerificationEmail($nombre, $correo, $token) {
+        $mail = new PHPMailer(true);
+        try {
+            // Configuración del servidor SMTP
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'calorifit131@gmail.com';  // TU CORREO GMAIL
+            $mail->Password = 'qqpi lgla yqoe cfbx';  // TU CONTRASEÑA O APP PASSWORD
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+
+            // Habilitar depuración
+            $mail->SMTPDebug = 2; // Cambia a 0 para deshabilitar la depuración
+            $mail->Debugoutput = function ($str, $level) {
+                error_log("SMTP [$level]: $str");
+            };
+
+            // Remitente y destinatario
+            $mail->setFrom('calorifit131@gmail.com', 'CaloriFit');
+            $mail->addAddress($correo, $nombre);
+
+            // Contenido del correo
+            $mail->isHTML(true);
+            $mail->Subject = 'Verifica tu correo';
+            $verificationLink = "http://localhost/calorifit/modelos/vista.php?token=" . $token;
+            $mail->Body = "Hola $nombre,<br><br>Por favor, verifica tu correo para CaloriFit haciendo clic en el siguiente enlace:<br><br><a href='$verificationLink'>$verificationLink</a>";
+
+            // Enviar correo
+            $mail->send();
+        } catch (Exception $e) {
+            error_log("Error al enviar el correo: " . $mail->ErrorInfo); // Registrar el error en el log
+            throw $e; // Lanza la excepción para manejarla en el script principal
         }
     }
 
