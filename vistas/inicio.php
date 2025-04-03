@@ -21,7 +21,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <!-- Estilos personalizados -->
-  <link rel="stylesheet" href="../css/estilo.css">
+  <link rel="stylesheet" href="../publico/css/estilo.css">
 </head>
 <body>
   <?php include '../php/navbar.php'; ?>

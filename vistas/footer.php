@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../css/footer.css">
+<link rel="stylesheet" href="../publico/css/footer.css">
 <footer class="custom-footer">
   <div class="footer-container">
     <div class="footer-content">
