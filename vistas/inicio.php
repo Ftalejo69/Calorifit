@@ -53,7 +53,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
                     <p class="card-text">Acceso a contenido exclusivo.</p>
                     <h3 class="price plan-price" data-monthly="40000" data-annual="320000">$40.000<span class="fs-6">/mes</span></h3>
                     <p class="price-discount text-decoration-line-through" data-monthly="70000" data-annual="560000">$70.000</p>
-                    <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>
+                    <button class="btn btn-outline-warning w-100 mt-3" onclick="location.href='detalles_plan.php?plan=fit'">Ver más</button>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
                     <p class="card-text">Acceso premium con beneficios exclusivos.</p>
                     <h3 class="price plan-price" data-monthly="60000" data-annual="480000">$60.000<span class="fs-6">/mes</span></h3>
                     <p class="price-discount text-decoration-line-through" data-monthly="90000" data-annual="720000">$90.000</p>
-                    <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>
+                    <button class="btn btn-outline-warning w-100 mt-3" onclick="location.href='detalles_plan.php?plan=black'">Ver más</button>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
                     <p class="card-text">Acceso completo a todas las áreas.</p>
                     <h3 class="price plan-price" data-monthly="80000" data-annual="640000">$80.000<span class="fs-6">/mes</span></h3>
                     <p class="price-discount text-decoration-line-through" data-monthly="120000" data-annual="960000">$120.000</p>
-                    <button class="btn btn-outline-warning w-100 mt-3">Ver más</button>
+                    <button class="btn btn-outline-warning w-100 mt-3" onclick="location.href='detalles_plan.php?plan=calo'">Ver más</button>
                 </div>
             </div>
         </div>
