@@ -8,6 +8,15 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar_rutina'])) {
+    $indice = $_POST['indice'];
+    if (isset($_SESSION['rutinas_completadas'][$indice])) {
+        unset($_SESSION['rutinas_completadas'][$indice]);
+        $_SESSION['rutinas_completadas'] = array_values($_SESSION['rutinas_completadas']); // Reindex array
+        echo "<script>alert('La rutina se eliminó correctamente.');</script>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,73 +64,38 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
         </form>
     </div>
 
-    <div id="historial"class="history-container">
-        <!-- Aquí se generarán las tarjetas con los entrenamientos -->
+    <div id="historial" class="history-container">
         <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Entrenamiento de Fuerza</h5>
-                        <p class="card-text">Descripción del entrenamiento de fuerza, con enfoque en el desarrollo muscular.</p>
-                        <p class="card-text">Duración: 60 minutos</p>
-                        <p class="card-text">Series: 4 | Repeticiones: 10</p>
-                        <p class="card-text">Fecha: 2025-03-25</p>
-                        <a href="#" class="btn btn-danger">Eliminar</a>
+            <?php if (isset($_SESSION['rutinas_completadas']) && !empty($_SESSION['rutinas_completadas'])): ?>
+                <?php foreach ($_SESSION['rutinas_completadas'] as $indice => $rutina): ?>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo htmlspecialchars($rutina['nombre']); ?></h5>
+                                <p class="card-text">Nivel: <span><?php echo htmlspecialchars($rutina['nivel']); ?></span></p>
+                                <p class="card-text">Fecha: <span><?php echo htmlspecialchars($rutina['fecha']); ?></span></p>
+                                <ul>
+                                    <?php foreach ($rutina['ejercicios'] as $ejercicio): ?>
+                                        <li>
+                                            <span class="exercise-name"><?php echo htmlspecialchars($ejercicio['nombre']); ?></span>
+                                            <span class="exercise-details">Series: <?php echo htmlspecialchars($ejercicio['series']); ?>, Repeticiones: <?php echo htmlspecialchars($ejercicio['repeticiones']); ?></span>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <form method="post" style="margin-top: 10px;">
+                                    <input type="hidden" name="indice" value="<?php echo $indice; ?>">
+                                    <button type="submit" name="eliminar_rutina" class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </div>
+                            <div class="card-footer">
+                                ¡Sigue trabajando para alcanzar tus metas!
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Entrenamiento de Cardio</h5>
-                        <p class="card-text">Entrenamiento cardiovascular, ideal para mejorar la resistencia.</p>
-                        <p class="card-text">Duración: 45 minutos</p>
-                        <p class="card-text">Intensidad: Alta</p>
-                        <p class="card-text">Fecha: 2025-03-26</p>
-                        <a href="#" class="btn btn-danger">Eliminar</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Entrenamiento de Fuerza</h5>
-                        <p class="card-text">Entrenamiento para aumentar fuerza, enfocado en pesas.</p>
-                        <p class="card-text">Duración: 50 minutos</p>
-                        <p class="card-text">Series: 5 | Repeticiones: 8</p>
-                        <p class="card-text">Fecha: 2025-03-27</p>
-                        <a href="#" class="btn btn-danger">Eliminar</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Entrenamiento Full Body</h5>
-                        <p class="card-text">Entrenamiento que involucra todos los grupos musculares principales.</p>
-                        <p class="card-text">Duración: 70 minutos</p>
-                        <p class="card-text">Series: 3 | Repeticiones: 12</p>
-                        <p class="card-text">Fecha: 2025-03-28</p>
-                        <a href="#" class="btn btn-danger">Eliminar</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Entrenamiento de Cardio</h5>
-                        <p class="card-text">Sesión de cardio para mejorar la capacidad cardiovascular.</p>
-                        <p class="card-text">Duración: 40 minutos</p>
-                        <p class="card-text">Intensidad: Moderada</p>
-                        <p class="card-text">Fecha: 2025-03-29</p>
-                        <a href="#" class="btn btn-danger">Eliminar</a>
-                    </div>
-                </div>
-            </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No hay rutinas completadas en el historial.</p>
+            <?php endif; ?>
         </div>
     </div>
 </section>

@@ -45,6 +45,24 @@ while ($fila = $resultado->fetch_assoc()) {
 
 $stmt->close();
 $conexion->close();
+
+// Handle marking the routine as completed
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada'])) {
+    $rutina_completada = [
+        'nombre' => $objetivo,
+        'nivel' => $nivel,
+        'fecha' => date('Y-m-d'),
+        'ejercicios' => $lista_ejercicios
+    ];
+
+    if (!isset($_SESSION['rutinas_completadas'])) {
+        $_SESSION['rutinas_completadas'] = [];
+    }
+
+    $_SESSION['rutinas_completadas'][] = $rutina_completada;
+    header('Location: rutina_personalizada.php');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +96,9 @@ $conexion->close();
         <?php endif; ?>
     </div>
     <div class="acciones text-center">
-        <button class="boton" onclick="alert('¡Rutina completada!')">Marcar como Completada</button>
+        <form method="post">
+            <button class="boton" name="marcar_completada">Marcar como Completada</button>
+        </form>
     </div>
 </body>
 </html>

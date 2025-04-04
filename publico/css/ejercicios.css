@@ -166,9 +166,132 @@ body {
   }
 }
 
+/* Estilos para las tarjetas de las rutinas completadas */
+.history-container .card {
+    border-radius: 15px;
+    background: #2e2d2d; /* Fondo gris oscuro en lugar de negro puro */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid #333; /* Borde oscuro */
+    position: relative;
+    color: #FFD700; /* Texto amarillo */
+    width: 350px; /* Ancho ajustado */
+    height: auto; /* Altura automática para adaptarse al contenido */
+    min-height: 500px; /* Altura mínima restaurada */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
+.history-container .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); /* Sombra más intensa al pasar el cursor */
+}
 
-  /* Estilos para la sección de bienvenida */
+.history-container .card-body {
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    flex-grow: 1;
+    overflow: hidden; /* Ocultar contenido desbordado */
+}
+
+.history-container .card-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fdd806; /* Amarillo */
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap; /* Evitar salto de línea */
+    overflow: hidden; /* Ocultar texto desbordado */
+    text-overflow: ellipsis; /* Agregar puntos suspensivos */
+}
+
+.history-container .card-text {
+    font-size: 1rem;
+    color: #FFD700; /* Amarillo */
+    margin-bottom: 10px;
+    line-height: 1.6;
+    white-space: nowrap; /* Evitar salto de línea */
+    overflow: hidden; /* Ocultar texto desbordado */
+    text-overflow: ellipsis; /* Agregar puntos suspensivos */
+}
+
+/* Estilos para los elementos de la lista */
+.history-container ul {
+    padding-left: 0;
+    list-style: none;
+    margin-top: 15px;
+}
+
+.history-container ul li {
+    font-size: 1rem;
+    color: #000; /* Texto negro */
+    margin-bottom: 10px;
+    text-align: left;
+    background: #ffd901; /* Fondo amarillo */
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(245, 160, 1, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap; /* Evitar salto de línea */
+    overflow: hidden; /* Ocultar texto desbordado */
+    text-overflow: ellipsis; /* Agregar puntos suspensivos */
+}
+
+.history-container ul li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(255, 153, 1, 0.9);
+}
+
+.history-container ul li span {
+    font-weight: bold;
+    color: #000; /* Texto negro */
+}
+
+.history-container ul li .exercise-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #000; /* Texto negro */
+    margin-bottom: 5px;
+    display: block;
+}
+
+.history-container ul li .exercise-details {
+    font-size: 0.95rem;
+    color: #000; /* Texto negro */
+    line-height: 1.5;
+}
+
+/* Añadir un icono decorativo en la parte superior de la tarjeta */
+.history-container .card::before {
+    content: "🏋🏻";
+    font-size: 3rem;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #323232;
+    color: #000; /* Cambiar el color del icono a negro */
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Añadir un pie de tarjeta con un fondo oscuro */
+.history-container .card-footer {
+    background: #333; /* Fondo oscuro */
+    padding: 15px;
+    border-top: 1px solid #444;
+    font-size: 0.9rem;
+    color: #FFD700; /* Amarillo */
+    text-align: center;
+}
+
+/* Estilos para la sección de bienvenida */
 .welcome-section {
   background: linear-gradient(to right, #000, #2e2b2b);
   color: #fff;
@@ -310,4 +433,38 @@ body {
 
 #openProfile:focus {
   outline: none; /* Quitar el contorno del botón cuando está en foco */
+}
+
+/* Estilos mejorados para el botón de eliminar */
+.card-body form {
+    margin-top: 15px;
+    text-align: center; /* Centrar el botón */
+    position: relative; /* Asegura que el botón se posicione correctamente */
+    z-index: 1; /* Asegura que el botón esté por encima de otros elementos */
+}
+
+.card-body form button.btn-danger {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 77, 77, 0.3);
+    display: inline-block; /* Asegura que el botón se muestre correctamente */
+    visibility: visible; /* Asegura que el botón sea visible */
+}
+
+.card-body form button.btn-danger:hover {
+    background-color: #e60000;
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(230, 0, 0, 0.4);
+}
+
+.card-body form button.btn-danger:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.5);
 }
