@@ -1,80 +1,121 @@
 .modal-content {
-    border-radius: 15px;
-    animation: slideIn 0.5s ease-out;
-    background: linear-gradient(to right, #fffffe, #cecec2);
-    color:  #f4c10f;
+    border-radius: 20px;
+    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    color: #333;
+    padding: 20px;
+    animation: fadeIn 0.5s ease-out;
 }
 
-/* Animación de entrada del modal */
-@keyframes slideIn {
+/* Animation for modal appearance */
+@keyframes fadeIn {
     0% {
-        transform: translateY(-30px);
         opacity: 0;
+        transform: scale(0.9);
     }
     100% {
-        transform: translateY(0);
         opacity: 1;
+        transform: scale(1);
     }
 }
 
-/* Cabecera del modal */
+/* Modal header styling */
 .modal-header {
-    border-bottom: 2px solid #fff;
-    background-color: #f4c10f;
-    color: #000000;
+    background: linear-gradient(to right, #f4c10f, #ffc400);
+    color: #000;
+    border-bottom: none;
+    border-radius: 20px 20px 0 0;
+    padding: 15px;
+    text-align: center;
 }
 
 .modal-title {
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .modal-title i {
     margin-right: 10px;
-    font-size: 1.8rem;
+    font-size: 2rem;
 }
 
-/* Sombra de la modal */
-.modal-dialog {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+/* Modal body styling */
+.modal-body {
+    font-family: 'Arial', sans-serif;
+    padding: 25px;
+    line-height: 1.6;
 }
- /* Aquí va tu código CSS personalizado para el botón */
- .btn-primary-custom {
-    background-color: #f4c10f; /* Azul brillante */
-    border-color: #ffb310; /* Azul oscuro */
-    color: rgb(0, 0, 0);
-    font-weight: 600; /* Textos más negritas */
-    padding: 5px 10px; /* Espaciado cómodo */
-    border-radius: 15px; /* Bordes redondeados */
-    font-size: 1rem; /* Un tamaño de fuente agradable */
-    text-transform: uppercase; /* Texto en mayúsculas */
-    letter-spacing: 0.4px; /* Espaciado entre letras */
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Transiciones suaves */
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra ligera para darle profundidad */
-    border: 2px solid #f4c10f; /* Borde azul */
+
+/* Ensure consistent label styling */
+.modal-body .form-label {
+    font-size: 1rem; /* Standardize font size */
+    font-weight: bold; /* Make labels bold */
+    color: #333; /* Consistent color */
+    margin-bottom: 5px; /* Add spacing below labels */
+    display: block; /* Ensure labels are block elements */
 }
-  .btn-primary-custom:hover {
-    background-color: #ffc400f8; /* Color de fondo al hacer hover */
-    color: #000000; /* Cambiar el color del texto */
-    border-color: #ff9204; /* Cambiar el color del borde */
-    transform: scale(1.1); /* Agrandar ligeramente el botón */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil para dar profundidad */
-  }
-/* Efecto active - cuando el botón es presionado */
-.btn-primary-custom:active {
-    background-color: #1d4290; /* Azul aún más oscuro al presionar */
-    border-color: #16376b;
-    box-shadow: none; /* Elimina la sombra cuando se presiona */
+
+/* Add spacing between form groups */
+.modal-body .mb-3 {
+    margin-bottom: 20px; /* Increase spacing between fields */
 }
-/* Estilo general para los inputs */
+
+/* Input field styling */
 .form-control {
-    width: 80%; /* Aseguramos que el input ocupe todo el ancho disponible */
-    border-radius: 8px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
     padding: 10px;
-    background-color: #f4f7fa;
-    border: 1px solid #ccc;
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+    border-color: #f4c10f;
+    box-shadow: 0 0 5px rgba(244, 193, 15, 0.5);
+}
+
+/* Button styling */
+.btn-primary-custom {
+    background-color: #f4c10f;
+    border-color: #f4c10f;
+    color: #000;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-primary-custom:hover {
+    background-color: #ffc400;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #e0e0e0;
+    border-color: #d6d6d6;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #d6d6d6;
+    transform: scale(1.05);
+}
+
+/* Modal footer styling */
+.modal-footer {
+    border-top: none;
+    padding-top: 15px;
+    text-align: center;
+}
+
+/* Modal dialog shadow */
+.modal-dialog {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
 /* Inputs de solo lectura */
@@ -100,7 +141,7 @@
 }
 /* Estilo específico para el campo de Teléfono */
 #telefono {
-    width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
     height: 45px; /* Ajusta la altura del input */
     padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
     border-radius: 5px; /* Bordes redondeados */
@@ -111,7 +152,7 @@
 
 
 #nombre{
-    width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
     height: 45px; /* Ajusta la altura del input */
     padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
     border-radius: 5px; /* Bordes redondeados */
@@ -120,7 +161,16 @@
     margin-bottom: 15px; /* Separación entre los campos */
 }
 #fecha_nacimiento{
-    width: 450px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px;
+}
+#correo{
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
     height: 45px; /* Ajusta la altura del input */
     padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
     border-radius: 5px; /* Bordes redondeados */
@@ -129,7 +179,34 @@
     margin-bottom: 15px;
 }
 #genero{
-    width: 450px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px;
+}
+#peso{
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px;
+}
+#altura{
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px;
+}
+#fecha_registro{
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
     height: 45px; /* Ajusta la altura del input */
     padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
     border-radius: 5px; /* Bordes redondeados */

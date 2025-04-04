@@ -49,7 +49,7 @@ body {
 
 /* Efecto hover para cambiar el color del título */
 .history-section h2:hover {
-  color: #FF5722; /* Cambia el color al pasar el cursor */
+  color: #ffae00; /* Cambia el color al pasar el cursor */
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Agrega sombra al texto para un mejor efecto */
 }
 .history-header h2 {
@@ -313,43 +313,7 @@ body {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Efecto de sombra para destacar */
   font-size: 30px;
 }
-#correo{
-  width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-  height: 45px; /* Ajusta la altura del input */
-  padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-  border-radius: 5px; /* Bordes redondeados */
-  border: 1px solid #ccc; /* Borde sutil de color gris */
-  box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-  margin-bottom: 15px; /* Separación entre los campos */
-}
-#peso{
-  width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-  height: 45px; /* Ajusta la altura del input */
-  padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-  border-radius: 5px; /* Bordes redondeados */
-  border: 1px solid #ccc; /* Borde sutil de color gris */
-  box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-  margin-bottom: 15px; /* Separación entre los campos */
 
-}
-#altura{
-  width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-  height: 45px; /* Ajusta la altura del input */
-  padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-  border-radius: 5px; /* Bordes redondeados */
-  border: 1px solid #ccc; /* Borde sutil de color gris */
-  box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-  margin-bottom: 15px; /* Separación entre los campos */
-}
-#fecha_registro{
-  width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-  height: 45px; /* Ajusta la altura del input */
-  padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-  border-radius: 5px; /* Bordes redondeados */
-  border: 1px solid #ccc; /* Borde sutil de color gris */
-  box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-  margin-bottom: 15px; /* Separación entre los campos */
-}
 /* Estilos para la sección */
 .welcome-section {
   background-color: #333; /* Fondo oscuro para resaltar el texto */

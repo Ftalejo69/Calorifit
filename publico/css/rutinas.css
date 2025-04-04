@@ -293,43 +293,7 @@ body {
   #openProfile:focus {
     outline: none; /* Quitar el contorno del botón cuando está en foco */
   }
-  #correo{
-    width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px; /* Separación entre los campos */
-}
-#peso{
-    width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px; /* Separación entre los campos */
-
-}
-#altura{
-    width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px; /* Separación entre los campos */
-}
-#fecha_registro{
-    width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px; /* Separación entre los campos */
-}
+  
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
 
 body {
