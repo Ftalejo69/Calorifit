@@ -63,6 +63,15 @@ CREATE TABLE `membresias` (
   `descripcion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Datos iniciales para la tabla `membresias`
+INSERT INTO `membresias` (`id`, `nombre`, `precio`, `duracion`, `descripcion`) VALUES
+(1, 'Plan FIT', 40000.00, 30, 'Acceso a contenido exclusivo.'),
+(2, 'Plan BLACK', 60000.00, 30, 'Acceso premium con beneficios exclusivos.'),
+(3, 'Plan CALO', 80000.00, 30, 'Acceso completo a todas las áreas y servicios.');
+
+-- Verificar los datos en la tabla `membresias`
+SELECT * FROM membresias;
+
 -- --------------------------------------------------------
 
 --
@@ -77,6 +86,9 @@ CREATE TABLE `pagos` (
   `metodo_pago` enum('Efectivo','Tarjeta','Transferencia') NOT NULL,
   `inscripcion_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Verificar los datos en la tabla `pagos`
+SELECT * FROM pagos;
 
 -- --------------------------------------------------------
 
@@ -168,6 +180,9 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `telefono`, `fec
 (3, 'Juanito', 'juanito@gmail.com', '$2y$10$isyYlIlaBOeZ9206uckStOKL1xIRW5zsKKhFFvMIaQRgQtxuqHGNK', '3123123', NULL, NULL, NULL, NULL, '2025-03-26 00:13:41', 3263, 0),
 (4, 'juanchis', 'j2005solano@gmail.com', '$2y$10$YkRGmhf1UxIHSXanBwCdhO/YBF2F.fnFT1WykER2Aq84aroc2G8Rq', '3123213', NULL, NULL, NULL, NULL, '2025-03-26 00:22:59', 5, 0);
 
+-- Verificar los datos en la tabla `usuarios`
+SELECT * FROM usuarios;
+
 -- --------------------------------------------------------
 
 --
@@ -194,6 +209,9 @@ CREATE TABLE `tareas` (
   `ejercicio_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Verificar los datos en la tabla `inscripciones`
+SELECT * FROM inscripciones;
 
 --
 -- Índices para tablas volcadas

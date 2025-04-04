@@ -37,4 +37,14 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     console.warn("No se encontraron íconos de check o X en la tabla.");
   }
+
+  // Agregar mensaje de confirmación antes de redirigir al usuario al proceso de pago
+  document.querySelectorAll(".btn-outline-warning").forEach(button => {
+    button.addEventListener("click", function (event) {
+      const planName = this.closest(".card-body").querySelector(".card-title").innerText;
+      if (!confirm(`¿Estás seguro de que deseas ver más detalles del plan ${planName}?`)) {
+        event.preventDefault();
+      }
+    });
+  });
 });

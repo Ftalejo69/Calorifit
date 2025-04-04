@@ -376,15 +376,18 @@ button:hover {
 }
 
 .btn-outline-warning {
-    border-color: #FBBF24;
-    color: #FBBF24;
-    transition: background-color 0.3s, color 0.3s;
+    border-color: #FFC300;
+    color: #FFC300;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
 }
 
 .btn-outline-warning:hover {
-    background-color: #FBBF24;
-    color: black;
+    background-color: #FFC300;
+    color: #111;
+    transform: scale(1.1);
 }
+
 .professional-title {
   font-size: 2rem;
   font-weight: bold;
@@ -435,4 +438,32 @@ flex: 1;
 
 .toggle-btn:focus {
   outline: none;
+}
+
+/* Métodos de pago */
+.payment-option {
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.payment-option input {
+    display: none;
+}
+
+.payment-option .option-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.payment-option:hover, .payment-option input:checked + .option-content {
+    border-color: #28a745;
+    background-color: #f8f9fa;
+    color: #28a745;
 }
