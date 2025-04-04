@@ -38,6 +38,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $precio = $membresia['precio'];
         $duracion = $membresia['duracion'];
 
+        // Verificar si ya existe una inscripción activa para este plan
+        $stmt_verificar = $conexion->prepare("SELECT id FROM inscripciones WHERE usuario_id = ? AND membresia_id = ? AND fecha_fin >= CURDATE()");
+        $stmt_verificar->bind_param("ii", $usuario_id, $membresia_id);
+        $stmt_verificar->execute();
+        $resultado_verificar = $stmt_verificar->get_result();
+        if ($resultado_verificar->num_rows > 0) {
+            $_SESSION['mensaje'] = "Ya tienes una inscripción activa para el plan {$membresia['nombre']}.";
+            $stmt_verificar->close();
+            header('Location: confirmacion.php');
+            exit;
+        }
+        $stmt_verificar->close();
+
         // Insertar en la tabla `pagos`
         $stmt_pago = $conexion->prepare("INSERT INTO pagos (usuario_id, monto, metodo_pago) VALUES (?, ?, ?)");
         $stmt_pago->bind_param("ids", $usuario_id, $precio, $metodo_pago);
