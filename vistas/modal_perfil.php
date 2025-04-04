@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../css/modal.css">
+<link rel="stylesheet" href="../publico/css/modal.css">
 <!-- Modal para editar y mostrar los datos del usuario -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">

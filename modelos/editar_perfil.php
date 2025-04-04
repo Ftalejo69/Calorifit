@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['usuario']['altura'] = $altura;
 
         // Redirigir con mensaje de éxito
-        echo '<script>alert("Perfil actualizado correctamente."); window.location.href="../vista/inicio.php";</script>';
+        echo '<script>alert("Perfil actualizado correctamente."); window.location.href="../vistas/inicio.php";</script>';
     } else {
         echo "Hubo un error al actualizar su perfil: " . $stmt->error;
     }
