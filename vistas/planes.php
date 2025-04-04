@@ -20,209 +20,138 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      background-color: #f9f9f9;
-      font-family: 'Poppins', sans-serif;
-      color: #333;
-    }
+    body{
+  background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+  font-family: 'Poppins', sans-serif;
+  color: #ffe600;
+  overflow-x: hidden;
+}
 
-    /* Títulos con animación */
-    .section-title {
-      font-size: 3rem;
-      font-weight: 600;
-      margin-bottom: 50px;
-      color: #f1c40f; /* Amarillo */
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      animation: fadeIn 1.5s ease-out;
-    }
+.section-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  color: #ffe600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
 
-    /* Animación para el título */
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+.section-title::after {
+  content: '';
+  width: 100px;
+  height: 4px;
+  background-color: #ffe600;
+  display: block;
+  margin: 20px auto 0;
+  border-radius: 2px;
+}
 
-    .main-image {
-      border-radius: 15px;
-      width: 100%;
-      max-width: 900px;
-      height: auto;
-      margin: 30px auto;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    }
+.trainer-card {
+  background-color: #1f1f1f;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(255, 230, 0, 0.2);
+  transition: all 0.4s ease;
+}
 
-    .trainer-card {
-      background-color: #fff;
-      border: none;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.trainer-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 40px rgba(255, 230, 0, 0.3);
+}
 
-    .trainer-card:hover {
-      transform: translateY(-15px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-    }
+.trainer-image {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 25px;
+  border: 4px solid #ffe600;
+  transition: border-color 0.3s;
+}
 
-    .trainer-image {
-      border-radius: 50%;
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      margin-top: 20px;
-      border: 5px solid #f1c40f; /* Amarillo */
-    }
+.trainer-image:hover {
+  border-color: #fff;
+}
 
-    .trainer-description {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: #7f8c8d;
-      margin-top: 15px;
-    }
+.card-title {
+  color: #ffe600;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
 
-    .card-body {
-      padding: 2rem;
-    }
+.card-footer .btn {
+  background-color: #ffe600;
+  color: #000;
+  border-radius: 30px;
+  font-weight: bold;
+  padding: 10px 25px;
+  transition: all 0.3s ease;
+}
 
-    .card-title {
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: #34495e;
-      margin-bottom: 15px;
-    }
+.card-footer .btn:hover {
+  background-color: transparent;
+  color: #ffe600;
+  border: 2px solid #ffe600;
+}
 
-    .trainer-card .card-body {
-      padding: 2rem;
-    }
+.mission-vision-card {
+  background-color: #2c2c2c;
+  border-radius: 15px;
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(255, 230, 0, 0.15);
+}
 
-    .row {
-      margin-top: 60px;
-    }
+.mission-vision-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(255, 230, 0, 0.25);
+}
 
-    .card-footer {
-      background-color: #f9fafb;
-      border-top: 1px solid #ecf0f1;
-    }
+.about-section p {
+  color: #ccc;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
 
-    .card-footer .btn {
-      font-size: 1.1rem;
-      background-color: #f1c40f; /* Amarillo */
-      border: none;
-      padding: 10px 20px;
-      color: black;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
+.welcome-section {
+  padding: 70px 20px;
+  background: radial-gradient(circle at center, #000 0%, #1b1b1b 100%);
+}
 
-    .card-footer .btn:hover {
-      background-color: #e67e22; /* Naranja */
-    }
+.welcome-section h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ffe600;
+}
 
-    .mission-vision-card {
-      border: none;
-      border-radius: 15px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.welcome-section h1 span {
+  color: #fff;
+}
 
-    .mission-vision-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-    }
+.welcome-section p {
+  font-size: 1.3rem;
+  margin-top: 20px;
+  color: #ccc;
+}
 
-    .mission-vision-card .card-body {
-      padding: 2rem;
-    }
+.welcome-section .btn {
+  margin-top: 20px;
+  padding: 10px 30px;
+  font-size: 1.1rem;
+  background-color: transparent;
+  border: 2px solid #ffe600;
+  color: #ffe600;
+  transition: 0.3s ease;
+  border-radius: 30px;
+}
 
-    .mission-vision-card .card-title {
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: #f1c40f; /* Amarillo */
-    }
+.welcome-section .btn:hover {
+  background-color: #ffe600;
+  color: #000;
+}
 
-    .mission-vision-card .card-body p {
-      color: rgb(0, 0, 0);
-      font-size: 1rem;
-      line-height: 1.8;
-    }
-
-    .container {
-      max-width: 1200px;
-    }
-
-    /* Efecto hover para la imagen de la sección de entrenadores */
-    .trainer-image:hover {
-      border-color: #e67e22; /* Naranja */
-    }
-
-    /* Estilo para la sección Nosotros */
-    .about-section p {
-      font-size: 1.2rem;
-      color: #7f8c8d;
-      line-height: 1.8;
-    }
-
-    .about-section h3 {
-      color: #f1c40f; /* Amarillo */
-    }
-    .welcome-section {
-    background-color: #333; /* Fondo oscuro para resaltar el texto */
-    color: white; /* Color de texto blanco para los elementos de la sección */
-    padding: 50px 20px; /* Espaciado alrededor de la sección */
-    text-align: center; /* Centrar todo el contenido */
-    font-family: 'Arial', sans-serif; /* Familia de fuente general */
-    opacity: 0; /* Comienza invisible para la animación */
-    animation: fadeIn 2s ease-out forwards, slideUp 2s ease-out forwards; /* Animaciones */
-  }
-  
-  /* Animación de desvanecimiento */
-  @keyframes fadeIn {
-    0% {
-      opacity: 0; /* Comienza invisible */
-    }
-    100% {
-      opacity: 1; /* Se hace visible al final */
-    }
-  }
-  
-  /* Animación de deslizamiento desde abajo */
-  @keyframes slideUp {
-    0% {
-      transform: translateY(30px); /* Comienza 30px abajo */
-    }
-    100% {
-      transform: translateY(0); /* Se mueve a su posición original */
-    }
-  }
-  
-  /* Estilos para el h1 */
-  .welcome-section h1 {
-    font-size: 40px; /* Tamaño de texto grande */
-    font-weight: bold; /* Negrita para el encabezado */
-    margin-bottom: 20px; /* Separación hacia abajo */
-    color: white; /* Color blanco para el h1 */
-    opacity: 0; /* Comienza invisible */
-    animation: fadeIn 2s ease-out 0.5s forwards, slideUp 2s ease-out 0.5s forwards; /* Animación */
-  }
-  
-  /* Estilos para el span */
-  .welcome-section h1 span {
-    color: #ffe600; /* Color naranja para el texto dentro del span */
-    font-size: 40px; /* Mismo tamaño de letra que el h1 */
-    font-weight: bold; /* Negrita para resaltar */
-  }
-  
-  /* Estilos para el p */
-  .welcome-section p {
-    font-size: 25px; /* Tamaño de fuente moderado */
-    font-family: 'Roboto', sans-serif; /* Fuente más elegante y moderna */
-    color: #ccc; /* Color gris claro para el párrafo */
-    line-height: 1.6; /* Espaciado entre líneas para mayor legibilidad */
-    margin-bottom: 30px; /* Separación hacia abajo */
-    opacity: 0; /* Comienza invisible */
-    animation: fadeIn 2s ease-out 1s forwards, slideUp 2s ease-out 1s forwards; /* Animación */
-  }
   </style>
 </head>
 <body>
