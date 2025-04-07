@@ -32,17 +32,17 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Sección de bienvenida */
 .welcome-section {
-    background: linear-gradient(to right, #000, #2e2b2b);
-    color: #fff;
-    text-align: center;
-    padding: 100px 20px;
-    font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right, #000, #2e2b2b);
+  color: #fff;
+  text-align: center;
+  padding: 100px 20px;
+font-family: 'Arial', sans-serif;
     font-size: 30px;
     font-weight: 900;
 }
 
 .welcome-section h1 {
-    font-size: 40px;
+  font-size: 40px;
     font-weight: bold;
     margin-bottom: 20px;
     color: white;
@@ -89,14 +89,14 @@ button:hover {
 
 /* Tarjetas */
 .card {
-    background: #ffffff; /* Fondo blanco */
+  background: #ffffff; /* Fondo blanco */
     border-radius: 70px; /* Bordes más redondeados */
     overflow: hidden; /* Asegura que el contenido no se desborde */
     width: 380px; /* Ancho ajustado */
     margin: 20px auto; /* Centrar las tarjetas */
     text-align: center;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para hover */
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para hover */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -105,12 +105,12 @@ button:hover {
 }
 
 .card:hover {
-    transform: translateY(-10px) scale(1.05); /* Efecto de elevación */
-    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+  transform: translateY(-10px) scale(1.05); /* Efecto de elevación */
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
 }
 
 .card img {
-    width: 100%;
+  width: 100%;
     height: 220px; /* Altura ajustada */
     object-fit: cover; /* Asegura que la imagen se ajuste correctamente */
     border-radius: 50px; /* Bordes más redondeados para la imagen */
@@ -156,10 +156,10 @@ button:hover {
 }
 
 .card .price {
-    font-size: 1.5rem;
-    color: #FFC107; /* Amarillo */
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-size: 1.5rem;
+color: #FFC107; /* Amarillo */
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .card .price-discount {
@@ -170,11 +170,11 @@ button:hover {
 }
 
 .card .boton {
-    background: linear-gradient(135deg, #FFC107, #FFD54F); /* Degradado amarillo */
+background: linear-gradient(135deg, #FFC107, #FFD54F); /* Degradado amarillo */
     border: none;
     padding: 12px 25px;
-    font-size: 1rem;
-    font-weight: bold;
+  font-size: 1rem;
+  font-weight: bold;
     color: #333; /* Texto oscuro */
     border-radius: 30px; /* Bordes redondeados */
     cursor: pointer;
@@ -423,7 +423,7 @@ button:hover {
     overflow: hidden; /* Asegura que el contenido no se desborde */
     transition: transform 0.3s, box-shadow 0.3s;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
-    position: relative; /* Necesario para posicionar la imagen */
+position: relative; /* Necesario para posicionar la imagen */
 }
 
 .card:hover {
