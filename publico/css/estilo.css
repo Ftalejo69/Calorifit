@@ -89,43 +89,112 @@ button:hover {
 
 /* Tarjetas */
 .card {
-  background: #1a1a1a;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #ffffff; /* Fondo blanco */
+    border-radius: 70px; /* Bordes más redondeados */
+    overflow: hidden; /* Asegura que el contenido no se desborde */
+    width: 380px; /* Ancho ajustado */
+    margin: 20px auto; /* Centrar las tarjetas */
+    text-align: center;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para hover */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px; /* Espaciado interno */
+    position: relative; /* Necesario para posicionar la imagen */
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+    transform: translateY(-10px) scale(1.05); /* Efecto de elevación */
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
 }
 
 .card img {
-  height: 310px;
-  border-radius: 10px 10px 0 0;
+    width: 100%;
+    height: 220px; /* Altura ajustada */
+    object-fit: cover; /* Asegura que la imagen se ajuste correctamente */
+    border-radius: 50px; /* Bordes más redondeados para la imagen */
+    margin-bottom: 15px;
+    transition: transform 0.3s ease; /* Transición suave para el efecto */
 }
 
-.card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #f4c10f;
+.card:hover img {
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño de la imagen */
 }
 
-.card-text {
-  font-size: 1rem;
-  color: #d4d4d4;
+.card .contenido {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-grow: 1;
 }
 
-.price {
-  margin: 10px 0;
-  font-size: 1.2rem;
-  color: #f4c10f;
+.card .contenido h2 {
+    font-size: 2rem; /* Tamaño de fuente más grande */
+    color: #FFC107; /* Amarillo brillante */
+    margin-bottom: 15px;
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 1.5px; /* Espaciado entre letras */
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif; /* Fuente moderna */
+    transition: color 0.3s ease, transform 0.3s ease; /* Transición suave */
+    /* text-shadow: none; */ /* Sombra eliminada */
 }
 
-.price-discount {
-  color: #a6a6a6;
-  text-decoration: line-through;
+.card .contenido h2:hover {
+    color: #FFD54F; /* Cambiar a un amarillo más claro al pasar el cursor */
+    transform: scale(1.1); /* Aumentar ligeramente el tamaño */
+    /* text-shadow: none; */ /* Sombra eliminada */
+}
+
+.card .contenido p {
+    font-size: 1rem;
+    color: #666; /* Gris medio */
+    margin-bottom: 15px;
+    line-height: 1.5; /* Mejor legibilidad */
+}
+
+.card .price {
+    font-size: 1.5rem;
+    color: #FFC107; /* Amarillo */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card .price-discount {
+    font-size: 1rem;
+    color: #9CA3AF; /* Gris claro */
+    text-decoration: line-through;
+    margin-bottom: 15px;
+}
+
+.card .boton {
+    background: linear-gradient(135deg, #FFC107, #FFD54F); /* Degradado amarillo */
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333; /* Texto oscuro */
+    border-radius: 30px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; /* Transiciones suaves */
+    margin-top: auto;
+}
+
+.card .boton:hover {
+    transform: scale(1.1); /* Aumentar ligeramente el tamaño */
+    box-shadow: 0px 8px 20px rgba(255, 193, 7, 0.5); /* Sombra más pronunciada */
+    background: linear-gradient(135deg, #FFD54F, #FFC107); /* Cambio de degradado */
+}
+
+/* Ajustar el contenedor de las tarjetas */
+.contenedor-tarjetas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centrar las tarjetas */
+    gap: 20px; /* Espacio entre las tarjetas */
+    padding: 20px;
 }
 
 /* Tabla */
@@ -351,14 +420,28 @@ button:hover {
     background-color: #1F2937;
     border: none;
     border-radius: 2rem;
-    overflow: hidden;
+    overflow: hidden; /* Asegura que el contenido no se desborde */
     transition: transform 0.3s, box-shadow 0.3s;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+    position: relative; /* Necesario para posicionar la imagen */
 }
 
 .card:hover {
     transform: translateY(-8px) scale(1.03);
     box-shadow: 0 0 20px rgba(251, 191, 36, 0.7);
+}
+
+.card img {
+    width: 100%;
+    height: 220px; /* Altura ajustada */
+    object-fit: cover; /* Asegura que la imagen se ajuste correctamente */
+    border-radius: 20px; /* Bordes redondeados para la imagen */
+    margin-bottom: 15px;
+    transition: transform 0.3s ease; /* Transición suave para el efecto */
+}
+
+.card:hover img {
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño de la imagen */
 }
 
 .card-title, .card-text, .price, .price-discount {

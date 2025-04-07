@@ -1,22 +1,16 @@
-/* Estilo general para el cuerpo de la página */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
     color: #333;
-    opacity: 1; /* Asegurar que el cuerpo sea visible inmediatamente */
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards;
 }
 
-/* Animación de desvanecimiento */
 @keyframes fadeIn {
-    0% {
-        opacity: 0; /* Comienza invisible */
-    }
-    100% {
-        opacity: 1; /* Se hace visible al final */
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-/* Animación de deslizamiento */
 @keyframes slideIn {
     from {
         transform: translateY(-100%); /* Comienza fuera de la pantalla hacia arriba */
@@ -28,35 +22,13 @@ body {
     }
 }
 
-/* Animación de deslizamiento desde abajo */
-@keyframes slideUp {
-    0% {
-        transform: translateY(30px); /* Comienza 30px abajo */
-    }
-    100% {
-        transform: translateY(0); /* Se mueve a su posición original */
-    }
-}
-
-/* Animación de entrada para las tarjetas */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px); /* Comienza ligeramente desplazada hacia abajo */
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0); /* Se mueve a su posición original */
-    }
-}
-
-/* Estilo del header */
 .header {
     margin-bottom: 1px; /* Reducido para subir el header debajo del nav */
     text-align: center;
     background-color: #FFC107; /* Amarillo */
     padding: 20px;
     border-radius: 5px;
+    animation: slideIn 1s ease-out; /* Animación añadida */
 }
 
 .titulo {
@@ -83,46 +55,33 @@ body {
 }
 
 .tarjeta {
-    background: #fff;
-    border-radius: 15px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa); /* Fondo con degradado suave */
+    border-radius: 20px; /* Bordes más redondeados */
     overflow: hidden;
-    width: 300px;
+    width: 320px; /* Ancho ajustado */
     text-align: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); /* Sombra más suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para hover */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    opacity: 0; /* Comienza invisible */
-    animation: fadeInUp 0.8s ease-out forwards; /* Animación de entrada */
 }
 
-/* Retrasar la animación de cada tarjeta */
-.tarjeta:nth-child(1) {
-    animation-delay: 0.2s;
-}
-
-.tarjeta:nth-child(2) {
-    animation-delay: 0.4s;
-}
-
-.tarjeta:nth-child(3) {
-    animation-delay: 0.6s;
-}
-
-/* Efecto hover para las tarjetas */
 .tarjeta:hover {
-    transform: scale(1.05);
+    transform: translateY(-10px) scale(1.05); /* Efecto de elevación */
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.25); /* Sombra más pronunciada */
+    background: linear-gradient(135deg, #fffde7, #fff8e1); /* Cambio de fondo al pasar el cursor */
 }
 
 .tarjeta img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: 220px; /* Altura ajustada */
+    object-fit: cover; /* Asegura que la imagen se ajuste correctamente */
+    border-bottom: 5px solid #FFC107; /* Línea decorativa debajo de la imagen */
 }
 
 .contenido {
-    padding: 20px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -130,32 +89,38 @@ body {
 }
 
 .contenido h2 {
-    font-size: 1.5rem;
+    font-size: 1.8rem; /* Tamaño de fuente más grande */
     color: #FFC107; /* Amarillo */
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 1px; /* Espaciado entre letras */
+    font-weight: bold;
 }
 
 .contenido p {
     font-size: 1rem;
     color: #666;
     margin-bottom: 20px;
+    line-height: 1.6; /* Mejor legibilidad */
 }
 
 .boton1, .boton3, .boton {
-    background-color: #FFC107; /* Amarillo */
+    background: linear-gradient(135deg, #FFC107, #FFD54F); /* Degradado amarillo */
     border: none;
-    padding: 10px 20px;
+    padding: 12px 25px;
     font-size: 1rem;
     font-weight: bold;
     color: #333;
-    border-radius: 25px;
+    border-radius: 30px; /* Bordes más redondeados */
     cursor: pointer;
-    transition: background 0.3s ease;
-    margin-top: 20px; /* Alineación de los botones */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; /* Transiciones suaves */
+    margin-top: 20px;
 }
 
-.boton:hover {
-    background-color: #ffb300;
+.boton1:hover, .boton3:hover, .boton:hover {
+    transform: scale(1.1); /* Aumentar ligeramente el tamaño */
+    box-shadow: 0px 8px 20px rgba(255, 193, 7, 0.5); /* Sombra más pronunciada */
+    background: linear-gradient(135deg, #FFD54F, #FFC107); /* Cambio de degradado */
 }
 
 #correo{
@@ -166,9 +131,8 @@ body {
     border: 1px solid #ccc; /* Borde sutil de color gris */
     box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
     margin-bottom: 15px; /* Separación entre los campos */
-}
-
-#peso{
+  }
+  #peso{
     width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
     height: 45px; /* Ajusta la altura del input */
     padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
@@ -176,9 +140,9 @@ body {
     border: 1px solid #ccc; /* Borde sutil de color gris */
     box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
     margin-bottom: 15px; /* Separación entre los campos */
-}
-
-#altura{
+  
+  }
+  #altura{
     width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
     height: 45px; /* Ajusta la altura del input */
     padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
@@ -186,9 +150,8 @@ body {
     border: 1px solid #ccc; /* Borde sutil de color gris */
     box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
     margin-bottom: 15px; /* Separación entre los campos */
-}
-
-#fecha_registro{
+  }
+  #fecha_registro{
     width: 95%; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
     height: 45px; /* Ajusta la altura del input */
     padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
@@ -196,35 +159,4 @@ body {
     border: 1px solid #ccc; /* Borde sutil de color gris */
     box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
     margin-bottom: 15px; /* Separación entre los campos */
-}
-
-.welcome-section {
-    background: linear-gradient(to right, #000, #2e2b2b);
-    color: #fff;
-    text-align: center;
-    padding: 100px 20px;
-    font-family: 'Arial', sans-serif;
-    font-size: 30px;
-    font-weight: 900;
-}
-
-.welcome-section h1 {
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: white;
-}
-
-.welcome-section h1 span {
-    color: #ffe600;
-    font-size: 40px;
-    font-weight: bold;
-}
-
-.welcome-section p {
-    font-size: 25px;
-    font-family: 'Roboto', sans-serif;
-    color: #ccc;
-    line-height: 1.6;
-    margin-bottom: 30px;
-}
+  }
