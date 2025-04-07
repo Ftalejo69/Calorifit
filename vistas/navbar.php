@@ -12,7 +12,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="../vistas/planes.php">Acerca de</a></li>
+                <li class="nav-item"><a class="nav-link" href="../vistas/planes.php">Nosotros</a></li>
                 <li class="nav-item"><a class="nav-link" href="../vistas/rutinas.php">Rutinas</a></li>
                 <li class="nav-item"><a class="nav-link" href="../vistas/ejercicios.php">Historial</a></li>
                 <li class="nav-item">
