@@ -82,7 +82,7 @@ class UsuarioModel {
             // Contenido del correo
             $mail->isHTML(true);
             $mail->Subject = 'Verifica tu correo';
-            $verificationLink = "http://localhost/calorifit/modelos/vista.php?token=" . $token;
+            $verificationLink = "http://localhost/Calorifit/modelos/vista.php?token=" . $token;
             $mail->Body = "Hola $nombre,<br><br>Por favor, verifica tu correo para CaloriFit haciendo clic en el siguiente enlace:<br><br><a href='$verificationLink'>$verificationLink</a>";
 
             // Enviar correo
@@ -118,6 +118,62 @@ class UsuarioModel {
         } else {
             return array('success' => false, 'message' => '⚠️ Usuario no encontrado.');
         }
+    }
+
+    public function sendRecoveryEmail($correo) {
+        if (!$this->emailExists($correo)) {
+            return ['success' => false, 'message' => '⚠️ El correo no está registrado.'];
+        }
+
+        $token = bin2hex(random_bytes(16));
+        $sql = "UPDATE usuarios SET token_recuperacion = ?, fecha_token = NOW() WHERE correo = ?";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bind_param("ss", $token, $correo);
+
+        if ($stmt->execute()) {
+            try {
+                $mail = new PHPMailer(true);
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'calorifit131@gmail.com';
+                $mail->Password = 'qqpi lgla yqoe cfbx';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+
+                $mail->setFrom('calorifit131@gmail.com', 'CaloriFit');
+                $mail->addAddress($correo);
+
+                $mail->isHTML(true);
+                $mail->Subject = 'Recuperación de Contraseña - CaloriFit';
+                $recoveryLink = "http://localhost/Calorifit/vistas/reset_password.php?token=" . $token;
+                $mail->Body = "Para cambiar tu contraseña, haz clic en el siguiente enlace:<br><br><a href='$recoveryLink'>$recoveryLink</a>";
+
+                $mail->send();
+                return ['success' => true, 'message' => '✅ Se ha enviado un enlace de recuperación a tu correo.'];
+            } catch (Exception $e) {
+                return ['success' => false, 'message' => '❌ Error al enviar el correo: ' . $mail->ErrorInfo];
+            }
+        }
+        return ['success' => false, 'message' => '❌ Error al procesar la solicitud.'];
+    }
+
+    public function resetPassword($token, $newPassword) {
+        if (!$this->validatePassword($newPassword)) {
+            return ['success' => false, 'message' => '⚠️ La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo.'];
+        }
+
+        $hash = password_hash($newPassword, PASSWORD_BCRYPT);
+        $sql = "UPDATE usuarios SET contrasena = ?, token_recuperacion = NULL, fecha_token = NULL 
+                WHERE token_recuperacion = ? AND fecha_token >= NOW() - INTERVAL 1 HOUR";
+        
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bind_param("ss", $hash, $token);
+        
+        if ($stmt->execute() && $stmt->affected_rows > 0) {
+            return ['success' => true, 'message' => '✅ Contraseña actualizada correctamente.'];
+        }
+        return ['success' => false, 'message' => '❌ El enlace ha expirado o no es válido.'];
     }
 }
   
