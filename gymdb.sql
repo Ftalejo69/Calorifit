@@ -24,6 +24,88 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `correo` varchar(255) DEFAULT NULL,
+  `contrasena` varchar(255) NOT NULL,
+  `telefono` varchar(15) DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
+  `genero` enum('M','F','Otro') DEFAULT NULL,
+  `peso` decimal(5,2) DEFAULT NULL,
+  `altura` decimal(5,2) DEFAULT NULL,
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
+  `token` int(255) DEFAULT NULL,
+  `verificado` tinyint(1) NOT NULL,
+  `token_recuperacion` varchar(64) DEFAULT NULL,
+  `fecha_token` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `telefono`, `fecha_nacimiento`, `genero`, `peso`, `altura`, `fecha_registro`, `token`, `verificado`) VALUES
+(1, 'Juan', 'esteban@gmail.com', '$2y$10$TS4ARSE9N/ZC4ast07BjHOZOqyRaoH1QJ44JarWH5BZK058.2YRmK', '32133123', NULL, NULL, NULL, NULL, '2025-03-19 00:35:43', 2147483647, 0),
+(2, 'juan', 'solano@gmail.com', '$2y$10$KyTNFJnQI8ZxEo8Sw6BUSuy5rQVqugQzQRF86MzAsK.T6tYAZBnbG', '321312', NULL, NULL, NULL, NULL, '2025-03-19 01:05:43', 80224, 0),
+(3, 'Juanito', 'juanito@gmail.com', '$2y$10$isyYlIlaBOeZ9206uckStOKL1xIRW5zsKKhFFvMIaQRgQtxuqHGNK', '3123123', NULL, NULL, NULL, NULL, '2025-03-26 00:13:41', 3263, 0),
+(4, 'juanchis', 'j2005solano@gmail.com', '$2y$10$YkRGmhf1UxIHSXanBwCdhO/YBF2F.fnFT1WykER2Aq84aroc2G8Rq', '3123213', NULL, NULL, NULL, NULL, '2025-03-26 00:22:59', 5, 0);
+
+-- Verificar los datos en la tabla `usuarios`
+SELECT * FROM usuarios;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial`
+--
+
+CREATE TABLE `historial` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `usuario_id` int(11) NOT NULL,
+    `nombre_rutina` varchar(255) NOT NULL,
+    `nivel` varchar(100) NOT NULL,
+    `fecha` date NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_usuario_id` (`usuario_id`),
+    CONSTRAINT `fk_historial_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ejercicios_historial`
+--
+
+CREATE TABLE `ejercicios_historial` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `historial_id` int(11) NOT NULL,
+    `nombre_ejercicio` varchar(255) NOT NULL,
+    `series` int(11) NOT NULL,
+    `repeticiones` int(11) NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `idx_historial_id` (`historial_id`),
+    CONSTRAINT `fk_ejercicios_historial` FOREIGN KEY (`historial_id`) REFERENCES `historial` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL DEFAULT 'Sin especificar'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `ejercicios`
 --
 
@@ -109,17 +191,6 @@ CREATE TABLE `progreso_usuario` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `roles`
---
-
-CREATE TABLE `roles` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL DEFAULT 'Sin especificar'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `rutinas`
 --
 
@@ -148,40 +219,6 @@ CREATE TABLE `rutina_ejercicios` (
   `peso` decimal(5,2) NOT NULL,
   `descanso_seg` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `correo` varchar(255) DEFAULT NULL,
-  `contrasena` varchar(255) NOT NULL,
-  `telefono` varchar(15) DEFAULT NULL,
-  `fecha_nacimiento` date DEFAULT NULL,
-  `genero` enum('M','F','Otro') DEFAULT NULL,
-  `peso` decimal(5,2) DEFAULT NULL,
-  `altura` decimal(5,2) DEFAULT NULL,
-  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
-  `token` int(255) DEFAULT NULL,
-  `verificado` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `telefono`, `fecha_nacimiento`, `genero`, `peso`, `altura`, `fecha_registro`, `token`, `verificado`) VALUES
-(1, 'Juan', 'esteban@gmail.com', '$2y$10$TS4ARSE9N/ZC4ast07BjHOZOqyRaoH1QJ44JarWH5BZK058.2YRmK', '32133123', NULL, NULL, NULL, NULL, '2025-03-19 00:35:43', 2147483647, 0),
-(2, 'juan', 'solano@gmail.com', '$2y$10$KyTNFJnQI8ZxEo8Sw6BUSuy5rQVqugQzQRF86MzAsK.T6tYAZBnbG', '321312', NULL, NULL, NULL, NULL, '2025-03-19 01:05:43', 80224, 0),
-(3, 'Juanito', 'juanito@gmail.com', '$2y$10$isyYlIlaBOeZ9206uckStOKL1xIRW5zsKKhFFvMIaQRgQtxuqHGNK', '3123123', NULL, NULL, NULL, NULL, '2025-03-26 00:13:41', 3263, 0),
-(4, 'juanchis', 'j2005solano@gmail.com', '$2y$10$YkRGmhf1UxIHSXanBwCdhO/YBF2F.fnFT1WykER2Aq84aroc2G8Rq', '3123213', NULL, NULL, NULL, NULL, '2025-03-26 00:22:59', 5, 0);
-
--- Verificar los datos en la tabla `usuarios`
-SELECT * FROM usuarios;
 
 -- --------------------------------------------------------
 
@@ -279,7 +316,6 @@ ALTER TABLE `rutina_ejercicios`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`correo`);
 
 --
@@ -436,6 +472,22 @@ INSERT INTO `ejercicios` (`id`, `nombre`, `descripcion`, `musculo_principal`, `e
 (8, 'Flexiones', 'Ejercicio para fortalecer el pecho y tríceps.', 'Pecho', 'Ninguno'),
 (9, 'Abdominales', 'Ejercicio para fortalecer el abdomen.', 'Abdomen', 'Ninguno');
 
+-- Datos adicionales para ejercicios de nivel Intermedio
+INSERT INTO `ejercicios` (`id`, `nombre`, `descripcion`, `musculo_principal`, `equipo_necesario`) VALUES
+(10, 'Press Militar', 'Ejercicio para desarrollar los hombros.', 'Hombros', 'Barra y discos'),
+(11, 'Remo con Barra', 'Ejercicio para fortalecer la espalda media.', 'Espalda', 'Barra'),
+(12, 'Extensiones de Tríceps', 'Ejercicio para aislar el tríceps.', 'Tríceps', 'Polea'),
+(13, 'Curl de Bíceps', 'Ejercicio para desarrollar los bíceps.', 'Bíceps', 'Mancuernas'),
+(14, 'Prensa de Piernas', 'Ejercicio para desarrollar cuádriceps.', 'Piernas', 'Máquina prensa');
+
+-- Datos adicionales para ejercicios de nivel Avanzado
+INSERT INTO `ejercicios` (`id`, `nombre`, `descripcion`, `musculo_principal`, `equipo_necesario`) VALUES
+(15, 'Clean and Jerk', 'Levantamiento olímpico complejo.', 'Piernas', 'Barra olímpica'),
+(16, 'Muscle Up', 'Ejercicio avanzado de calistenia.', 'Espalda', 'Barra dominadas'),
+(17, 'Snatch', 'Levantamiento olímpico explosivo.', 'Piernas', 'Barra olímpica'),
+(18, 'Handstand Push Up', 'Flexiones invertidas.', 'Hombros', 'Ninguno'),
+(19, 'Dragon Flag', 'Ejercicio avanzado de core.', 'Abdomen', 'Banco plano');
+
 -- Datos iniciales para la tabla `rutina_ejercicios`
 INSERT INTO `rutina_ejercicios` (`id`, `rutina_id`, `ejercicio_id`, `series`, `repeticiones`, `peso`, `descanso_seg`) VALUES
 (1, 1, 1, 0, 0, 0, 0), -- Cinta de Correr (Bajar de Peso)
@@ -457,16 +509,59 @@ INSERT INTO `rutina_ejercicios` (`id`, `rutina_id`, `ejercicio_id`, `series`, `r
 (14, 3, 4, 3, 8, 50, 60), -- Press de Banca (Mantenimiento)
 (15, 3, 5, 3, 10, 0, 60); -- Dominadas (Mantenimiento)
 
+-- Asignar ejercicios a rutinas de nivel Intermedio
+INSERT INTO `rutina_ejercicios` (`rutina_id`, `ejercicio_id`, `series`, `repeticiones`, `peso`, `descanso_seg`) VALUES
+(5, 10, 4, 12, 40, 90), -- Press Militar (Intermedio)
+(5, 11, 4, 10, 60, 90), -- Remo con Barra (Intermedio)
+(5, 12, 3, 15, 30, 60), -- Extensiones de Tríceps (Intermedio)
+(5, 13, 3, 12, 15, 60), -- Curl de Bíceps (Intermedio)
+(5, 14, 4, 12, 120, 120); -- Prensa de Piernas (Intermedio)
+
+-- Asignar ejercicios a rutinas de nivel Avanzado
+INSERT INTO `rutina_ejercicios` (`rutina_id`, `ejercicio_id`, `series`, `repeticiones`, `peso`, `descanso_seg`) VALUES
+(6, 15, 5, 3, 80, 180), -- Clean and Jerk (Avanzado)
+(6, 16, 4, 5, 0, 180), -- Muscle Up (Avanzado)
+(6, 17, 5, 3, 70, 180), -- Snatch (Avanzado)
+(6, 18, 4, 8, 0, 120), -- Handstand Push Up (Avanzado)
+(6, 19, 3, 10, 0, 120); -- Dragon Flag (Avanzado)
+
+-- Asignar ejercicios para Ganar Músculo nivel Intermedio (rutina_id = 8)
+INSERT INTO `rutina_ejercicios` (`rutina_id`, `ejercicio_id`, `series`, `repeticiones`, `peso`, `descanso_seg`) VALUES
+(8, 10, 5, 10, 50, 120), -- Press Militar con más peso
+(8, 11, 4, 12, 70, 120), -- Remo con Barra pesado
+(8, 12, 4, 12, 35, 90),  -- Extensiones de Tríceps
+(8, 13, 4, 12, 20, 90),  -- Curl de Bíceps con más peso
+(8, 14, 5, 10, 150, 150); -- Prensa de Piernas pesada
+
+-- Asignar ejercicios para Ganar Músculo nivel Avanzado (rutina_id = 9)
+INSERT INTO `rutina_ejercicios` (`rutina_id`, `ejercicio_id`, `series`, `repeticiones`, `peso`, `descanso_seg`) VALUES
+(9, 15, 6, 4, 100, 180), -- Clean and Jerk pesado
+(9, 16, 5, 8, 0, 180),   -- Muscle Ups
+(9, 17, 6, 4, 90, 180),  -- Snatch pesado
+(9, 18, 5, 10, 0, 150),  -- Handstand Push Ups
+(9, 19, 4, 12, 0, 120);  -- Dragon Flag series largas
+
+-- Asignar ejercicios para Mantenimiento nivel Intermedio (rutina_id = 11)
+INSERT INTO `rutina_ejercicios` (`rutina_id`, `ejercicio_id`, `series`, `repeticiones`, `peso`, `descanso_seg`) VALUES
+(11, 10, 3, 15, 30, 60),  -- Press Militar ligero
+(11, 11, 3, 15, 40, 60),  -- Remo con Barra 
+(11, 12, 4, 12, 25, 45),  -- Extensiones de Tríceps
+(11, 13, 4, 12, 12, 45),  -- Curl de Bíceps
+(11, 14, 3, 15, 100, 90); -- Prensa de Piernas
+
+-- Asignar ejercicios para Mantenimiento nivel Avanzado (rutina_id = 12)
+INSERT INTO `rutina_ejercicios` (`rutina_id`, `ejercicio_id`, `series`, `repeticiones`, `peso`, `descanso_seg`) VALUES
+(12, 15, 4, 5, 60, 120),  -- Clean and Jerk técnica
+(12, 16, 3, 6, 0, 120),   -- Muscle Ups controlados
+(12, 17, 4, 5, 50, 120),  -- Snatch técnica
+(12, 18, 3, 12, 0, 90),   -- Handstand Push Ups
+(12, 19, 3, 15, 0, 90);   -- Dragon Flag resistencia
+
 -- Verificar los datos en la tabla `rutinas`
 SELECT * FROM rutinas;
 
 -- Verificar los datos en la tabla `rutina_ejercicios`
 SELECT * FROM rutina_ejercicios;
-
--- Agregar columnas para recuperación de contraseña
-ALTER TABLE `usuarios`
-ADD COLUMN `token_recuperacion` varchar(64) DEFAULT NULL,
-ADD COLUMN `fecha_token` datetime DEFAULT NULL;
 
 -- Verificar la estructura actualizada
 DESCRIBE `usuarios`;
