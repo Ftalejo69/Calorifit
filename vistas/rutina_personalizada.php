@@ -82,9 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada']))
         }
 
         echo "<script>alert('Rutina marcada como completada.');</script>";
-        header('Location: rutina_personalizada.php');
-        exit;
-    } else {
+    header('Location: rutina_personalizada.php');
+    exit;
+} else {
         echo "<script>alert('Error al marcar la rutina como completada.');</script>";
     }
 }

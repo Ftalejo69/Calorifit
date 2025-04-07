@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar_rutina'])) {
     } else {
         echo "<script>alert('Error al guardar la rutina.');</script>";
     }
-}
+    }
 
 // Eliminar rutina de la base de datos
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar_rutina'])) {
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar_rutina'])) {
     } else {
         echo "<script>alert('Error al eliminar la rutina.');</script>";
     }
-}
+    }
 
 // Filtrar rutinas según la fecha seleccionada
 $selected_date = $_GET['selected_date'] ?? '';
@@ -49,7 +49,7 @@ $rutinas_completadas = filtrarRutinas($conexion, $usuario_id, $selected_date);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planes de Entrenamiento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> <!-- Enlace a Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> <!-- Enlace a Font Awesome -->
     <link rel="stylesheet" href="../publico/css/ejercicios.css">
 </head>
 <body>
@@ -70,8 +70,8 @@ $rutinas_completadas = filtrarRutinas($conexion, $usuario_id, $selected_date);
         <h2>Historial de Entrenamientos</h2>
         <form method="get" class="filter-form">
             <label for="selected_date" class="filter-label">Seleccionar fecha de entrenamiento:</label>
-            <div class="date-container">
-                <input type="date" name="selected_date" id="selected_date" value="<?php echo htmlspecialchars($selected_date); ?>" class="filter-date">
+<div class="date-container">
+            <input type="date" name="selected_date" id="selected_date" value="<?php echo htmlspecialchars($selected_date); ?>" class="filter-date">
             </div>
             <button type="submit" class="btn btn-primary filter-button">Filtrar</button>
         </form>

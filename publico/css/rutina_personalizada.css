@@ -71,3 +71,55 @@ body {
 .boton:hover {
     background-color: #45a049;
 }
+
+/* Animación de desvanecimiento */
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /* Comienza invisible */
+  }
+  100% {
+    opacity: 1; /* Se hace visible al final */
+  }
+}
+
+/* Animación de deslizamiento desde abajo */
+@keyframes slideUp {
+  0% {
+    transform: translateY(30px); /* Comienza 30px abajo */
+  }
+  100% {
+    transform: translateY(0); /* Se mueve a su posición original */
+  }
+}
+
+/* Estilos para el h1 */
+.welcome-section h1 {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.welcome-section h1 span {
+    color: #ffe600;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.welcome-section p {
+    font-size: 25px;
+    font-family: 'Roboto', sans-serif;
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.welcome-section {
+    background: linear-gradient(to right, #000, #2e2b2b);
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+}
