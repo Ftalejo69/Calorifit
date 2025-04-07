@@ -31,7 +31,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <section class="welcome-section text-center">
     <h1>Bienvenido a <span>CALORIFIT</span></h1>
     <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
-    <button id="openProfile" class="btn btn-outline-light mt-3" onclick="location.href='#planes'">suscribete ahora</button>
+    <button id="openProfile" class="btn btn-outline-light mt-3" onclick="location.href='#planes'">Suscríbete ahora</button>
   </section>
   
   <section id="planes" class="container section-container">
@@ -43,48 +43,48 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             <button id="annualButton" class="toggle-btn">ANUAL</button>
         </div>
     </div>
-    <div class="row gy-4" id="plansContainer">
+    <div class="contenedor-tarjetas">
         <!-- Tarjeta 1 -->
-        <div class="col-md-4">
-            <div class="card h-100 text-center">
-                <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/05/20/16846178754107.jpg" class="card-img-top" alt="Plan FIT">
-                <div class="card-body">
-                    <h5 class="card-title">FIT</h5>
-                    <p class="card-text">Acceso a contenido exclusivo.</p>
-                    <h3 class="price plan-price" data-monthly="40000" data-annual="320000">$40.000<span class="fs-6">/mes</span></h3>
-                    <p class="price-discount text-decoration-line-through" data-monthly="70000" data-annual="560000">$70.000</p>
-                    <button class="btn btn-outline-warning w-100 mt-3" onclick="location.href='detalles_plan.php?plan=fit'">Ver más</button>
-                </div>
+        <div class="card">
+            <div class="card-img-container">
+                <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/05/20/16846178754107.jpg" alt="Plan FIT">
+            </div>
+            <div class="contenido">
+                <h2>PLAN FIT</h2>
+                <p>Accede a contenido exclusivo y mejora tu rendimiento físico con entrenamientos personalizados.</p>
+                <h3 class="price plan-price" data-monthly="40000" data-annual="320000">$40.000<span>/mes</span></h3>
+                <p class="price-discount" data-monthly="70000" data-annual="560000">$70.000</p>
+                <button class="boton" onclick="location.href='detalles_plan.php?plan=fit'">Descubre más</button>
             </div>
         </div>
         <!-- Tarjeta 2 -->
-        <div class="col-md-4">
-            <div class="card h-100 text-center">
-                <img src="../publico/imagenes/arnold.jpg" class="card-img-top" alt="Plan BLACK">
-                <div class="card-body">
-                    <h5 class="card-title">BLACK</h5>
-                    <p class="card-text">Acceso premium con beneficios exclusivos.</p>
-                    <h3 class="price plan-price" data-monthly="60000" data-annual="480000">$60.000<span class="fs-6">/mes</span></h3>
-                    <p class="price-discount text-decoration-line-through" data-monthly="90000" data-annual="720000">$90.000</p>
-                    <button class="btn btn-outline-warning w-100 mt-3" onclick="location.href='detalles_plan.php?plan=black'">Ver más</button>
-                </div>
+        <div class="card">
+            <div class="card-img-container">
+                <img src="../publico/imagenes/arnold.jpg" alt="Plan BLACK">
+            </div>
+            <div class="contenido">
+                <h2>PLAN BLACK</h2>
+                <p>Disfruta de beneficios premium, entrenamientos avanzados y acceso exclusivo a nuestras instalaciones.</p>
+                <h3 class="price plan-price" data-monthly="60000" data-annual="480000">$60.000<span>/mes</span></h3>
+                <p class="price-discount" data-monthly="90000" data-annual="720000">$90.000</p>
+                <button class="boton" onclick="location.href='detalles_plan.php?plan=black'">Descubre más</button>
             </div>
         </div>
         <!-- Tarjeta 3 -->
-        <div class="col-md-4">
-            <div class="card h-100 text-center">
-                <img src="https://th.bing.com/th/id/R.75c2ef94bc631ceb46e613eed9ab5471?rik=ylWJYGFtp4ZBwQ&riu=http%3a%2f%2f5b0988e595225.cdn.sohucs.com%2fimages%2f20190403%2f7f7a1ae827d64742b6e3c71131b11fc8.jpg&ehk=pgvHntSg5eORVPol8OfQnbRlsbz%2fenpbL7mVEChnag4%3d&risl=&pid=ImgRaw&r=0" class="card-img-top" alt="Plan CALO">
-                <div class="card-body">
-                    <h5 class="card-title">CALO</h5>
-                    <p class="card-text">Acceso completo a todas las áreas.</p>
-                    <h3 class="price plan-price" data-monthly="80000" data-annual="640000">$80.000<span class="fs-6">/mes</span></h3>
-                    <p class="price-discount text-decoration-line-through" data-monthly="120000" data-annual="960000">$120.000</p>
-                    <button class="btn btn-outline-warning w-100 mt-3" onclick="location.href='detalles_plan.php?plan=calo'">Ver más</button>
-                </div>
+        <div class="card">
+            <div class="card-img-container">
+                <img src="https://th.bing.com/th/id/R.75c2ef94bc631ceb46e613eed9ab5471?rik=ylWJYGFtp4ZBwQ&riu=http%3a%2f%2f5b0988e595225.cdn.sohucs.com%2fimages%2f20190403%2f7f7a1ae827d64742b6e3c71131b11fc8.jpg&ehk=pgvHntSg5eORVPol8OfQnbRlsbz%2fenpbL7mVEChnag4%3d&risl=&pid=ImgRaw&r=0" alt="Plan CALO">
+            </div>
+            <div class="contenido">
+                <h2>PLAN CALO</h2>
+                <p>Obtén acceso completo a todas las áreas y servicios premium para alcanzar tus metas.</p>
+                <h3 class="price plan-price" data-monthly="80000" data-annual="640000">$80.000<span>/mes</span></h3>
+                <p class="price-discount" data-monthly="120000" data-annual="960000">$120.000</p>
+                <button class="boton" onclick="location.href='detalles_plan.php?plan=calo'">Descubre más</button>
             </div>
         </div>
     </div>
-</section>
+  </section>
 
   <!-- Tabla de comparación de planes -->
   <section class="container my-5">
@@ -197,7 +197,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             discount.innerHTML = `$${(discountValue / 1000).toLocaleString()}.000`;
         });
     }
-</script>
+  </script>
 
   <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
