@@ -58,46 +58,54 @@ $detalles = $planes[$plan] ?? $planes['fit'];
 <body>
     <?php include 'navbar.php'; ?>
     <div class="container my-5">
-        <h1 class="text-center"><?= htmlspecialchars($detalles['nombre']) ?></h1>
-        <p class="text-center text-muted"><?= htmlspecialchars($detalles['descripcion']) ?></p>
-        <h3 class="text-center text-warning"><?= htmlspecialchars($detalles['precio']) ?></h3>
-        <div class="text-center my-4">
-            <img src="<?= htmlspecialchars($detalles['imagen']) ?>" alt="<?= htmlspecialchars($detalles['nombre']) ?>" class="img-fluid rounded">
+        <div class="detalles-container">
+            <h1 class="text-center"><?= htmlspecialchars($detalles['nombre']) ?></h1>
+            <p class="text-center text-muted"><?= htmlspecialchars($detalles['descripcion']) ?></p>
+            <h3 class="text-center text-warning"><?= htmlspecialchars($detalles['precio']) ?></h3>
+            <div class="text-center my-4">
+                <img src="<?= htmlspecialchars($detalles['imagen']) ?>" alt="<?= htmlspecialchars($detalles['nombre']) ?>" class="img-fluid rounded">
+            </div>
+            <ul class="list-group my-4">
+                <?php foreach ($detalles['beneficios'] as $beneficio): ?>
+                    <li class="list-group-item"><?= htmlspecialchars($beneficio) ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <h4 class="text-center mt-5">Preguntas Frecuentes</h4>
+            <div class="accordion my-4" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq1">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                            ¿Puedo cancelar mi plan en cualquier momento?
+                        </button>
+                    </h2>
+                    <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Sí, puedes cancelar tu plan en cualquier momento desde tu perfil.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                            ¿Qué métodos de pago aceptan?
+                        </button>
+                    </h2>
+                    <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Aceptamos tarjetas de crédito, débito y PayPal.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="pago.php?plan=<?= urlencode($plan) ?>" class="btn btn-warning">Ir al Pago</a>
+            </div>
         </div>
-        <ul class="list-group my-4">
-            <?php foreach ($detalles['beneficios'] as $beneficio): ?>
-                <li class="list-group-item"><?= htmlspecialchars($beneficio) ?></li>
+        <div class="testimonios-container">
+            <h4>Testimonios</h4>
+            <?php foreach ($detalles['testimonios'] as $testimonio): ?>
+                <p>"<?= htmlspecialchars($testimonio) ?>"</p>
             <?php endforeach; ?>
-        </ul>
-        <h4 class="text-center mt-5">Preguntas Frecuentes</h4>
-        <div class="accordion my-4" id="faqAccordion">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="faq1">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                        ¿Puedo cancelar mi plan en cualquier momento?
-                    </button>
-                </h2>
-                <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
-                    <div class="accordion-body">
-                        Sí, puedes cancelar tu plan en cualquier momento desde tu perfil.
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="faq2">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                        ¿Qué métodos de pago aceptan?
-                    </button>
-                </h2>
-                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
-                    <div class="accordion-body">
-                        Aceptamos tarjetas de crédito, débito y PayPal.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center">
-            <a href="pago.php?plan=<?= urlencode($plan) ?>" class="btn btn-warning">Ir al Pago</a>
         </div>
     </div>
     <?php include 'footer.php'; ?>
