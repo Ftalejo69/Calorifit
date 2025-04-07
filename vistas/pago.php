@@ -38,7 +38,7 @@ $detalles = $planes[$plan] ?? $planes['fit'];
                 <?php endforeach; ?>
             </ul>
         </div>
-        <form action="procesar_pago.php" method="POST" class="text-center">
+        <form action="../controladores/PagoController.php" method="POST" class="text-center">
             <input type="hidden" name="plan" value="<?= htmlspecialchars($detalles['nombre']) ?>">
             <h4 class="my-4">Selecciona tu método de pago</h4>
             <div class="d-flex justify-content-center gap-4">
