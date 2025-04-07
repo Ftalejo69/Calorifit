@@ -463,6 +463,14 @@ SELECT * FROM rutinas;
 -- Verificar los datos en la tabla `rutina_ejercicios`
 SELECT * FROM rutina_ejercicios;
 
+-- Agregar columnas para recuperación de contraseña
+ALTER TABLE `usuarios`
+ADD COLUMN `token_recuperacion` varchar(64) DEFAULT NULL,
+ADD COLUMN `fecha_token` datetime DEFAULT NULL;
+
+-- Verificar la estructura actualizada
+DESCRIBE `usuarios`;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

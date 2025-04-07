@@ -59,6 +59,9 @@
             <input type="password" class="form-control" name="contraseña" required>
           </div>
           <button type="submit" class="btn btn-warning w-100">Entrar</button>
+          <div class="text-center mt-3">
+            <a href="recuperar_password.php" class="text-warning">¿Olvidaste tu contraseña?</a>
+          </div>
         </form>
         <div id="loginAlert" class="alert mt-3 d-none"></div>
       </div>
