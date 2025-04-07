@@ -5,11 +5,8 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
-// Conexión a la base de datos
-$conexion = new mysqli('localhost', 'root', '', 'gymdb');
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
-}
+// Incluir la conexión a la base de datos
+include '../configuracion/conexion.php';
 
 // Obtener el objetivo y nivel seleccionados (por ejemplo, desde un parámetro GET)
 $objetivo = isset($_GET['objetivo']) ? $_GET['objetivo'] : 'Rutina Personalizada';
@@ -44,24 +41,52 @@ while ($fila = $resultado->fetch_assoc()) {
 }
 
 $stmt->close();
-$conexion->close();
 
-// Handle marking the routine as completed
+// Manejar la marcación de rutina como completada
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada'])) {
-    $rutina_completada = [
-        'nombre' => $objetivo,
-        'nivel' => $nivel,
-        'fecha' => date('Y-m-d'),
-        'ejercicios' => $lista_ejercicios
-    ];
+    $nombre_rutina = $objetivo;
+    $nivel = $nivel;
+    $fecha = date('Y-m-d');
+    $usuario_id = $_SESSION['usuario']['id'];
 
-    if (!isset($_SESSION['rutinas_completadas'])) {
-        $_SESSION['rutinas_completadas'] = [];
+    // Validar que el usuario existe en la tabla usuarios
+    $sql_usuario = "SELECT id FROM usuarios WHERE id = ?";
+    $stmt_usuario = $conexion->prepare($sql_usuario);
+    $stmt_usuario->bind_param("i", $usuario_id);
+    $stmt_usuario->execute();
+    $result_usuario = $stmt_usuario->get_result();
+
+    if ($result_usuario->num_rows === 0) {
+        echo "<script>alert('El usuario no existe en la base de datos.');</script>";
+        exit;
     }
 
-    $_SESSION['rutinas_completadas'][] = $rutina_completada;
-    header('Location: rutina_personalizada.php');
-    exit;
+    // Insertar en la tabla historial
+    $sql_historial = "INSERT INTO historial (usuario_id, nombre_rutina, nivel, fecha) VALUES (?, ?, ?, ?)";
+    $stmt_historial = $conexion->prepare($sql_historial);
+    $stmt_historial->bind_param("isss", $usuario_id, $nombre_rutina, $nivel, $fecha);
+
+    if ($stmt_historial->execute()) {
+        $historial_id = $stmt_historial->insert_id;
+
+        // Insertar ejercicios asociados en la tabla ejercicios_historial
+        foreach ($lista_ejercicios as $ejercicio) {
+            $nombre_ejercicio = $ejercicio['nombre'];
+            $series = $ejercicio['series'];
+            $repeticiones = $ejercicio['repeticiones'];
+
+            $sql_ejercicios = "INSERT INTO ejercicios_historial (historial_id, nombre_ejercicio, series, repeticiones) VALUES (?, ?, ?, ?)";
+            $stmt_ejercicios = $conexion->prepare($sql_ejercicios);
+            $stmt_ejercicios->bind_param("isii", $historial_id, $nombre_ejercicio, $series, $repeticiones);
+            $stmt_ejercicios->execute();
+        }
+
+        echo "<script>alert('Rutina marcada como completada.');</script>";
+        header('Location: rutina_personalizada.php');
+        exit;
+    } else {
+        echo "<script>alert('Error al marcar la rutina como completada.');</script>";
+    }
 }
 ?>
 
@@ -102,3 +127,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada']))
     </div>
 </body>
 </html>
+
+<?php
+// Cerrar la conexión al final del archivo
+$conexion->close();
+?>
