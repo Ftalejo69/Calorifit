@@ -73,7 +73,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada']))
             <ul class="lista-ejercicios">
                 <?php foreach ($lista_ejercicios as $ejercicio): ?>
                     <li class="ejercicio">
-                        <h3><?php echo htmlspecialchars($ejercicio['nombre']); ?></h3>
+                        <div class="ejercicio-header">
+                            <label class="checkbox-container">
+                                <input type="checkbox" class="ejercicio-check">
+                                <span class="checkmark"></span>
+                            </label>
+                            <h3><?php echo htmlspecialchars($ejercicio['nombre']); ?></h3>
+                        </div>
                         <p>Series: <?php echo htmlspecialchars($ejercicio['series']); ?></p>
                         <p>Repeticiones: <?php echo htmlspecialchars($ejercicio['repeticiones']); ?></p>
                         <p>Peso: <?php echo htmlspecialchars($ejercicio['peso']); ?> kg</p>
@@ -89,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada']))
             <button class="boton" name="marcar_completada">Marcar como Completada</button>
         </form>
     </div>
+    <script src="../publico/js/rutina_personalizada.js"></script>
 </body>
 </html>
 
