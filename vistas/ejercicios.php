@@ -6,9 +6,25 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
+$usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
+
+// Depuración: Verificar si la sesión contiene los datos esperados
+if (empty($_SESSION['usuario'])) {
+    echo "Error: No se encontraron datos del usuario en la sesión.";
+    exit;
+}
+
 include '../modelos/rutinas.php';
+// Asegurarse de incluir el archivo que contiene la función obtenerUsuarioId si no está incluido
+if (!function_exists('obtenerUsuarioId')) {
+    include '../modelos/usuarios.php'; // Cambia esta ruta si es necesario
+}
 
 $usuario_id = obtenerUsuarioId();
+if (!$usuario_id) {
+    echo "Error: No se pudo obtener el ID del usuario.";
+    exit;
+}
 
 // Guardar rutina en la base de datos
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar_rutina'])) {
@@ -56,14 +72,14 @@ $rutinas_completadas = filtrarRutinas($conexion, $usuario_id, $selected_date);
 
 <?php include '../vistas/navbar.php'; ?>
 
-<?php include '../vistas/modal_perfil.php'; ?>
   
 <!-- Sección de bienvenida -->
 <section class="welcome-section text-center">
   <h1>HISTORIAL <span>CALORIFIT</span></h1>
   <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
-  <button id="openProfile" class="btn btn-outline-light mt-3" onclick="location.href='#historial'">HISTORIAL</button>
+  <button id="openProfile" class="btn btn-outline-light mt-3 animate-btn" onclick="location.href='#historial'">HISTORIAL</button>
 </section>
+
 
 <section class="history-section">
     <div class="history-header">

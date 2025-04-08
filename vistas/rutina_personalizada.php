@@ -1,9 +1,12 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['usuario'])) {
     echo "Por favor, inicie sesión para continuar.";
     exit;
 }
+
+$usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 
 // Incluir la conexión a la base de datos
 include '../configuracion/conexion.php';

@@ -98,14 +98,40 @@
 }
 
 .btn-profile {
-    background-color: #ffd700; /* Amarillo dorado */
-    color: black;
+    background: linear-gradient(135deg, #ffd700, #ffc400); /* Degradado amarillo dorado */
+    color: #000; /* Texto negro */
+    font-weight: bold; /* Negrita */
+    padding: 12px 25px; /* Espaciado interno */
+    border-radius: 50px; /* Bordes completamente redondeados */
+    border: none; /* Sin borde */
+    font-size: 1rem; /* Tamaño de fuente */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 0.5px; /* Espaciado entre letras */
+    transition: all 0.3s ease; /* Transiciones suaves */
+    box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4); /* Sombra ligera */
+    animation: pulse-yellow 3s infinite; /* Animación de pulso */
 }
 
 .btn-profile:hover {
-    background-color: #ffc700; /* Amarillo más claro */
-    transform: scale(1.1); /* Animación llamativa */
-    box-shadow: 0px 8px 20px rgba(255, 199, 0, 0.6);
+    background: linear-gradient(135deg, #ffc400, #ffd700); /* Degradado más claro */
+    transform: scale(1.1); /* Efecto de agrandamiento */
+    box-shadow: 0 8px 20px rgba(255, 199, 0, 0.6); /* Sombra más pronunciada */
+}
+
+.btn-profile:active {
+    background: #e6ac00; /* Amarillo más oscuro */
+    transform: scale(1); /* Sin agrandamiento */
+    box-shadow: 0 4px 10px rgba(230, 172, 0, 0.4); /* Sombra más pequeña */
+}
+
+/* Animación de cambio de color para elementos amarillos */
+@keyframes pulse-yellow {
+    0%, 100% {
+        background: linear-gradient(135deg, #ffd700, #ffc400);
+    }
+    50% {
+        background: linear-gradient(135deg, #ffe066, #ffcc00);
+    }
 }
 
 /* Estilos adicionales existentes */
@@ -141,10 +167,11 @@
 }
 
 .modal-content {
-    border-radius: 15px;
-    animation: slideIn 0.5s ease-out;
-    background: linear-gradient(to right, #fffffe, #cecec2);
-    color:  #f4c10f;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f8f8eb, #ffffff); /* Blanco hueso */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    color: #333;
+    padding: 20px;
 }
 
 /* Animación de entrada del modal */
@@ -161,20 +188,42 @@
 
 /* Cabecera del modal */
 .modal-header {
-    border-bottom: 2px solid #fff;
-    background-color: #f4c10f;
-    color: #000000;
+    background: linear-gradient(to right, #ffd700, #ffc400); /* Degradado amarillo */
+    color: #000;
+    border-bottom: none;
+    border-radius: 20px 20px 0 0;
+    padding: 15px;
+    text-align: center;
+    animation: pulse-smooth 3s infinite; /* Animación de pulso más fluida */
 }
 
+/* Animación de pulso más fluida */
+@keyframes pulse-smooth {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Estilo mejorado para el texto "Mi Perfil" */
 .modal-title {
-    font-size: 1.5rem;
+    font-size: 2rem; /* Tamaño más grande */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px; /* Espaciado entre letras */
+    color: #333; /* Gris oscuro */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Sombra para resaltar */
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .modal-title i {
     margin-right: 10px;
-    font-size: 1.8rem;
+    font-size: 2.5rem; /* Ícono más grande */
+    color: #ffc400; /* Amarillo dorado */
 }
 
 /* Sombra de la modal */
@@ -211,19 +260,122 @@
 }
 /* Estilo general para los inputs */
 .form-control {
-    width: 80%; /* Aseguramos que el input ocupe todo el ancho disponible */
-    border-radius: 8px;
-    padding: 10px;
-    background-color: #f4f7fa;
-    border: 1px solid #ccc;
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
+    width: 100%; /* Ajusta el ancho del input */
+    border-radius: 15px; /* Bordes más redondeados */
+    padding: 12px 15px; /* Espaciado interno */
+    background-color: #f9f9f9; /* Fondo claro */
+    border: 2px solid #ddd; /* Borde más visible */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Transiciones suaves */
+    font-size: 1rem; /* Tamaño de fuente */
+    font-family: 'Arial', sans-serif; /* Fuente consistente */
+}
+
+.form-control:focus {
+    border-color: #ffc400; /* Color del borde al enfocar */
+    box-shadow: 0 0 10px rgba(255, 196, 0, 0.5); /* Sombra al enfocar */
+    outline: none; /* Elimina el contorno predeterminado */
 }
 
 /* Inputs de solo lectura */
 .form-control[readonly] {
-    background-color: #e9ecef;
-    border: 1px solid #ddd;
-    cursor: not-allowed; /* Cambia el cursor cuando el campo es solo lectura */
+    background-color: #e9ecef; /* Fondo gris claro */
+    border: 1px solid #ccc; /* Borde gris */
+    cursor: not-allowed; /* Cursor no permitido */
+    color: #6c757d; /* Texto gris */
+}
+
+/* Inputs con error */
+.form-control.error {
+    border-color: #dc3545; /* Rojo para errores */
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.5); /* Sombra roja */
+}
+
+/* Inputs con éxito */
+.form-control.success {
+    border-color: #28a745; /* Verde para éxito */
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.5); /* Sombra verde */
+}
+
+/* Botón "Editar" */
+.btn-edit {
+    background: linear-gradient(135deg, #28a745, #34d058); /* Degradado verde */
+    color: #fff; /* Texto blanco */
+    font-weight: bold; /* Negrita */
+    padding: 12px 30px; /* Espaciado interno */
+    border-radius: 50px; /* Bordes completamente redondeados */
+    border: none; /* Sin borde */
+    font-size: 1rem; /* Tamaño de fuente */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 1px; /* Espaciado entre letras */
+    transition: all 0.3s ease; /* Transiciones suaves */
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4); /* Sombra ligera */
+}
+
+.btn-edit:hover {
+    background: linear-gradient(135deg, #218838, #28a745); /* Degradado más oscuro */
+    transform: scale(1.1); /* Efecto de agrandamiento */
+    box-shadow: 0 8px 20px rgba(33, 136, 56, 0.5); /* Sombra más pronunciada */
+}
+
+.btn-edit:active {
+    background: #1e7e34; /* Verde más oscuro */
+    transform: scale(1); /* Sin agrandamiento */
+    box-shadow: 0 4px 10px rgba(30, 126, 52, 0.4); /* Sombra más pequeña */
+}
+
+/* Botón "Guardar" */
+.btn-save {
+    background: linear-gradient(135deg, #28a745, #34d058); /* Degradado verde */
+    color: #fff; /* Texto blanco */
+    font-weight: bold; /* Negrita */
+    padding: 12px 30px; /* Espaciado interno */
+    border-radius: 50px; /* Bordes completamente redondeados */
+    border: none; /* Sin borde */
+    font-size: 1rem; /* Tamaño de fuente */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 1px; /* Espaciado entre letras */
+    transition: all 0.3s ease; /* Transiciones suaves */
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4); /* Sombra ligera */
+}
+
+.btn-save:hover {
+    background: linear-gradient(135deg, #218838, #28a745); /* Degradado más oscuro */
+    transform: scale(1.1); /* Efecto de agrandamiento */
+    box-shadow: 0 8px 20px rgba(33, 136, 56, 0.5); /* Sombra más pronunciada */
+}
+
+.btn-save:active {
+    background: #1e7e34; /* Verde más oscuro */
+    transform: scale(1); /* Sin agrandamiento */
+    box-shadow: 0 4px 10px rgba(30, 126, 52, 0.4); /* Sombra más pequeña */
+}
+
+/* Botón "Guardar" */
+.btn-save {
+    background: linear-gradient(135deg, #28a745, #34d058); /* Degradado verde */
+    color: #fff; /* Texto blanco */
+    font-weight: bold; /* Negrita */
+    padding: 12px 25px; /* Espaciado interno */
+    border-radius: 50px; /* Bordes completamente redondeados */
+    border: none; /* Sin borde */
+    font-size: 1rem; /* Tamaño de fuente */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 0.5px; /* Espaciado entre letras */
+    transition: all 0.3s ease; /* Transiciones suaves */
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4); /* Sombra ligera */
+}
+
+.btn-save:hover {
+    background: linear-gradient(135deg, #218838, #28a745); /* Degradado más oscuro */
+    transform: scale(1.1); /* Efecto de agrandamiento */
+    box-shadow: 0 8px 20px rgba(33, 136, 56, 0.5); /* Sombra más pronunciada */
+}
+
+.btn-save:active {
+    background: #1e7e34; /* Verde más oscuro */
+    transform: scale(1); /* Sin agrandamiento */
+    box-shadow: 0 4px 10px rgba(30, 126, 52, 0.4); /* Sombra más pequeña */
 }
 
 /* Estilo para etiquetas */
@@ -282,52 +434,312 @@
 
 /* Estilo para el botón "Cerrar sesión" */
 .btn-logout {
-    background-color: #ff4d4d; /* Rojo vibrante */
-    color: white;
-    font-weight: bold;
-    border-radius: 50px; /* Más redondeado */
-    padding: 12px 20px;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: background-color 0.4s, transform 0.4s, box-shadow 0.4s;
-    box-shadow: 0px 6px 15px rgba(255, 77, 77, 0.4); /* Sombra llamativa */
+    background: linear-gradient(135deg, #ff4d4d, #ff1a1a); /* Degradado rojo */
+    color: #fff; /* Texto blanco */
+    font-weight: bold; /* Negrita */
+    padding: 12px 25px; /* Espaciado interno */
+    border-radius: 50px; /* Bordes completamente redondeados */
+    border: none; /* Sin borde */
+    font-size: 1rem; /* Tamaño de fuente */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 0.5px; /* Espaciado entre letras */
+    transition: all 0.3s ease; /* Transiciones suaves */
+    box-shadow: 0 6px 15px rgba(255, 77, 77, 0.4); /* Sombra ligera */
 }
 
 .btn-logout:hover {
-    background-color: #ff1a1a; /* Rojo más oscuro */
-    transform: scale(1.1) rotate(-2deg); /* Animación llamativa */
-    box-shadow: 0px 8px 20px rgba(255, 26, 26, 0.6);
+    background: linear-gradient(135deg, #ff1a1a, #ff4d4d); /* Degradado más oscuro */
+    transform: scale(1.1); /* Efecto de agrandamiento */
+    box-shadow: 0 8px 20px rgba(255, 26, 26, 0.6); /* Sombra más pronunciada */
 }
 
 .btn-logout:active {
-    background-color: #cc0000; /* Rojo intenso */
-    transform: scale(1) rotate(0deg);
-    box-shadow: 0px 4px 10px rgba(204, 0, 0, 0.4);
+    background: #cc0000; /* Rojo más oscuro */
+    transform: scale(1); /* Sin agrandamiento */
+    box-shadow: 0 4px 10px rgba(204, 0, 0, 0.4); /* Sombra más pequeña */
 }
 
 /* Estilo para el botón "Ver Perfil" */
 .btn-profile {
-    background-color: #ffd700; /* Amarillo dorado */
-    color: black;
-    font-weight: bold;
-    border-radius: 50px; /* Más redondeado */
-    padding: 12px 20px;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: background-color 0.4s, transform 0.4s, box-shadow 0.4s;
-    box-shadow: 0px 6px 15px rgba(255, 215, 0, 0.4); /* Sombra llamativa */
+    background: linear-gradient(135deg, #ffd700, #ffc400); /* Degradado amarillo dorado */
+    color: #000; /* Texto negro */
+    font-weight: bold; /* Negrita */
+    padding: 12px 25px; /* Espaciado interno */
+    border-radius: 50px; /* Bordes completamente redondeados */
+    border: none; /* Sin borde */
+    font-size: 1rem; /* Tamaño de fuente */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 0.5px; /* Espaciado entre letras */
+    transition: all 0.3s ease; /* Transiciones suaves */
+    box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4); /* Sombra ligera */
+    animation: pulse-yellow 3s infinite; /* Animación de pulso */
 }
 
 .btn-profile:hover {
-    background-color: #ffc700; /* Amarillo más claro */
-    transform: scale(1.1) rotate(2deg); /* Animación llamativa */
-    box-shadow: 0px 8px 20px rgba(255, 199, 0, 0.6);
+    background: linear-gradient(135deg, #ffc400, #ffd700); /* Degradado más claro */
+    transform: scale(1.1); /* Efecto de agrandamiento */
+    box-shadow: 0 8px 20px rgba(255, 199, 0, 0.6); /* Sombra más pronunciada */
 }
 
 .btn-profile:active {
-    background-color: #e6ac00; /* Amarillo intenso */
-    transform: scale(1) rotate(0deg);
-    box-shadow: 0px 4px 10px rgba(230, 172, 0, 0.4);
+    background: #e6ac00; /* Amarillo más oscuro */
+    transform: scale(1); /* Sin agrandamiento */
+    box-shadow: 0 4px 10px rgba(230, 172, 0, 0.4); /* Sombra más pequeña */
+}
+/*modal perfil*/
+.modal-content {
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f5f5dc, #ffffff); /* Blanco hueso */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    color: #333;
+    padding: 20px;
+}
+
+/* Animation for modal appearance */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Modal header styling */
+.modal-header {
+    background: linear-gradient(to right, #ffd700, #ffc400); /* Degradado amarillo */
+    color: #000;
+    border-bottom: none;
+    border-radius: 20px 20px 0 0;
+    padding: 15px;
+    text-align: center;
+    animation: pulse-smooth 3s infinite; /* Animación de pulso más fluida */
+}
+
+.modal-title {
+    font-size: 2rem; /* Tamaño más grande */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px; /* Espaciado entre letras */
+    color: #333; /* Gris oscuro */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Sombra para resaltar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-title i {
+    margin-right: 10px;
+    font-size: 2.5rem; /* Ícono más grande */
+    color: #ffc400; /* Amarillo dorado */
+}
+
+/* Animación de pulso más fluida */
+@keyframes pulse-smooth {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Modal body styling */
+.modal-body {
+    font-family: 'Arial', sans-serif;
+    padding: 25px;
+    line-height: 1.6;
+}
+
+/* Ensure consistent label styling */
+.modal-body .form-label {
+    font-size: 1rem; /* Standardize font size */
+    font-weight: bold; /* Make labels bold */
+    color: #333; /* Consistent color */
+    margin-bottom: 5px; /* Add spacing below labels */
+    display: block; /* Ensure labels are block elements */
+}
+
+/* Add spacing between form groups */
+.modal-body .mb-3 {
+    margin-bottom: 20px; /* Increase spacing between fields */
+}
+
+/* Input field styling */
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+    border-color: #f4c10f;
+    box-shadow: 0 0 5px rgba(244, 193, 15, 0.5);
+}
+
+/* Button styling */
+.btn-primary-custom {
+    background-color: #f4c10f;
+    border-color: #f4c10f;
+    color: #000;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-primary-custom:hover {
+    background-color: #ffc400;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #e0e0e0;
+    border-color: #d6d6d6;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #d6d6d6;
+    transform: scale(1.05);
+}
+
+/* Modal footer styling */
+.modal-footer {
+    border-top: none;
+    padding-top: 15px;
+    text-align: center;
+}
+
+/* Modal dialog shadow */
+.modal-dialog {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Inputs de solo lectura */
+.form-control[readonly] {
+    background-color: #e9ecef;
+    border: 1px solid #ddd;
+    cursor: not-allowed; /* Cambia el cursor cuando el campo es solo lectura */
+}
+
+/* Estilo para etiquetas */
+.profile-field label {
+    font-size: 1rem;
+    color: #333;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Íconos dentro de los campos */
+.profile-field i {
+    color: #e99903;
+    margin-right: 10px;
+}
+/* Estilo específico para el campo de Teléfono */
+#telefono {
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px; /* Separación entre los campos */
+}
+
+
+#nombre{
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px; /* Separación entre los campos */
+}
+#fecha_nacimiento{
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px;
+}
+#correo{
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px;
+}
+#genero{
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px;
+}
+#peso{
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px;
+}
+#altura{
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px;
+}
+#fecha_registro{
+    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
+    height: 45px; /* Ajusta la altura del input */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil de color gris */
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
+    margin-bottom: 15px;
+}
+
+/* Estilo para "Calori" */
+.calori {
+    color: white; /* Color blanco */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 1.8rem; /* Tamaño de fuente */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Sombra para destacar */
+}
+
+/* Estilo para "Fit" */
+.fit {
+    color: #ffd700; /* Amarillo dorado */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 1.8rem; /* Tamaño de fuente */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Sombra para destacar */
+    animation: pulse 1.8s infinite; /* Animación de pulso */
+}
+
+/* Animación de pulso para "Fit" */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
