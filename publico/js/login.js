@@ -49,6 +49,17 @@ document.addEventListener("DOMContentLoaded", function () {
     var formData = new FormData(form);
     var alertDiv = document.getElementById("loginAlert");
 
+    // Validación básica
+    const correo = formData.get('correo');
+    const contraseña = formData.get('contraseña');
+    
+    if (!correo || !contraseña) {
+      alertDiv.classList.remove("d-none");
+      alertDiv.classList.add("alert-danger");
+      alertDiv.textContent = "Por favor complete todos los campos";
+      return;
+    }
+
     fetch("../modelos/login.php", { method: "POST", body: formData }) // Cambiado a login.php
       .then(response => {
         if (!response.ok) throw new Error("Error en la conexión con el servidor.");
