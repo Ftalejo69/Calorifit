@@ -61,6 +61,52 @@ SELECT * FROM usuarios;
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `ejercicios`
+--
+
+CREATE TABLE `ejercicios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `musculo_principal` enum('Pecho','Espalda','Piernas','Bíceps','Tríceps','Hombros','Abdomen','Cardio') DEFAULT NULL,
+  `equipo_necesario` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Datos iniciales para la tabla `ejercicios`
+--
+
+INSERT INTO `ejercicios` (`id`, `nombre`, `descripcion`, `musculo_principal`, `equipo_necesario`) VALUES
+(1, 'Cinta de Correr', 'Ejercicio cardiovascular para quemar calorías.', 'Cardio', 'Cinta de correr'),
+(2, 'Sentadillas', 'Ejercicio para fortalecer las piernas.', 'Piernas', 'Ninguno'),
+(3, 'Plancha', 'Ejercicio para fortalecer el core.', 'Abdomen', 'Ninguno'),
+(4, 'Press de Banca', 'Ejercicio para fortalecer el pecho.', 'Pecho', 'Banco y barra'),
+(5, 'Dominadas', 'Ejercicio para fortalecer la espalda.', 'Espalda', 'Barra de dominadas'),
+(6, 'Peso Muerto', 'Ejercicio para fortalecer la espalda baja y piernas.', 'Espalda', 'Barra'),
+(7, 'Bicicleta Estática', 'Ejercicio cardiovascular para mantener la forma.', 'Cardio', 'Bicicleta estática'),
+(8, 'Flexiones', 'Ejercicio para fortalecer el pecho y tríceps.', 'Pecho', 'Ninguno'),
+(9, 'Abdominales', 'Ejercicio para fortalecer el abdomen.', 'Abdomen', 'Ninguno');
+
+-- Datos adicionales para ejercicios de nivel Intermedio
+INSERT INTO `ejercicios` (`id`, `nombre`, `descripcion`, `musculo_principal`, `equipo_necesario`) VALUES
+(10, 'Press Militar', 'Ejercicio para desarrollar los hombros.', 'Hombros', 'Barra y discos'),
+(11, 'Remo con Barra', 'Ejercicio para fortalecer la espalda media.', 'Espalda', 'Barra'),
+(12, 'Extensiones de Tríceps', 'Ejercicio para aislar el tríceps.', 'Tríceps', 'Polea'),
+(13, 'Curl de Bíceps', 'Ejercicio para desarrollar los bíceps.', 'Bíceps', 'Mancuernas'),
+(14, 'Prensa de Piernas', 'Ejercicio para desarrollar cuádriceps.', 'Piernas', 'Máquina prensa');
+
+-- Datos adicionales para ejercicios de nivel Avanzado
+INSERT INTO `ejercicios` (`id`, `nombre`, `descripcion`, `musculo_principal`, `equipo_necesario`) VALUES
+(15, 'Clean and Jerk', 'Levantamiento olímpico complejo.', 'Piernas', 'Barra olímpica'),
+(16, 'Muscle Up', 'Ejercicio avanzado de calistenia.', 'Espalda', 'Barra dominadas'),
+(17, 'Snatch', 'Levantamiento olímpico explosivo.', 'Piernas', 'Barra olímpica'),
+(18, 'Handstand Push Up', 'Flexiones invertidas.', 'Hombros', 'Ninguno'),
+(19, 'Dragon Flag', 'Ejercicio avanzado de core.', 'Abdomen', 'Banco plano');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `historial`
 --
 
@@ -78,19 +124,32 @@ CREATE TABLE `historial` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ejercicios_historial`
+-- Estructura de tabla para la tabla `progreso_usuario`
 --
 
-CREATE TABLE `ejercicios_historial` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `historial_id` int(11) NOT NULL,
-    `nombre_ejercicio` varchar(255) NOT NULL,
-    `series` int(11) NOT NULL,
-    `repeticiones` int(11) NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `idx_historial_id` (`historial_id`),
-    CONSTRAINT `fk_ejercicios_historial` FOREIGN KEY (`historial_id`) REFERENCES `historial` (`id`) ON DELETE CASCADE
+CREATE TABLE `progreso_usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) NOT NULL,
+  `ejercicio_id` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `series` int(11) NOT NULL,
+  `repeticiones` int(11) NOT NULL,
+  `peso` decimal(5,2) NOT NULL,
+  `historial_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_usuario_ejercicio` (`usuario_id`, `ejercicio_id`),
+  CONSTRAINT `fk_progreso_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_progreso_ejercicio` FOREIGN KEY (`ejercicio_id`) REFERENCES `ejercicios` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_progreso_historial` FOREIGN KEY (`historial_id`) REFERENCES `historial` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Insertar algunos datos de ejemplo en progreso_usuario
+--
+
+INSERT INTO `progreso_usuario` (`usuario_id`, `ejercicio_id`, `fecha`, `series`, `repeticiones`, `peso`) VALUES
+(1, 1, CURDATE(), 3, 12, 50.00),
+(1, 2, CURDATE(), 4, 10, 60.00);
 
 -- --------------------------------------------------------
 
@@ -101,20 +160,6 @@ CREATE TABLE `ejercicios_historial` (
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL DEFAULT 'Sin especificar'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `ejercicios`
---
-
-CREATE TABLE `ejercicios` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `descripcion` text DEFAULT NULL,
-  `musculo_principal` enum('Pecho','Espalda','Piernas','Bíceps','Tríceps','Hombros','Abdomen','Cardio') DEFAULT NULL,
-  `equipo_necesario` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -171,22 +216,6 @@ CREATE TABLE `pagos` (
 
 -- Verificar los datos en la tabla `pagos`
 SELECT * FROM pagos;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `progreso_usuario`
---
-
-CREATE TABLE `progreso_usuario` (
-  `id` int(11) NOT NULL,
-  `usuario_id` int(11) DEFAULT NULL,
-  `ejercicio_id` int(11) DEFAULT NULL,
-  `fecha` date NOT NULL,
-  `series` int(11) NOT NULL,
-  `repeticiones` int(11) NOT NULL,
-  `peso` decimal(5,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -255,12 +284,6 @@ SELECT * FROM inscripciones;
 --
 
 --
--- Indices de la tabla `ejercicios`
---
-ALTER TABLE `ejercicios`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `inscripciones`
 --
 ALTER TABLE `inscripciones`
@@ -281,14 +304,6 @@ ALTER TABLE `pagos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `usuario_id` (`usuario_id`),
   ADD KEY `fk_inscripcion` (`inscripcion_id`);
-
---
--- Indices de la tabla `progreso_usuario`
---
-ALTER TABLE `progreso_usuario`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`),
-  ADD KEY `ejercicio_id` (`ejercicio_id`);
 
 --
 -- Indices de la tabla `roles`
@@ -316,6 +331,8 @@ ALTER TABLE `rutina_ejercicios`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
+  DROP INDEX IF EXISTS `email`;
+ALTER TABLE `usuarios`
   ADD UNIQUE KEY `email` (`correo`);
 
 --
@@ -329,12 +346,6 @@ ALTER TABLE `usuarios_roles`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
-
---
--- AUTO_INCREMENT de la tabla `ejercicios`
---
-ALTER TABLE `ejercicios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `inscripciones`
@@ -352,12 +363,6 @@ ALTER TABLE `membresias`
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `progreso_usuario`
---
-ALTER TABLE `progreso_usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -459,34 +464,6 @@ INSERT INTO `rutinas` (`id`, `usuario_id`, `nombre`, `descripcion`, `fecha_creac
 (1, NULL, 'Bajar de Peso', 'Rutina diseñada para reducir grasa corporal.', NOW()),
 (2, NULL, 'Ganar Músculo', 'Rutina diseñada para aumentar masa muscular.', NOW()),
 (3, NULL, 'Mantenimiento', 'Rutina diseñada para mantener la forma física.', NOW());
-
--- Datos iniciales para la tabla `ejercicios`
-INSERT INTO `ejercicios` (`id`, `nombre`, `descripcion`, `musculo_principal`, `equipo_necesario`) VALUES
-(1, 'Cinta de Correr', 'Ejercicio cardiovascular para quemar calorías.', 'Cardio', 'Cinta de correr'),
-(2, 'Sentadillas', 'Ejercicio para fortalecer las piernas.', 'Piernas', 'Ninguno'),
-(3, 'Plancha', 'Ejercicio para fortalecer el core.', 'Abdomen', 'Ninguno'),
-(4, 'Press de Banca', 'Ejercicio para fortalecer el pecho.', 'Pecho', 'Banco y barra'),
-(5, 'Dominadas', 'Ejercicio para fortalecer la espalda.', 'Espalda', 'Barra de dominadas'),
-(6, 'Peso Muerto', 'Ejercicio para fortalecer la espalda baja y piernas.', 'Espalda', 'Barra'),
-(7, 'Bicicleta Estática', 'Ejercicio cardiovascular para mantener la forma.', 'Cardio', 'Bicicleta estática'),
-(8, 'Flexiones', 'Ejercicio para fortalecer el pecho y tríceps.', 'Pecho', 'Ninguno'),
-(9, 'Abdominales', 'Ejercicio para fortalecer el abdomen.', 'Abdomen', 'Ninguno');
-
--- Datos adicionales para ejercicios de nivel Intermedio
-INSERT INTO `ejercicios` (`id`, `nombre`, `descripcion`, `musculo_principal`, `equipo_necesario`) VALUES
-(10, 'Press Militar', 'Ejercicio para desarrollar los hombros.', 'Hombros', 'Barra y discos'),
-(11, 'Remo con Barra', 'Ejercicio para fortalecer la espalda media.', 'Espalda', 'Barra'),
-(12, 'Extensiones de Tríceps', 'Ejercicio para aislar el tríceps.', 'Tríceps', 'Polea'),
-(13, 'Curl de Bíceps', 'Ejercicio para desarrollar los bíceps.', 'Bíceps', 'Mancuernas'),
-(14, 'Prensa de Piernas', 'Ejercicio para desarrollar cuádriceps.', 'Piernas', 'Máquina prensa');
-
--- Datos adicionales para ejercicios de nivel Avanzado
-INSERT INTO `ejercicios` (`id`, `nombre`, `descripcion`, `musculo_principal`, `equipo_necesario`) VALUES
-(15, 'Clean and Jerk', 'Levantamiento olímpico complejo.', 'Piernas', 'Barra olímpica'),
-(16, 'Muscle Up', 'Ejercicio avanzado de calistenia.', 'Espalda', 'Barra dominadas'),
-(17, 'Snatch', 'Levantamiento olímpico explosivo.', 'Piernas', 'Barra olímpica'),
-(18, 'Handstand Push Up', 'Flexiones invertidas.', 'Hombros', 'Ninguno'),
-(19, 'Dragon Flag', 'Ejercicio avanzado de core.', 'Abdomen', 'Banco plano');
 
 -- Datos iniciales para la tabla `rutina_ejercicios`
 INSERT INTO `rutina_ejercicios` (`id`, `rutina_id`, `ejercicio_id`, `series`, `repeticiones`, `peso`, `descanso_seg`) VALUES
