@@ -10,27 +10,34 @@ function obtenerUsuarioId() {
     }
 }
 
-function guardarRutina($conexion, $usuario_id, $nombre_rutina, $nivel, $fecha, $ejercicios) {
+function guardarRutina($conexion, $usuario_id, $ejercicios_completados, $objetivo, $nivel) {
+    $fecha = date('Y-m-d');
+    
+    // Insertar en historial
     $sql_historial = "INSERT INTO historial (usuario_id, nombre_rutina, nivel, fecha) VALUES (?, ?, ?, ?)";
     $stmt_historial = $conexion->prepare($sql_historial);
-    $stmt_historial->bind_param("isss", $usuario_id, $nombre_rutina, $nivel, $fecha);
-
+    $stmt_historial->bind_param("isss", $usuario_id, $objetivo, $nivel, $fecha);
+    
     if ($stmt_historial->execute()) {
         $historial_id = $stmt_historial->insert_id;
-
-        foreach ($ejercicios as $ejercicio) {
-            $nombre_ejercicio = $ejercicio['nombre'];
-            $series = $ejercicio['series'];
-            $repeticiones = $ejercicio['repeticiones'];
-
-            $sql_ejercicios = "INSERT INTO ejercicios_historial (historial_id, nombre_ejercicio, series, repeticiones) VALUES (?, ?, ?, ?)";
-            $stmt_ejercicios = $conexion->prepare($sql_ejercicios);
-            $stmt_ejercicios->bind_param("isii", $historial_id, $nombre_ejercicio, $series, $repeticiones);
-            $stmt_ejercicios->execute();
+        
+        // Insertar solo los ejercicios marcados en progreso_usuario
+        foreach ($ejercicios_completados as $ejercicio_id) {
+            $sql_ejercicio = "INSERT INTO progreso_usuario (usuario_id, ejercicio_id, fecha, series, repeticiones, peso, historial_id)
+                             SELECT ?, ?, ?, series, repeticiones, peso, ? 
+                             FROM rutina_ejercicios 
+                             WHERE ejercicio_id = ? AND rutina_id = (
+                                 SELECT id FROM rutinas WHERE nombre = ? AND nivel = ?
+                             )";
+            
+            $stmt_ejercicio = $conexion->prepare($sql_ejercicio);
+            $stmt_ejercicio->bind_param("iisiiis", $usuario_id, $ejercicio_id, $fecha, $historial_id, $ejercicio_id, $objetivo, $nivel);
+            $stmt_ejercicio->execute();
         }
-
+        
         return true;
     }
+    
     return false;
 }
 

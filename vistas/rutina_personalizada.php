@@ -35,17 +35,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada']))
     $stmt_historial->execute();
     $historial_id = $stmt_historial->insert_id;
 
-    // Insertar en la tabla progreso_usuario
-    foreach ($lista_ejercicios as $ejercicio) {
-        $ejercicio_id = $ejercicio['ejercicio_id'];
-        $series = $ejercicio['series'];
-        $repeticiones = $ejercicio['repeticiones'];
-        $peso = $ejercicio['peso'];
+    // Insertar en la tabla progreso_usuario solo los ejercicios marcados
+    if (isset($_POST['ejercicios_completados']) && is_array($_POST['ejercicios_completados'])) {
+        foreach ($_POST['ejercicios_completados'] as $ejercicio_id) {
+            foreach ($lista_ejercicios as $ejercicio) {
+                if ($ejercicio['ejercicio_id'] == $ejercicio_id) {
+                    $series = $ejercicio['series'];
+                    $repeticiones = $ejercicio['repeticiones'];
+                    $peso = $ejercicio['peso'];
 
-        $sql_progreso = "INSERT INTO progreso_usuario (usuario_id, ejercicio_id, fecha, series, repeticiones, peso, historial_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt_progreso = $conexion->prepare($sql_progreso);
-        $stmt_progreso->bind_param("iisiiii", $usuario_id, $ejercicio_id, $fecha, $series, $repeticiones, $peso, $historial_id);
-        $stmt_progreso->execute();
+                    $sql_progreso = "INSERT INTO progreso_usuario (usuario_id, ejercicio_id, fecha, series, repeticiones, peso, historial_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    $stmt_progreso = $conexion->prepare($sql_progreso);
+                    $stmt_progreso->bind_param("iisiiii", $usuario_id, $ejercicio_id, $fecha, $series, $repeticiones, $peso, $historial_id);
+                    $stmt_progreso->execute();
+                }
+            }
+        }
     }
 
     echo "<script>alert('Rutina marcada como completada y guardada en el historial y progreso.');</script>";
@@ -70,30 +75,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada']))
     </div>
     <div class="contenedor-ejercicios">
         <?php if (!empty($lista_ejercicios)): ?>
-            <ul class="lista-ejercicios">
-                <?php foreach ($lista_ejercicios as $ejercicio): ?>
-                    <li class="ejercicio">
-                        <div class="ejercicio-header">
-                            <label class="checkbox-container">
-                                <input type="checkbox" class="ejercicio-check">
-                                <span class="checkmark"></span>
-                            </label>
-                            <h3><?php echo htmlspecialchars($ejercicio['nombre']); ?></h3>
-                        </div>
-                        <p>Series: <?php echo htmlspecialchars($ejercicio['series']); ?></p>
-                        <p>Repeticiones: <?php echo htmlspecialchars($ejercicio['repeticiones']); ?></p>
-                        <p>Peso: <?php echo htmlspecialchars($ejercicio['peso']); ?> kg</p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <form method="post" id="rutina-form">
+                <ul class="lista-ejercicios">
+                    <?php foreach ($lista_ejercicios as $ejercicio): ?>
+                        <li class="ejercicio">
+                            <div class="ejercicio-header">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="ejercicios_completados[]" 
+                                           value="<?php echo $ejercicio['ejercicio_id']; ?>" 
+                                           class="ejercicio-check"
+                                           data-series="<?php echo $ejercicio['series']; ?>"
+                                           data-repeticiones="<?php echo $ejercicio['repeticiones']; ?>"
+                                           data-peso="<?php echo $ejercicio['peso']; ?>">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <h3><?php echo htmlspecialchars($ejercicio['nombre']); ?></h3>
+                            </div>
+                            <p>Series: <?php echo htmlspecialchars($ejercicio['series']); ?></p>
+                            <p>Repeticiones: <?php echo htmlspecialchars($ejercicio['repeticiones']); ?></p>
+                            <p>Peso: <?php echo htmlspecialchars($ejercicio['peso']); ?> kg</p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+                <div class="acciones text-center">
+                    <button type="submit" name="marcar_completada" class="boton">Marcar como Completada</button>
+                </div>
+            </form>
         <?php else: ?>
             <p>No hay ejercicios disponibles para este objetivo.</p>
         <?php endif; ?>
-    </div>
-    <div class="acciones text-center">
-        <form method="post">
-            <button class="boton" name="marcar_completada">Marcar como Completada</button>
-        </form>
     </div>
     <script src="../publico/js/rutina_personalizada.js"></script>
 </body>
