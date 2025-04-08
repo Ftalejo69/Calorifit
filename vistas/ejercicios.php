@@ -89,7 +89,11 @@ $rutinas_completadas = filtrarRutinas($conexion, $usuario_id, $selected_date);
                                 <p class="card-text">Fecha: <span><?php echo htmlspecialchars($rutina['fecha']); ?></span></p>
                                 <ul>
                                     <?php
-                                    $sql_ejercicios = "SELECT * FROM ejercicios_historial WHERE historial_id = ?";
+                                    $sql_ejercicios = "SELECT e.nombre as nombre_ejercicio, p.series, p.repeticiones, p.peso
+                                                       FROM progreso_usuario p
+                                                       INNER JOIN ejercicios e ON e.id = p.ejercicio_id
+                                                       WHERE p.historial_id = ?
+                                                       ORDER BY p.id";
                                     $stmt_ejercicios = $conexion->prepare($sql_ejercicios);
                                     $stmt_ejercicios->bind_param("i", $rutina['id']);
                                     $stmt_ejercicios->execute();
@@ -98,7 +102,7 @@ $rutinas_completadas = filtrarRutinas($conexion, $usuario_id, $selected_date);
                                     ?>
                                         <li>
                                             <span class="exercise-name"><?php echo htmlspecialchars($ejercicio['nombre_ejercicio']); ?></span>
-                                            <span class="exercise-details">Series: <?php echo htmlspecialchars($ejercicio['series']); ?>, Repeticiones: <?php echo htmlspecialchars($ejercicio['repeticiones']); ?></span>
+                                            <span class="exercise-details">Series: <?php echo htmlspecialchars($ejercicio['series']); ?>, Repeticiones: <?php echo htmlspecialchars($ejercicio['repeticiones']); ?>, Peso: <?php echo htmlspecialchars($ejercicio['peso']); ?></span>
                                         </li>
                                     <?php endwhile; ?>
                                     <?php $stmt_ejercicios->close(); ?>

@@ -384,6 +384,127 @@ body {
   }
 }
 
+.rutina-actual {
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    padding: 2.5rem;
+    border-radius: 20px;
+    margin: 3rem auto;
+    max-width: 700px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    border: 2px solid rgba(255, 193, 7, 0.3);
+    animation: fadeIn 0.8s ease-out;
+}
+
+.rutina-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 2rem;
+}
+
+.rutina-header i {
+    font-size: 2.5rem;
+    color: #FFC107;
+}
+
+.rutina-header h2 {
+    font-size: 2.2rem;
+    color: #FFC107;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.rutina-info {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.info-item {
+    text-align: center;
+}
+
+.info-item .label {
+    display: block;
+    color: #999;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.info-item .value {
+    display: block;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.rutina-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.boton-principal {
+    background: linear-gradient(135deg, #FFC107, #FFD54F);
+    color: #1a1a1a;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.boton-principal:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+}
+
+.boton-secundario {
+    background: transparent;
+    color: #FFC107;
+    padding: 1rem 2rem;
+    border: 2px solid #FFC107;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.boton-secundario:hover {
+    background: rgba(255, 193, 7, 0.1);
+    transform: translateY(-3px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.oculto {
+    display: none;
+}
+
 
 
 
