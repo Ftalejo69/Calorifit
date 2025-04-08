@@ -1,216 +1,104 @@
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker background for elegance */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px); /* Add blur effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+}
+
 .modal-content {
-    border-radius: 20px;
-    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    color: #333;
-    padding: 20px;
-    animation: fadeIn 0.5s ease-out;
+    background-color: #fff;
+    padding: 2.5rem; /* Increase padding for a spacious feel */
+    border-radius: 16px; /* More rounded corners */
+    width: 450px; /* Slightly wider modal */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow for depth */
+    position: relative;
+    font-family: 'Arial', sans-serif; /* Ensure clean font */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border for definition */
 }
 
-/* Animation for modal appearance */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem; /* Larger size for visibility */
+    cursor: pointer;
+    color: #333; /* Neutral color */
+    font-weight: bold; /* Make it stand out */
+    transition: transform 0.3s ease, color 0.3s ease; /* Smooth hover effect */
 }
 
-/* Modal header styling */
-.modal-header {
-    background: linear-gradient(to right, #f4c10f, #ffc400);
-    color: #000;
-    border-bottom: none;
-    border-radius: 20px 20px 0 0;
-    padding: 15px;
-    text-align: center;
+.close-modal:hover {
+    color: #e74c3c; /* Red color on hover */
+    transform: scale(1.2); /* Slight zoom effect */
 }
 
-.modal-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.modal-content h2 {
+    margin-top: 0;
+    font-size: 1.8rem; /* Larger title for emphasis */
+    color: #444; /* Softer color */
+    text-align: center; /* Center-align the title */
+    margin-bottom: 1.5rem; /* Add spacing below the title */
 }
 
-.modal-title i {
-    margin-right: 10px;
-    font-size: 2rem;
-}
-
-/* Modal body styling */
-.modal-body {
-    font-family: 'Arial', sans-serif;
-    padding: 25px;
-    line-height: 1.6;
-}
-
-/* Ensure consistent label styling */
-.modal-body .form-label {
-    font-size: 1rem; /* Standardize font size */
-    font-weight: bold; /* Make labels bold */
-    color: #333; /* Consistent color */
-    margin-bottom: 5px; /* Add spacing below labels */
-    display: block; /* Ensure labels are block elements */
-}
-
-/* Add spacing between form groups */
-.modal-body .mb-3 {
-    margin-bottom: 20px; /* Increase spacing between fields */
-}
-
-/* Input field styling */
-.form-control {
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.form-control:focus {
-    border-color: #f4c10f;
-    box-shadow: 0 0 5px rgba(244, 193, 15, 0.5);
-}
-
-/* Button styling */
-.btn-primary-custom {
-    background-color: #f4c10f;
-    border-color: #f4c10f;
-    color: #000;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 10px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.btn-primary-custom:hover {
-    background-color: #ffc400;
-    transform: scale(1.05);
-}
-
-.btn-secondary {
-    background-color: #e0e0e0;
-    border-color: #d6d6d6;
-    color: #333;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 10px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.btn-secondary:hover {
-    background-color: #d6d6d6;
-    transform: scale(1.05);
-}
-
-/* Modal footer styling */
-.modal-footer {
-    border-top: none;
-    padding-top: 15px;
-    text-align: center;
-}
-
-/* Modal dialog shadow */
-.modal-dialog {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-}
-
-/* Inputs de solo lectura */
-.form-control[readonly] {
-    background-color: #e9ecef;
-    border: 1px solid #ddd;
-    cursor: not-allowed; /* Cambia el cursor cuando el campo es solo lectura */
-}
-
-/* Estilo para etiquetas */
-.profile-field label {
-    font-size: 1rem;
-    color: #333;
-    font-weight: bold;
+.modal-content label {
     display: block;
-    margin-bottom: 5px;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #555; /* Softer color */
+    font-weight: bold; /* Make labels stand out */
 }
 
-/* Íconos dentro de los campos */
-.profile-field i {
-    color: #e99903;
-    margin-right: 10px;
-}
-/* Estilo específico para el campo de Teléfono */
-#telefono {
-    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px; /* Separación entre los campos */
+.modal-content input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+    font-family: 'Arial', sans-serif; /* Clean font */
 }
 
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
 
-#nombre{
-    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px; /* Separación entre los campos */
+.modal-buttons button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif; /* Clean font */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
 }
-#fecha_nacimiento{
-    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px;
+
+.modal-buttons button:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }
-#correo{
-    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px;
+
+#edit-button {
+    background-color: #2196f3;
+    color: #fff;
 }
-#genero{
-    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px;
+
+#save-button {
+    background-color: #4caf50;
+    color: #fff;
 }
-#peso{
-    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px;
-}
-#altura{
-    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px;
-}
-#fecha_registro{
-    width: 390px; /* Asegura que el input de teléfono ocupe todo el ancho disponible */
-    height: 45px; /* Ajusta la altura del input */
-    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil de color gris */
-    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan dentro del ancho y alto */
-    margin-bottom: 15px;
+
+#save-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
