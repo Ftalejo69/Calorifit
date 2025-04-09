@@ -2,13 +2,11 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
     color: #333;
-    opacity: 0;
-    animation: fadeIn 1.5s ease-in-out forwards;
+    /* Eliminada la animación de desvanecimiento */
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    /* Eliminada la animación */
 }
 
 @keyframes slideIn {

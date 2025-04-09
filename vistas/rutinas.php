@@ -22,6 +22,9 @@ $stmt->bind_param("i", $usuario_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $rutina_actual = $result->fetch_assoc();
+
+$sql_rutinas = "SELECT * FROM rutinas";
+$result_rutinas = $conexion->query($sql_rutinas);
 ?>
 
 <!DOCTYPE html>
@@ -78,32 +81,16 @@ $rutina_actual = $result->fetch_assoc();
     </div>
     
     <div id="rutinas" class="contenedor-tarjetas">
+        <?php while ($row = $result_rutinas->fetch_assoc()): ?>
         <div class="tarjeta">
-            <img src="https://www.ific.es/blog/wp-content/uploads/2015/10/novato.jpg" alt="Principiante">
+            <img src="<?php echo htmlspecialchars($row['imagen']); ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>">
             <div class="contenido">
-                <h2>PRINCIPIANTE</h2>
-                <p>Empieza desde cero con un programa adaptado a ti.</p>
-                <button class="boton" onclick="redirigirNivel('Principiante')">Seleccionar Nivel</button>
+                <h2><?php echo htmlspecialchars($row['nombre']); ?></h2>
+                <p><?php echo htmlspecialchars($row['descripcion']); ?></p>
+                <button class="boton" onclick="redirigirNivel('<?php echo htmlspecialchars($row['nivel']); ?>')">Seleccionar Nivel</button>
             </div>
         </div>
-        
-        <div class="tarjeta">
-            <img src="../publico/imagenes/David-Laid.jpg" alt="Intermedio">
-            <div class="contenido">
-                <h2>INTERMEDIO</h2>
-                <p>Mejora tu rendimiento y lleva tu entrenamiento al siguiente nivel.</p>
-                <button class="boton" onclick="redirigirNivel('Intermedio')">Seleccionar Nivel</button>
-            </div>
-        </div>
-        
-        <div class="tarjeta">
-            <img src="../publico/imagenes/David-Laid.jpg" alt="Avanzado">
-            <div class="contenido">
-                <h2>AVANZADO</h2>
-                <p>Desafía tus límites y alcanza el máximo potencial.</p>
-                <button class="boton" onclick="redirigirNivel('Avanzado')">Seleccionar Nivel</button>
-            </div>
-        </div>
+        <?php endwhile; ?>
     </div>
 </div>
 

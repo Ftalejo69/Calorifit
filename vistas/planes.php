@@ -201,47 +201,112 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 .mission-vision-card:hover::before {
   opacity: 1; /* Efecto de brillo al pasar el mouse */
 }
-
+/* Estilos para la sección de bienvenida */
 .welcome-section {
-  padding: 60px 20px;
-  background: radial-gradient(circle at center, #000 0%, #1a1a1a 100%);
+    background: linear-gradient(to right, #000, #2e2b2b);
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
 }
 
 .welcome-section h1 {
-  font-size: 2.8rem; /* Tamaño ajustado */
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  color: #ffe600;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white;
 }
 
 .welcome-section h1 span {
-  color: #fff;
-  font-size: inherit; /* Mantener el tamaño igual al de "Bienvenido" */
+    color: #ffe600;
+    font-size: 40px;
+    font-weight: bold;
 }
-
-/* Botón eliminado */
 
 .welcome-section p {
-  font-size: 1.2rem;
-  margin-top: 20px;
-  color: #bbb;
+    font-size: 25px;
+    font-family: 'Roboto', sans-serif;
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 30px;
 }
 
-.welcome-section .btn {
-  margin-top: 20px;
-  padding: 10px 30px;
-  font-size: 1rem;
-  background-color: transparent;
-  border: 2px solid #ffe600;
-  color: #ffe600;
-  transition: 0.3s ease;
-  border-radius: 30px;
+/* Animación de desvanecimiento */
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /* Comienza invisible */
+  }
+  100% {
+    opacity: 1; /* Se hace visible al final */
+  }
 }
 
-.welcome-section .btn:hover {
-  background-color: #ffe600;
-  color: #000;
+/* Animación de deslizamiento desde abajo */
+@keyframes slideUp {
+  0% {
+    transform: translateY(30px); /* Comienza 30px abajo */
+  }
+  100% {
+    transform: translateY(0); /* Se mueve a su posición original */
+  }
 }
+
+/* Estilos para el h1 */
+.welcome-section h1 {
+  font-size: 40px; /* Tamaño de texto grande */
+  font-weight: bold; /* Negrita para el encabezado */
+  margin-bottom: 20px; /* Separación hacia abajo */
+  color: white; /* Color blanco para el h1 */
+  opacity: 0; /* Comienza invisible */
+  animation: fadeIn 2s ease-out 0.5s forwards, slideUp 2s ease-out 0.5s forwards; /* Animación */
+}
+
+/* Estilos para el span */
+.welcome-section h1 span {
+  color: #ffe600; /* Color naranja para el texto dentro del span */
+  font-size: 40px; /* Mismo tamaño de letra que el h1 */
+  font-weight: bold; /* Negrita para resaltar */
+}
+
+/* Estilos para el p */
+.welcome-section p {
+  font-size: 25px; /* Tamaño de fuente moderado */
+  font-family: 'Roboto', sans-serif; /* Fuente más elegante y moderna */
+  color: #ccc; /* Color gris claro para el párrafo */
+  line-height: 1.6; /* Espaciado entre líneas para mayor legibilidad */
+  margin-bottom: 30px; /* Separación hacia abajo */
+  opacity: 0; /* Comienza invisible */
+  animation: fadeIn 2s ease-out 1s forwards, slideUp 2s ease-out 1s forwards; /* Animación */
+}
+#openProfile:hover {
+  background-color: #ffe600; /* Fondo naranja brillante al pasar el cursor */
+  color: #333; /* Color de texto oscuro al pasar el cursor */
+  border-color: #ff6600; /* Borde naranja al pasar el cursor */
+  transform: scale(1.05); /* Aumentar ligeramente el tamaño del botón */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+/* Estilos para el botón */
+#openProfile {
+  background-color: transparent; /* Fondo transparente */
+  color: #fff; /* Color de texto blanco */
+  border: 2px solid #fff; /* Borde blanco */
+  padding: 12px 30px; /* Espaciado interno del botón */
+  font-size: 16px; /* Tamaño de texto */
+  border-radius: 50px; /* Bordes redondeados */
+  text-transform: uppercase; /* Texto en mayúsculas */
+  font-weight: bold; /* Negrita para el texto */
+  cursor: pointer; /* Cambio de cursor cuando pasa sobre el botón */
+  transition: all 0.3s ease; /* Transición suave para todos los cambios */
+  opacity: 0; /* Comienza invisible */
+  animation: fadeIn 2s ease-out 1.5s forwards, slideUp 2s ease-out 1.5s forwards; /* Animación */
+}
+
+#openProfile:focus {
+  outline: none; /* Quitar el contorno del botón cuando está en foco */
+}
+
 
 .main-image-container {
   position: relative;
@@ -300,8 +365,11 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 <?php include '../vistas/navbar.php'; ?>
 <?php include '../vistas/modal_perfil.php'; ?>
 
+<!-- Sección de bienvenida -->
 <section class="welcome-section text-center">
-  <h1>Bienvenido a <span>Nosotros</span></h1>
+  <h1>NOSOTROS <span>CALORIFIT</span></h1>
+  <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
+  <button id="openProfile" class="btn btn-outline-light mt-3" onclick="location.href='#nosotros'">NOSOTROS</butNon>
 </section>
 
 <section class="container text-center my-5">
@@ -309,7 +377,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   <p class="mt-3 text-light fs-5">"El éxito no es un accidente, es el resultado de la preparación, el trabajo duro y el aprendizaje constante."</p>
   
   <!-- Imagen principal con animación -->
-  <div class="row justify-content-center mb-5">
+  <div id="nosotros" class="row justify-content-center mb-5">
     <div class="col-12 text-center">
       <div class="main-image-container">
         <img src="../publico/imagenes/nosotros.png" alt="Nuestros Entrenadores" class="main-image">
@@ -545,16 +613,28 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 
 <!-- Modal de contacto -->
 <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content contact-modal">
       <div class="modal-header">
-        <h5 class="modal-title" id="contactModalLabel">Contacto con <span id="trainerName"></span></h5>
+        <h5 class="modal-title" id="contactModalLabel">
+          <i class="fas fa-user-circle"></i> Contacto con <span id="trainerName"></span>
+        </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p><strong>Teléfono:</strong> <span id="trainerPhone"></span></p>
-        <p><strong>Correo:</strong> <span id="trainerEmail"></span></p>
-        <p><strong>Chat:</strong> <a href="#" id="trainerChat" target="_blank">Iniciar chat</a></p>
+        <div class="contact-info">
+          <p><strong><i class="fas fa-phone-alt"></i> Teléfono:</strong> <span id="trainerPhone"></span></p>
+          <p><strong><i class="fas fa-envelope"></i> Correo:</strong> <span id="trainerEmail"></span></p>
+          <p><strong><i class="fas fa-comments"></i> Chat:</strong> <a href="#" id="trainerChat" target="_blank">Iniciar chat</a></p>
+        </div>
+        <div class="chat-container">
+          <h6 class="chat-title"><i class="fas fa-comment-dots"></i> Chat en vivo</h6>
+          <div id="chatMessages" class="chat-messages border rounded p-3 mb-3"></div>
+          <div class="input-group">
+            <input type="text" id="chatInput" class="form-control" placeholder="Escribe un mensaje...">
+            <button class="btn btn-primary-custom" id="sendMessageButton">Enviar</button>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -562,6 +642,363 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
     </div>
   </div>
 </div>
+
+<style>
+/* Modal Styling */
+.contact-modal {
+    border-radius: 15px;
+    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    color: #333;
+    padding: 20px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Animation for modal appearance */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Modal header styling */
+.modal-header {
+    background: linear-gradient(to right, #f4c10f, #ffc400);
+    color: #000;
+    border-bottom: none;
+    border-radius: 15px 15px 0 0;
+    padding: 15px;
+    text-align: center;
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.modal-title i {
+    margin-right: 10px;
+    font-size: 2rem;
+}
+
+/* Modal body styling */
+.modal-body {
+    font-family: 'Arial', sans-serif;
+    padding: 25px;
+    line-height: 1.6;
+}
+
+.contact-info p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.contact-info i {
+    color: #ffc400;
+    margin-right: 8px;
+}
+
+/* Chat container styling */
+.chat-container {
+    margin-top: 20px;
+}
+
+.chat-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.chat-messages {
+    height: 200px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    color: #000;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-messages div {
+    margin-bottom: 10px;
+}
+
+.chat-messages div.user-message {
+    font-weight: bold;
+    color: #333;
+}
+
+.chat-messages div.trainer-message {
+    color: #555;
+}
+
+/* Input group styling */
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.input-group .form-control {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group .form-control:focus {
+    border-color: #f4c10f;
+    box-shadow: 0 0 5px rgba(244, 193, 15, 0.5);
+}
+
+.input-group .btn-primary-custom {
+    background-color: #f4c10f;
+    border-color: #f4c10f;
+    color: #000;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.input-group .btn-primary-custom:hover {
+    background-color: #ffc400;
+    transform: scale(1.05);
+}
+
+/* Modal footer styling */
+.modal-footer {
+    border-top: none;
+    padding-top: 15px;
+    text-align: center;
+}
+
+/* Modal dialog shadow */
+.modal-dialog {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+</style>
+
+<!-- Modal for user profile -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content profile-modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          <i class="fas fa-user-circle"></i> Mi Perfil
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="../modelos/editar_perfil.php" id="perfilForm">
+          <!-- Nombre -->
+          <div class="mb-3">
+            <label for="nombre" class="form-label">
+              <i class="fas fa-user"></i> Nombre
+            </label>
+            <input type="text" class="form-control" id="nombre" name="nombre" readonly value="<?= isset($usuario['nombre']) ? $usuario['nombre'] : ''; ?>">
+          </div>
+
+          <!-- Correo -->
+          <div class="mb-3">
+            <label for="correo" class="form-label">
+              <i class="fas fa-envelope"></i> Correo
+            </label>
+            <input type="email" class="form-control" id="correo" name="correo" value="<?= isset($_SESSION['usuario']['correo']) ? $_SESSION['usuario']['correo'] : ''; ?>" readonly>
+          </div>
+
+          <!-- Teléfono -->
+          <div class="mb-3">
+            <label for="telefono" class="form-label">
+              <i class="fas fa-phone"></i> Teléfono
+            </label>
+            <input type="tel" class="form-control" id="telefono" name="telefono" readonly value="<?= isset($usuario['telefono']) ? $usuario['telefono'] : ''; ?>">
+          </div>
+
+          <!-- Fecha de nacimiento -->
+          <div class="mb-3">
+            <label for="fecha_nacimiento" class="form-label">
+              <i class="fas fa-birthday-cake"></i> Fecha de Nacimiento
+            </label>
+            <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" readonly value="<?= isset($usuario['fecha_nacimiento']) ? $usuario['fecha_nacimiento'] : ''; ?>">
+          </div>
+
+          <!-- Género -->
+          <div class="mb-3">
+            <label for="genero" class="form-label">
+              <i class="fas fa-venus-mars"></i> Género
+            </label>
+            <select class="form-select" id="genero" name="genero" disabled>
+              <option value="M" <?= isset($usuario['genero']) && $usuario['genero'] == 'M' ? 'selected' : ''; ?>>Masculino</option>
+              <option value="F" <?= isset($usuario['genero']) && $usuario['genero'] == 'F' ? 'selected' : ''; ?>>Femenino</option>
+              <option value="Otro" <?= isset($usuario['genero']) && $usuario['genero'] == 'Otro' ? 'selected' : ''; ?>>Otro</option>
+            </select>
+          </div>
+
+          <!-- Peso -->
+          <div class="mb-3">
+            <label for="peso" class="form-label">
+              <i class="fas fa-weight"></i> Peso
+            </label>
+            <input type="number" class="form-control" id="peso" name="peso" readonly value="<?= isset($usuario['peso']) ? $usuario['peso'] : ''; ?>" step="0.1">
+          </div>
+
+          <!-- Altura -->
+          <div class="mb-3">
+            <label for="altura" class="form-label">
+              <i class="fas fa-ruler-vertical"></i> Altura
+            </label>
+            <input type="number" class="form-control" id="altura" name="altura" readonly value="<?= isset($usuario['altura']) ? $usuario['altura'] : ''; ?>" step="0.1">
+          </div>
+
+          <!-- Fecha de Registro -->
+          <div class="mb-3">
+            <label for="fecha_registro" class="form-label">
+              <i class="fas fa-calendar-alt"></i> Fecha de Registro
+            </label>
+            <input type="text" class="form-control" id="fecha_registro" readonly value="<?= isset($usuario['fecha_registro']) ? $usuario['fecha_registro'] : ''; ?>">
+          </div>
+
+          <!-- Botones -->
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary ms-2" id="editarBtn">Editar</button>
+            <button type="submit" class="btn btn-primary ms-2" id="guardarBtn" style="display: none;">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Modal Styling */
+.profile-modal {
+    border-radius: 15px;
+    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    color: #333;
+    padding: 20px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Animation for modal appearance */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Modal header styling */
+.modal-header {
+    background: linear-gradient(to right, #f4c10f, #ffc400);
+    color: #000;
+    border-bottom: none;
+    border-radius: 15px 15px 0 0;
+    padding: 15px;
+    text-align: center;
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.modal-title i {
+    margin-right: 10px;
+    font-size: 2rem;
+}
+
+/* Modal body styling */
+.modal-body {
+    font-family: 'Arial', sans-serif;
+    padding: 25px;
+    line-height: 1.6;
+}
+
+/* Ensure consistent label styling */
+.modal-body .form-label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Add spacing between form groups */
+.modal-body .mb-3 {
+    margin-bottom: 20px;
+}
+
+/* Input field styling */
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+    border-color: #f4c10f;
+    box-shadow: 0 0 5px rgba(244, 193, 15, 0.5);
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: #f4c10f;
+    border-color: #f4c10f;
+    color: #000;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #ffc400;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #e0e0e0;
+    border-color: #d6d6d6;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #d6d6d6;
+    transform: scale(1.05);
+}
+
+/* Modal footer styling */
+.modal-footer {
+    border-top: none;
+    padding-top: 15px;
+    text-align: center;
+}
+
+/* Modal dialog shadow */
+.modal-dialog {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+</style>
 
 <?php include '../vistas/footer.php'; ?>
 

@@ -5,6 +5,8 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
+$usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
+
 $nivel = isset($_GET['nivel']) ? $_GET['nivel'] : 'Principiante'; // Obtener el nivel de la URL
 ?>
 
@@ -19,6 +21,10 @@ $nivel = isset($_GET['nivel']) ? $_GET['nivel'] : 'Principiante'; // Obtener el 
 </head>
 <body>
     <?php include '../vistas/navbar.php'; ?>
+
+    <!-- Asegúrate de que el modal tenga la clase modal-dialog-scrollable -->
+    <?php include '../vistas/modal_perfil.php'; ?>
+
     <div class="header text-center">
         <h1 class="titulo">¿CUÁL ES TU <span class="resaltar">OBJETIVO?</span></h1>
         <p class="subtitulo">Selecciona el objetivo que deseas alcanzar para personalizar tu rutina.</p>

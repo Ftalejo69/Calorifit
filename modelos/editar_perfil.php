@@ -14,16 +14,18 @@ $usuario = $_SESSION['usuario'];
 // Verificar si el formulario fue enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener los datos enviados desde el formulario
-    $correo = trim($_POST["correo"]);
-    $telefono = trim($_POST["telefono"]);
-    $fecha_nacimiento = trim($_POST["fecha_nacimiento"]);
-    $genero = trim($_POST["genero"]);
-    $peso = trim($_POST["peso"]);
-    $altura = trim($_POST["altura"]);
+    $correo = isset($_POST["correo"]) ? trim($_POST["correo"]) : $usuario['correo'];
+    $telefono = isset($_POST["telefono"]) ? trim($_POST["telefono"]) : $usuario['telefono'];
+    $peso = isset($_POST["peso"]) ? trim($_POST["peso"]) : $usuario['peso'];
+
+    // Solo permitir editar fecha de nacimiento, altura y género si están vacíos
+    $fecha_nacimiento = empty($usuario['fecha_nacimiento']) ? trim($_POST["fecha_nacimiento"]) : $usuario['fecha_nacimiento'];
+    $altura = empty($usuario['altura']) ? trim($_POST["altura"]) : $usuario['altura'];
+    $genero = empty($usuario['genero']) ? trim($_POST["genero"]) : $usuario['genero'];
 
     // Preparar la consulta SQL para actualizar los datos del usuario
     $sql = "UPDATE usuarios 
-            SET correo = ?, telefono = ?, fecha_nacimiento = ?, genero = ?, peso = ?, altura = ?
+            SET correo = ?, telefono = ?, peso = ?, fecha_nacimiento = ?, altura = ?, genero = ?
             WHERE id = ?";
     
     // Preparar la declaración
@@ -35,17 +37,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Bind de los parámetros
-    $stmt->bind_param("ssssddi", $correo, $telefono, $fecha_nacimiento, $genero, $peso, $altura, $usuario['id']);
+    $stmt->bind_param("ssssssi", $correo, $telefono, $peso, $fecha_nacimiento, $altura, $genero, $usuario['id']);
     
     // Ejecutar la consulta
     if ($stmt->execute()) {
         // Actualizar los datos en la sesión
         $_SESSION['usuario']['correo'] = $correo;
         $_SESSION['usuario']['telefono'] = $telefono;
-        $_SESSION['usuario']['fecha_nacimiento'] = $fecha_nacimiento;
-        $_SESSION['usuario']['genero'] = $genero;
         $_SESSION['usuario']['peso'] = $peso;
+        $_SESSION['usuario']['fecha_nacimiento'] = $fecha_nacimiento;
         $_SESSION['usuario']['altura'] = $altura;
+        $_SESSION['usuario']['genero'] = $genero;
 
         // Redirigir con mensaje de éxito
         echo '<script>alert("Perfil actualizado correctamente."); window.location.href="../vistas/inicio.php";</script>';
@@ -56,6 +58,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Cerrar la declaración
     $stmt->close();
 }
-
-
 ?>
