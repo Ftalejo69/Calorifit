@@ -1,13 +1,18 @@
 <?php
-// conexion.php
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "gymdb";
+$host = 'localhost';
+$usuario = 'root';
+$password = '';
+$base_datos = 'gymdb';
 
-$conexion = new mysqli($host, $user, $password, $db);
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
+try {
+    $conexion = new mysqli($host, $usuario, $password, $base_datos);
+    
+    if ($conexion->connect_error) {
+        throw new Exception("Error de conexión: " . $conexion->connect_error);
+    }
+
+    $conexion->set_charset("utf8");
+} catch (Exception $e) {
+    die(json_encode(['error' => $e->getMessage()]));
 }
-mysqli_set_charset($conexion, "utf8");
 ?>

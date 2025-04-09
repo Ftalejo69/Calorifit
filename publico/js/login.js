@@ -60,19 +60,15 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    fetch("../modelos/login.php", { method: "POST", body: formData }) // Cambiado a login.php
-      .then(response => {
-        if (!response.ok) throw new Error("Error en la conexión con el servidor.");
-        return response.text();
-      })
+    fetch("../modelos/login.php", { method: "POST", body: formData })
+      .then(response => response.json())
       .then(data => {
-        alertDiv.classList.remove("d-none", "alert-danger", "alert-success");
-        alertDiv.classList.add(data.includes("exitoso") ? "alert-success" : "alert-danger");
-        alertDiv.textContent = data.trim(); // Asegúrate de eliminar espacios en blanco
-
-        if (data.includes("exitoso")) {
-          clearForm(form, alertDiv);
-          setTimeout(() => window.location.href = "inicio.php", 1000);
+        if (data.success) {
+          window.location.href = data.redirect;
+        } else {
+          alertDiv.classList.remove("d-none");
+          alertDiv.classList.add("alert-danger");
+          alertDiv.textContent = data.message;
         }
       })
       .catch(error => {

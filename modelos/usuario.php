@@ -106,18 +106,23 @@ class UsuarioModel {
     // Inicia sesión verificando correo y contraseña
     public function loginUser($correo, $password) {
         $correo = $this->conexion->real_escape_string($correo);
-        $sql = "SELECT * FROM usuarios WHERE correo = '$correo' LIMIT 1";
-        $result = $this->conexion->query($sql);
+        $sql = "SELECT *, COALESCE(rol, 'usuario') as rol FROM usuarios WHERE correo = ? LIMIT 1";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bind_param("s", $correo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
         if ($result && $result->num_rows == 1) {
             $user = $result->fetch_assoc();
             if (password_verify($password, $user['contrasena'])) {
+                if (!$user['verificado']) {
+                    return array('success' => false, 'message' => '⚠️ Por favor verifica tu correo primero.');
+                }
                 return array('success' => true, 'user' => $user);
-            } else {
-                return array('success' => false, 'message' => '⚠️ Contraseña incorrecta.');
             }
-        } else {
-            return array('success' => false, 'message' => '⚠️ Usuario no encontrado.');
+            return array('success' => false, 'message' => '⚠️ Contraseña incorrecta.');
         }
+        return array('success' => false, 'message' => '⚠️ Usuario no encontrado.');
     }
 
     public function sendRecoveryEmail($correo) {

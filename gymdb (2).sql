@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-04-2025 a las 15:24:18
+-- Tiempo de generación: 09-04-2025 a las 07:19:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -63,6 +63,29 @@ INSERT INTO `ejercicios` (`id`, `nombre`, `descripcion`, `musculo_principal`, `e
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `entrenadores`
+--
+
+CREATE TABLE `entrenadores` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `specialty` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `entrenadores`
+--
+
+INSERT INTO `entrenadores` (`id`, `name`, `specialty`, `created_at`) VALUES
+(1, 'Juan Solano', 'Fuerza y Resistencia', '2025-04-09 03:11:00'),
+(2, 'Ana García', 'Yoga y Pilates', '2025-04-09 03:11:00'),
+(3, 'Carlos Mendoza', 'Crossfit', '2025-04-09 03:11:00'),
+(4, 'María López', 'Nutrición Deportiva', '2025-04-09 03:11:00');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `historial`
 --
 
@@ -73,6 +96,13 @@ CREATE TABLE `historial` (
   `nivel` varchar(100) NOT NULL,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `historial`
+--
+
+INSERT INTO `historial` (`id`, `usuario_id`, `nombre_rutina`, `nivel`, `fecha`) VALUES
+(1, 9, 'Ganar Músculo', 'Intermedio', '2025-04-09');
 
 -- --------------------------------------------------------
 
@@ -149,7 +179,9 @@ CREATE TABLE `progreso_usuario` (
 
 INSERT INTO `progreso_usuario` (`id`, `usuario_id`, `ejercicio_id`, `fecha`, `series`, `repeticiones`, `peso`, `historial_id`) VALUES
 (1, 1, 1, '2025-04-08', 3, 12, 50.00, NULL),
-(2, 1, 2, '2025-04-08', 4, 10, 60.00, NULL);
+(2, 1, 2, '2025-04-08', 4, 10, 60.00, NULL),
+(3, 9, 4, '2025-04-09', 4, 10, 30.00, 1),
+(4, 9, 11, '2025-04-09', 4, 10, 25.00, 1);
 
 -- --------------------------------------------------------
 
@@ -161,6 +193,14 @@ CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL DEFAULT 'Sin especificar'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `nombre`) VALUES
+(1, 'admin'),
+(2, 'usuario');
 
 -- --------------------------------------------------------
 
@@ -294,20 +334,25 @@ CREATE TABLE `usuarios` (
   `token` int(255) DEFAULT NULL,
   `verificado` tinyint(1) NOT NULL,
   `token_recuperacion` varchar(64) DEFAULT NULL,
-  `fecha_token` datetime DEFAULT NULL
+  `fecha_token` datetime DEFAULT NULL,
+  `rol` varchar(20) DEFAULT 'usuario'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `telefono`, `fecha_nacimiento`, `genero`, `peso`, `altura`, `fecha_registro`, `token`, `verificado`, `token_recuperacion`, `fecha_token`) VALUES
-(1, 'Juan', 'esteban@gmail.com', '$2y$10$TS4ARSE9N/ZC4ast07BjHOZOqyRaoH1QJ44JarWH5BZK058.2YRmK', '32133123', NULL, NULL, NULL, NULL, '2025-03-19 00:35:43', 2147483647, 0, NULL, NULL),
-(2, 'juan', 'solano@gmail.com', '$2y$10$KyTNFJnQI8ZxEo8Sw6BUSuy5rQVqugQzQRF86MzAsK.T6tYAZBnbG', '321312', NULL, NULL, NULL, NULL, '2025-03-19 01:05:43', 80224, 0, NULL, NULL),
-(3, 'Juanito', 'juanito@gmail.com', '$2y$10$isyYlIlaBOeZ9206uckStOKL1xIRW5zsKKhFFvMIaQRgQtxuqHGNK', '3123123', NULL, NULL, NULL, NULL, '2025-03-26 00:13:41', 3263, 0, NULL, NULL),
-(4, 'juanchis', 'j2005solano@gmail.com', '$2y$10$YkRGmhf1UxIHSXanBwCdhO/YBF2F.fnFT1WykER2Aq84aroc2G8Rq', '3123213', NULL, NULL, NULL, NULL, '2025-03-26 00:22:59', 5, 0, NULL, NULL),
-(7, 'edewf', 'eddie@gmail.com', '$2y$10$i45UVy3ykLlRsThddjBH8Oli266us/st8t6mcjHE56nEyQXmpwYam', '1233566', NULL, NULL, NULL, NULL, '2025-04-08 12:50:57', 468843, 0, NULL, NULL),
-(8, 'samuel', 'samuel@gmail.com', '$2y$10$mbtcfBeudMireqVSa2Hrg.t1zzWSpjVxXYCeaHLPMV3E4DxaBwI1q', '3123123', NULL, NULL, NULL, NULL, '2025-04-08 12:57:31', 76, 0, NULL, NULL);
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `telefono`, `fecha_nacimiento`, `genero`, `peso`, `altura`, `fecha_registro`, `token`, `verificado`, `token_recuperacion`, `fecha_token`, `rol`) VALUES
+(1, 'Juan', 'esteban@gmail.com', '$2y$10$TS4ARSE9N/ZC4ast07BjHOZOqyRaoH1QJ44JarWH5BZK058.2YRmK', '32133123', NULL, NULL, NULL, NULL, '2025-03-19 00:35:43', 2147483647, 0, NULL, NULL, 'usuario'),
+(2, 'juan', 'solano@gmail.com', '$2y$10$KyTNFJnQI8ZxEo8Sw6BUSuy5rQVqugQzQRF86MzAsK.T6tYAZBnbG', '321312', NULL, NULL, NULL, NULL, '2025-03-19 01:05:43', 80224, 0, NULL, NULL, 'usuario'),
+(3, 'Juanito', 'juanito@gmail.com', '$2y$10$isyYlIlaBOeZ9206uckStOKL1xIRW5zsKKhFFvMIaQRgQtxuqHGNK', '3123123', NULL, NULL, NULL, NULL, '2025-03-26 00:13:41', 3263, 0, NULL, NULL, 'usuario'),
+(4, 'juanchis', 'j2005solano@gmail.com', '$2y$10$YkRGmhf1UxIHSXanBwCdhO/YBF2F.fnFT1WykER2Aq84aroc2G8Rq', '3123213', NULL, NULL, NULL, NULL, '2025-03-26 00:22:59', 5, 0, NULL, NULL, 'usuario'),
+(7, 'edewf', 'eddie@gmail.com', '$2y$10$i45UVy3ykLlRsThddjBH8Oli266us/st8t6mcjHE56nEyQXmpwYam', '1233566', NULL, NULL, NULL, NULL, '2025-04-08 12:50:57', 468843, 0, NULL, NULL, 'usuario'),
+(8, 'samuel', 'samuel@gmail.com', '$2y$10$mbtcfBeudMireqVSa2Hrg.t1zzWSpjVxXYCeaHLPMV3E4DxaBwI1q', '3123123', NULL, NULL, NULL, NULL, '2025-04-08 12:57:31', 76, 0, NULL, NULL, 'usuario'),
+(9, 'samuel', 'alejo@gmail.com', '$2y$10$Hrmsdld1gshtIAce8ufKYuZGvOqmehUa7BCrskpdiHSrn2j1P9lHG', '2342344', NULL, NULL, NULL, NULL, '2025-04-09 04:22:51', 4, 0, NULL, NULL, 'admin'),
+(13, 'Administrador', 'admin@calorifit.com', '$2y$10$6R.L0ThwWYZJkhyxXnj9.uh1qQAmQIX71.p5p1Z3wVwGpyOgl34x2', '999999999', NULL, NULL, NULL, NULL, '2025-04-09 05:03:39', NULL, 1, NULL, NULL, 'admin'),
+(14, 'samuel', 'alejovital42@gmail.com', '$2y$10$T.DwqlE.l7vBl17.kR5KTuc3qsMgQRsLlpCwaUdmsPCHpK.1cp0DC', '12312345', NULL, NULL, NULL, NULL, '2025-04-09 05:06:33', NULL, 1, NULL, NULL, 'admin'),
+(15, 'alejo', 'samitobch@gmail.com', '$2y$10$AnVXJu7/iFoBodnLPn9QsuxcqJD.z5IatqCjMNgJZUUHfdycZY5vi', '23424234', NULL, NULL, NULL, NULL, '2025-04-09 05:12:25', NULL, 1, NULL, NULL, 'usuario');
 
 -- --------------------------------------------------------
 
@@ -321,6 +366,14 @@ CREATE TABLE `usuarios_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `usuarios_roles`
+--
+
+INSERT INTO `usuarios_roles` (`usuario_id`, `rol_id`) VALUES
+(13, 1),
+(14, 1);
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -328,6 +381,12 @@ CREATE TABLE `usuarios_roles` (
 -- Indices de la tabla `ejercicios`
 --
 ALTER TABLE `ejercicios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `entrenadores`
+--
+ALTER TABLE `entrenadores`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -425,10 +484,16 @@ ALTER TABLE `ejercicios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT de la tabla `entrenadores`
+--
+ALTER TABLE `entrenadores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `historial`
 --
 ALTER TABLE `historial`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `inscripciones`
@@ -452,13 +517,13 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `progreso_usuario`
 --
 ALTER TABLE `progreso_usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `rutinas`
@@ -482,7 +547,7 @@ ALTER TABLE `tareas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
