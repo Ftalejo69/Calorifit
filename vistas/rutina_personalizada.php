@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada']))
 
     echo "<script>alert('Rutina marcada como completada y guardada en el historial y progreso.');</script>";
     header('Location: rutina_personalizada.php');
+    
     exit;
 }
 ?>
@@ -76,6 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada']))
         <h1 class="titulo"><?php echo htmlspecialchars($objetivo); ?></h1>
         <p class="subtitulo">Sigue esta rutina para alcanzar tus metas.</p>
     </div>
+    <p class="info-text">
+        En la parte de abajo encontrarás un botón que te redirige a cómo tienes que hacer cada ejercicio correctamente.
+    </p>
     <div class="contenedor-ejercicios">
         <?php if (!empty($lista_ejercicios)): ?>
             <form method="post" id="rutina-form">
@@ -102,6 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada']))
                 </ul>
                 <div class="acciones text-center">
                     <button type="submit" name="marcar_completada" class="boton">Marcar como Completada</button>
+                    <button type="button" class="boton" onclick="redirectToObjectivePage('<?php echo htmlspecialchars($objetivo); ?>');">Ver Ejercicios</button>
                 </div>
             </form>
         <?php else: ?>
@@ -109,6 +114,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada']))
         <?php endif; ?>
     </div>
     <script src="../publico/js/rutina_personalizada.js"></script>
+    <script>
+        function redirectToObjectivePage(objetivo) {
+            switch (objetivo.toLowerCase()) {
+                case 'bajar de peso':
+                    window.location.href = 'ver_ejercicios_bajar.php';
+                    break;
+                case 'mantenimiento':
+                    window.location.href = 'ver_ejercicios_mantenimiento.php';
+                    break;
+                case 'ganar músculo':
+                    window.location.href = 'ver_ejercicios_ganar.php';
+                    break;
+                default:
+                    alert('Objetivo no reconocido.');
+            }
+        }
+    </script>
 </body>
 </html>
 

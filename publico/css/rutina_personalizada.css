@@ -54,7 +54,7 @@ body {
 .ejercicio:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    background: #fffde7; /* Fondo amarillo claro */
+    /* Removed background: #fffde7; */
 }
 
 .ejercicio h3 {
@@ -234,4 +234,17 @@ body {
 .ejercicio.completado {
     background: #f0f8f0;
     opacity: 0.8;
+}
+
+.info-text {
+    margin: 20px auto;
+    font-size: 1.2rem;
+    color: #555;
+    text-align: center;
+    background: #fffde7; /* Fondo amarillo claro */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1.5s ease-out;
+    max-width: 600px; /* Reduce the width */
 }
