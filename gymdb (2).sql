@@ -63,29 +63,6 @@ INSERT INTO `ejercicios` (`id`, `nombre`, `descripcion`, `musculo_principal`, `e
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `entrenadores`
---
-
-CREATE TABLE `entrenadores` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `specialty` varchar(100) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `entrenadores`
---
-
-INSERT INTO `entrenadores` (`id`, `name`, `specialty`, `created_at`) VALUES
-(1, 'Juan Solano', 'Fuerza y Resistencia', '2025-04-09 03:11:00'),
-(2, 'Ana García', 'Yoga y Pilates', '2025-04-09 03:11:00'),
-(3, 'Carlos Mendoza', 'Crossfit', '2025-04-09 03:11:00'),
-(4, 'María López', 'Nutrición Deportiva', '2025-04-09 03:11:00');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `historial`
 --
 
@@ -200,7 +177,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `nombre`) VALUES
 (1, 'admin'),
-(2, 'usuario');
+(2, 'usuario'),
+(3, 'entrenador');
 
 -- --------------------------------------------------------
 
@@ -352,7 +330,11 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `telefono`, `fec
 (9, 'samuel', 'alejo@gmail.com', '$2y$10$Hrmsdld1gshtIAce8ufKYuZGvOqmehUa7BCrskpdiHSrn2j1P9lHG', '2342344', NULL, NULL, NULL, NULL, '2025-04-09 04:22:51', 4, 0, NULL, NULL, 'admin'),
 (13, 'Administrador', 'admin@calorifit.com', '$2y$10$6R.L0ThwWYZJkhyxXnj9.uh1qQAmQIX71.p5p1Z3wVwGpyOgl34x2', '999999999', NULL, NULL, NULL, NULL, '2025-04-09 05:03:39', NULL, 1, NULL, NULL, 'admin'),
 (14, 'samuel', 'alejovital42@gmail.com', '$2y$10$T.DwqlE.l7vBl17.kR5KTuc3qsMgQRsLlpCwaUdmsPCHpK.1cp0DC', '12312345', NULL, NULL, NULL, NULL, '2025-04-09 05:06:33', NULL, 1, NULL, NULL, 'admin'),
-(15, 'alejo', 'samitobch@gmail.com', '$2y$10$AnVXJu7/iFoBodnLPn9QsuxcqJD.z5IatqCjMNgJZUUHfdycZY5vi', '23424234', NULL, NULL, NULL, NULL, '2025-04-09 05:12:25', NULL, 1, NULL, NULL, 'usuario');
+(15, 'alejo', 'samitobch@gmail.com', '$2y$10$AnVXJu7/iFoBodnLPn9QsuxcqJD.z5IatqCjMNgJZUUHfdycZY5vi', '23424234', NULL, NULL, NULL, NULL, '2025-04-09 05:12:25', NULL, 1, NULL, NULL, 'usuario'),
+(16, 'Juan Solano', 'juan.solano@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL, 'entrenador'),
+(17, 'Ana García', 'ana.garcia@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL, 'entrenador'),
+(18, 'Carlos Mendoza', 'carlos.mendoza@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL, 'entrenador'),
+(19, 'María López', 'maria.lopez@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL, 'entrenador');
 
 -- --------------------------------------------------------
 
@@ -373,6 +355,11 @@ INSERT INTO `usuarios_roles` (`usuario_id`, `rol_id`) VALUES
 (13, 1),
 (14, 1);
 
+-- Asignar rol de entrenador a los nuevos usuarios
+INSERT INTO `usuarios_roles` (`usuario_id`, `rol_id`)
+SELECT `id`, 3 FROM `usuarios` 
+WHERE `rol` = 'entrenador' AND `id` NOT IN (SELECT `usuario_id` FROM `usuarios_roles`);
+
 --
 -- Índices para tablas volcadas
 --
@@ -381,12 +368,6 @@ INSERT INTO `usuarios_roles` (`usuario_id`, `rol_id`) VALUES
 -- Indices de la tabla `ejercicios`
 --
 ALTER TABLE `ejercicios`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `entrenadores`
---
-ALTER TABLE `entrenadores`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -484,12 +465,6 @@ ALTER TABLE `ejercicios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT de la tabla `entrenadores`
---
-ALTER TABLE `entrenadores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT de la tabla `historial`
 --
 ALTER TABLE `historial`
@@ -547,7 +522,7 @@ ALTER TABLE `tareas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas
@@ -610,6 +585,12 @@ ALTER TABLE `tareas`
 ALTER TABLE `usuarios_roles`
   ADD CONSTRAINT `usuarios_roles_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `usuarios_roles_ibfk_2` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Eliminar la tabla entrenadores
+--
+DROP TABLE IF EXISTS `entrenadores`;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
