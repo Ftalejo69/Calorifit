@@ -192,7 +192,6 @@ CREATE TABLE `rutinas` (
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
-  `categoria` varchar(50) DEFAULT NULL,
   `nivel` enum('Principiante','Intermedio','Avanzado') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -200,18 +199,18 @@ CREATE TABLE `rutinas` (
 -- Volcado de datos para la tabla `rutinas`
 --
 
-INSERT INTO `rutinas` (`id`, `usuario_id`, `nombre`, `descripcion`, `fecha_creacion`, `categoria`, `nivel`) VALUES
-(1, NULL, 'Bajar de Peso', 'Rutina diseñada para reducir grasa corporal.', '2025-04-08 12:26:14', NULL, 'Principiante'),
-(2, NULL, 'Ganar Músculo', 'Rutina diseñada para aumentar masa muscular.', '2025-04-08 12:26:14', NULL, 'Principiante'),
-(3, NULL, 'Mantenimiento', 'Rutina diseñada para mantener la forma física.', '2025-04-08 12:26:14', NULL, 'Principiante'),
-(5, NULL, 'Bajar de Peso', 'Rutina para intermedios.', '2025-04-08 12:26:14', NULL, 'Intermedio'),
-(6, NULL, 'Bajar de Peso', 'Rutina para avanzados.', '2025-04-08 12:26:14', NULL, 'Avanzado'),
-(7, NULL, 'Ganar Músculo', 'Rutina para principiantes.', '2025-04-08 12:26:14', NULL, 'Principiante'),
-(8, NULL, 'Ganar Músculo', 'Rutina para intermedios.', '2025-04-08 12:26:14', NULL, 'Intermedio'),
-(9, NULL, 'Ganar Músculo', 'Rutina para avanzados.', '2025-04-08 12:26:14', NULL, 'Avanzado'),
-(10, NULL, 'Mantenimiento', 'Rutina para principiantes.', '2025-04-08 12:26:14', NULL, 'Principiante'),
-(11, NULL, 'Mantenimiento', 'Rutina para intermedios.', '2025-04-08 12:26:14', NULL, 'Intermedio'),
-(12, NULL, 'Mantenimiento', 'Rutina para avanzados.', '2025-04-08 12:26:14', NULL, 'Avanzado');
+INSERT INTO `rutinas` (`id`, `usuario_id`, `nombre`, `descripcion`, `fecha_creacion`, `nivel`) VALUES
+(1, NULL, 'Bajar de Peso', 'Rutina diseñada para reducir grasa corporal.', '2025-04-08 12:26:14', 'Principiante'),
+(2, NULL, 'Ganar Músculo', 'Rutina diseñada para aumentar masa muscular.', '2025-04-08 12:26:14', 'Principiante'),
+(3, NULL, 'Mantenimiento', 'Rutina diseñada para mantener la forma física.', '2025-04-08 12:26:14', 'Principiante'),
+(5, NULL, 'Bajar de Peso', 'Rutina para intermedios.', '2025-04-08 12:26:14', 'Intermedio'),
+(6, NULL, 'Bajar de Peso', 'Rutina para avanzados.', '2025-04-08 12:26:14', 'Avanzado'),
+(7, NULL, 'Ganar Músculo', 'Rutina para principiantes.', '2025-04-08 12:26:14', 'Principiante'),
+(8, NULL, 'Ganar Músculo', 'Rutina para intermedios.', '2025-04-08 12:26:14', 'Intermedio'),
+(9, NULL, 'Ganar Músculo', 'Rutina para avanzados.', '2025-04-08 12:26:14', 'Avanzado'),
+(10, NULL, 'Mantenimiento', 'Rutina para principiantes.', '2025-04-08 12:26:14', 'Principiante'),
+(11, NULL, 'Mantenimiento', 'Rutina para intermedios.', '2025-04-08 12:26:14', 'Intermedio'),
+(12, NULL, 'Mantenimiento', 'Rutina para avanzados.', '2025-04-08 12:26:14', 'Avanzado');
 
 -- --------------------------------------------------------
 
@@ -312,29 +311,28 @@ CREATE TABLE `usuarios` (
   `token` int(255) DEFAULT NULL,
   `verificado` tinyint(1) NOT NULL,
   `token_recuperacion` varchar(64) DEFAULT NULL,
-  `fecha_token` datetime DEFAULT NULL,
-  `rol` varchar(20) DEFAULT 'usuario'
+  `fecha_token` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `telefono`, `fecha_nacimiento`, `genero`, `peso`, `altura`, `fecha_registro`, `token`, `verificado`, `token_recuperacion`, `fecha_token`, `rol`) VALUES
-(1, 'Juan', 'esteban@gmail.com', '$2y$10$TS4ARSE9N/ZC4ast07BjHOZOqyRaoH1QJ44JarWH5BZK058.2YRmK', '32133123', NULL, NULL, NULL, NULL, '2025-03-19 00:35:43', 2147483647, 0, NULL, NULL, 'usuario'),
-(2, 'juan', 'solano@gmail.com', '$2y$10$KyTNFJnQI8ZxEo8Sw6BUSuy5rQVqugQzQRF86MzAsK.T6tYAZBnbG', '321312', NULL, NULL, NULL, NULL, '2025-03-19 01:05:43', 80224, 0, NULL, NULL, 'usuario'),
-(3, 'Juanito', 'juanito@gmail.com', '$2y$10$isyYlIlaBOeZ9206uckStOKL1xIRW5zsKKhFFvMIaQRgQtxuqHGNK', '3123123', NULL, NULL, NULL, NULL, '2025-03-26 00:13:41', 3263, 0, NULL, NULL, 'usuario'),
-(4, 'juanchis', 'j2005solano@gmail.com', '$2y$10$YkRGmhf1UxIHSXanBwCdhO/YBF2F.fnFT1WykER2Aq84aroc2G8Rq', '3123213', NULL, NULL, NULL, NULL, '2025-03-26 00:22:59', 5, 0, NULL, NULL, 'usuario'),
-(7, 'edewf', 'eddie@gmail.com', '$2y$10$i45UVy3ykLlRsThddjBH8Oli266us/st8t6mcjHE56nEyQXmpwYam', '1233566', NULL, NULL, NULL, NULL, '2025-04-08 12:50:57', 468843, 0, NULL, NULL, 'usuario'),
-(8, 'samuel', 'samuel@gmail.com', '$2y$10$mbtcfBeudMireqVSa2Hrg.t1zzWSpjVxXYCeaHLPMV3E4DxaBwI1q', '3123123', NULL, NULL, NULL, NULL, '2025-04-08 12:57:31', 76, 0, NULL, NULL, 'usuario'),
-(9, 'samuel', 'alejo@gmail.com', '$2y$10$Hrmsdld1gshtIAce8ufKYuZGvOqmehUa7BCrskpdiHSrn2j1P9lHG', '2342344', NULL, NULL, NULL, NULL, '2025-04-09 04:22:51', 4, 0, NULL, NULL, 'admin'),
-(13, 'Administrador', 'admin@calorifit.com', '$2y$10$6R.L0ThwWYZJkhyxXnj9.uh1qQAmQIX71.p5p1Z3wVwGpyOgl34x2', '999999999', NULL, NULL, NULL, NULL, '2025-04-09 05:03:39', NULL, 1, NULL, NULL, 'admin'),
-(14, 'samuel', 'alejovital42@gmail.com', '$2y$10$T.DwqlE.l7vBl17.kR5KTuc3qsMgQRsLlpCwaUdmsPCHpK.1cp0DC', '12312345', NULL, NULL, NULL, NULL, '2025-04-09 05:06:33', NULL, 1, NULL, NULL, 'admin'),
-(15, 'alejo', 'samitobch@gmail.com', '$2y$10$AnVXJu7/iFoBodnLPn9QsuxcqJD.z5IatqCjMNgJZUUHfdycZY5vi', '23424234', NULL, NULL, NULL, NULL, '2025-04-09 05:12:25', NULL, 1, NULL, NULL, 'usuario'),
-(16, 'Juan Solano', 'juan.solano@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL, 'entrenador'),
-(17, 'Ana García', 'ana.garcia@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL, 'entrenador'),
-(18, 'Carlos Mendoza', 'carlos.mendoza@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL, 'entrenador'),
-(19, 'María López', 'maria.lopez@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL, 'entrenador');
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `telefono`, `fecha_nacimiento`, `genero`, `peso`, `altura`, `fecha_registro`, `token`, `verificado`, `token_recuperacion`, `fecha_token`) VALUES
+(1, 'Juan', 'esteban@gmail.com', '$2y$10$TS4ARSE9N/ZC4ast07BjHOZOqyRaoH1QJ44JarWH5BZK058.2YRmK', '32133123', NULL, NULL, NULL, NULL, '2025-03-19 00:35:43', 2147483647, 0, NULL, NULL),
+(2, 'juan', 'solano@gmail.com', '$2y$10$KyTNFJnQI8ZxEo8Sw6BUSuy5rQVqugQzQRF86MzAsK.T6tYAZBnbG', '321312', NULL, NULL, NULL, NULL, '2025-03-19 01:05:43', 80224, 0, NULL, NULL),
+(3, 'Juanito', 'juanito@gmail.com', '$2y$10$isyYlIlaBOeZ9206uckStOKL1xIRW5zsKKhFFvMIaQRgQtxuqHGNK', '3123123', NULL, NULL, NULL, NULL, '2025-03-26 00:13:41', 3263, 0, NULL, NULL),
+(4, 'juanchis', 'j2005solano@gmail.com', '$2y$10$YkRGmhf1UxIHSXanBwCdhO/YBF2F.fnFT1WykER2Aq84aroc2G8Rq', '3123213', NULL, NULL, NULL, NULL, '2025-03-26 00:22:59', 5, 0, NULL, NULL),
+(7, 'edewf', 'eddie@gmail.com', '$2y$10$i45UVy3ykLlRsThddjBH8Oli266us/st8t6mcjHE56nEyQXmpwYam', '1233566', NULL, NULL, NULL, NULL, '2025-04-08 12:50:57', 468843, 0, NULL, NULL),
+(8, 'samuel', 'samuel@gmail.com', '$2y$10$mbtcfBeudMireqVSa2Hrg.t1zzWSpjVxXYCeaHLPMV3E4DxaBwI1q', '3123123', NULL, NULL, NULL, NULL, '2025-04-08 12:57:31', 76, 0, NULL, NULL),
+(9, 'samuel', 'alejo@gmail.com', '$2y$10$Hrmsdld1gshtIAce8ufKYuZGvOqmehUa7BCrskpdiHSrn2j1P9lHG', '2342344', NULL, NULL, NULL, NULL, '2025-04-09 04:22:51', 4, 0, NULL, NULL),
+(13, 'Administrador', 'admin@calorifit.com', '$2y$10$6R.L0ThwWYZJkhyxXnj9.uh1qQAmQIX71.p5p1Z3wVwGpyOgl34x2', '999999999', NULL, NULL, NULL, NULL, '2025-04-09 05:03:39', NULL, 1, NULL, NULL),
+(14, 'samuel', 'alejovital42@gmail.com', '$2y$10$T.DwqlE.l7vBl17.kR5KTuc3qsMgQRsLlpCwaUdmsPCHpK.1cp0DC', '12312345', NULL, NULL, NULL, NULL, '2025-04-09 05:06:33', NULL, 1, NULL, NULL),
+(15, 'alejo', 'samitobch@gmail.com', '$2y$10$AnVXJu7/iFoBodnLPn9QsuxcqJD.z5IatqCjMNgJZUUHfdycZY5vi', '23424234', NULL, NULL, NULL, NULL, '2025-04-09 05:12:25', NULL, 1, NULL, NULL),
+(16, 'Juan Solano', 'juan.solano@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL),
+(17, 'Ana García', 'ana.garcia@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL),
+(18, 'Carlos Mendoza', 'carlos.mendoza@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL),
+(19, 'María López', 'maria.lopez@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -358,7 +356,7 @@ INSERT INTO `usuarios_roles` (`usuario_id`, `rol_id`) VALUES
 -- Asignar rol de entrenador a los nuevos usuarios
 INSERT INTO `usuarios_roles` (`usuario_id`, `rol_id`)
 SELECT `id`, 3 FROM `usuarios` 
-WHERE `rol` = 'entrenador' AND `id` NOT IN (SELECT `usuario_id` FROM `usuarios_roles`);
+WHERE `id` NOT IN (SELECT `usuario_id` FROM `usuarios_roles`);
 
 --
 -- Índices para tablas volcadas
