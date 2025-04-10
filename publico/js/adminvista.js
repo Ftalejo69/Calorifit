@@ -127,8 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Manejadores de eventos para modales
     document.getElementById("add-trainer-btn")?.addEventListener("click", () => {
-        const trainerModal = document.getElementById("trainer-modal");
-        if (trainerModal) trainerModal.style.display = "flex";
+        const addModal = document.getElementById("add-trainer-modal");
+        if (addModal) addModal.style.display = "flex";
     });
 
     document.getElementById("add-plan-btn")?.addEventListener("click", () => {
@@ -183,35 +183,176 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Cargar datos de entrenadores
-    function cargarEntrenadores() {
-        const tableBody = document.querySelector("#trainers-table tbody");
-        if (!tableBody) return;
+    async function cargarEntrenadores() {
+        try {
+            const response = await fetch('/Calorifit/controladores/entrenadores_controlador.php?action=get');
+            if (!response.ok) throw new Error('HTTP error! status: ' + response.status);
+            
+            const result = await response.json();
+            if (!result.success) {
+                throw new Error(result.error || 'Error al cargar entrenadores');
+            }
 
-        fetch("../controladores/entrenadores_controlador.php?action=get")
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                return response.json();
-            })
-            .then(data => {
-                tableBody.innerHTML = "";
-                data.forEach(trainer => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${trainer.id}</td>
-                        <td>${trainer.name}</td>
-                        <td>${trainer.specialty}</td>
-                        <td>
-                            <button onclick="editarEntrenador(${trainer.id})">Editar</button>
-                            <button onclick="eliminarEntrenador(${trainer.id})">Eliminar</button>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            })
-            .catch(error => {
-                console.error("Error al cargar entrenadores:", error);
-                alert("Error al cargar los entrenadores");
+            const entrenadores = result.data;
+            const tbody = document.querySelector('#trainers-table tbody');
+            tbody.innerHTML = '';
+
+            entrenadores.forEach(entrenador => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${entrenador.id}</td>
+                    <td>${entrenador.nombre}</td>
+                    <td>${entrenador.correo}</td>
+                    <td>${entrenador.telefono}</td>
+                    <td>
+                        <button class="edit-btn" data-id="${entrenador.id}">
+                            <i class='bx bx-edit'></i>
+                        </button>
+                        <button class="delete-btn" data-id="${entrenador.id}">
+                            <i class='bx bx-trash'></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
             });
+
+            // Agregar eventos a los botones de editar y eliminar
+            document.querySelectorAll('.edit-btn').forEach(button => {
+                button.addEventListener('click', () => abrirModalEdicion(button.dataset.id));
+            });
+
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', () => eliminarEntrenador(button.dataset.id));
+            });
+        } catch (error) {
+            console.error('Error al cargar entrenadores:', error);
+        }
+    }
+
+    function abrirModalEdicion(id) {
+        const modal = document.getElementById('edit-trainer-modal');
+        const form = document.getElementById('trainer-form');
+
+        fetch(`/Calorifit/controladores/entrenadores_controlador.php?action=getById&id=${id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const entrenador = data.data;
+                    form.querySelector('#trainer-id').value = entrenador.id;
+                    form.querySelector('#trainer-name').value = entrenador.nombre;
+                    form.querySelector('#trainer-email').value = entrenador.correo;
+                    form.querySelector('#trainer-phone').value = entrenador.telefono;
+                    modal.style.display = 'flex';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Manejar el envío del formulario para agregar entrenador
+    document.getElementById('add-trainer-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const datos = {
+            nombre: formData.get('nombre'),
+            correo: formData.get('correo'),
+            telefono: formData.get('telefono')
+        };
+
+        try {
+            const response = await fetch('/Calorifit/controladores/entrenadores_controlador.php?action=add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datos)
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Entrenador agregado correctamente');
+                document.getElementById('add-trainer-modal').style.display = 'none';
+                e.target.reset();
+                await cargarEntrenadores();
+            } else {
+                throw new Error(result.error || 'Error al agregar entrenador');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+    });
+
+    // Manejar el envío del formulario para editar entrenador
+    document.getElementById('trainer-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const datos = {
+            id: formData.get('id'),
+            nombre: formData.get('nombre'),
+            correo: formData.get('correo'),
+            telefono: formData.get('telefono')
+        };
+
+        try {
+            const response = await fetch('/Calorifit/controladores/entrenadores_controlador.php?action=update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datos)
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Entrenador actualizado correctamente');
+                document.getElementById('edit-trainer-modal').style.display = 'none';
+                await cargarEntrenadores();
+            } else {
+                throw new Error(result.error || 'Error al actualizar entrenador');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+    });
+
+    // Función para cerrar el modal
+    function cerrarModal() {
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.style.display = 'none';
+        });
+    }
+
+    // Asignar el evento a todos los botones de cierre
+    document.querySelectorAll('.close-modal').forEach(button => {
+        button.addEventListener('click', cerrarModal);
+    });
+
+    // También cerramos el modal si el usuario hace clic fuera del contenido del modal
+    window.addEventListener('click', (event) => {
+        if (event.target.classList.contains('modal')) {
+            cerrarModal();
+        }
+    });
+
+    async function eliminarEntrenador(id) {
+        if (!confirm('¿Estás seguro de que deseas eliminar este entrenador?')) return;
+
+        try {
+            const response = await fetch(`/Calorifit/controladores/entrenadores_controlador.php?action=delete&id=${id}`, {
+                method: 'DELETE'
+            });
+
+            const result = await response.json();
+            if (!result.success) {
+                throw new Error(result.error || 'Error al eliminar entrenador');
+            }
+
+            alert('Entrenador eliminado correctamente');
+            cargarEntrenadores();
+        } catch (error) {
+            console.error('Error al eliminar entrenador:', error);
+        }
     }
 
     // Función para cargar usuarios
@@ -316,6 +457,40 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Error al guardar el plan");
         });
     });
+
+    // Manejar el envío del formulario de entrenadores
+    async function guardarEntrenador(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const datos = {
+            nombre: formData.get('nombre'),
+            apellido: formData.get('apellido'),
+            correo: formData.get('correo'),
+            telefono: formData.get('telefono'),
+            especialidad: formData.get('especialidad'),
+            estado: formData.get('estado')
+        };
+
+        try {
+            const response = await fetch('/Calorifit/controladores/entrenadores_controlador.php?action=add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datos)
+            });
+
+            if (!response.ok) throw new Error('Error al guardar');
+            
+            const result = await response.json();
+            if (result.success) {
+                closeModal('trainer-modal');
+                cargarEntrenadores();
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     // Navegación del menú mejorada
     const menuLinks = document.querySelectorAll(".menu li a");
