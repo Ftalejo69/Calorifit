@@ -126,10 +126,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Manejadores de eventos para modales
-    document.getElementById("add-trainer-btn")?.addEventListener("click", () => {
-        const addModal = document.getElementById("add-trainer-modal");
-        if (addModal) addModal.style.display = "flex";
-    });
+    const addTrainerBtn = document.getElementById("add-trainer-btn");
+    if (addTrainerBtn) {
+        addTrainerBtn.addEventListener("click", () => {
+            const addModal = document.getElementById("add-trainer-modal");
+            if (addModal) {
+                addModal.classList.add("active");
+            } else {
+                console.error("No se encontró el modal de agregar entrenador.");
+            }
+        });
+    }
 
     document.getElementById("add-plan-btn")?.addEventListener("click", () => {
         const planModal = document.getElementById("plan-modal");
@@ -240,19 +247,31 @@ document.addEventListener("DOMContentLoaded", () => {
         const modal = document.getElementById('edit-trainer-modal');
         const form = document.getElementById('trainer-form');
 
+        if (!modal || !form) {
+            console.error("No se encontró el modal o el formulario de edición.");
+            return;
+        }
+
         fetch(`/Calorifit/controladores/entrenadores_controlador.php?action=getById&id=${id}`)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     const entrenador = data.data;
-                    form.querySelector('#trainer-id').value = entrenador.id;
-                    form.querySelector('#trainer-name').value = entrenador.nombre;
-                    form.querySelector('#trainer-email').value = entrenador.correo;
-                    form.querySelector('#trainer-phone').value = entrenador.telefono;
-                    modal.style.display = 'flex';
+                    form.querySelector("#trainer-id").value = entrenador.id;
+                    form.querySelector("#trainer-name").value = entrenador.nombre;
+                    form.querySelector("#trainer-email").value = entrenador.correo;
+                    form.querySelector("#trainer-phone").value = entrenador.telefono;
+                    modal.classList.add("active");
+                } else {
+                    console.error("Error al obtener los datos del entrenador:", data.error);
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error("Error al cargar los datos del entrenador:", error));
     }
 
     // Manejar el envío del formulario para agregar entrenador
@@ -326,7 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Función para cerrar el modal
     function cerrarModal() {
         document.querySelectorAll('.modal').forEach(modal => {
-            modal.style.display = 'none';
+            modal.classList.remove('active');
         });
     }
 
