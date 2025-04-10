@@ -5,11 +5,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['accion'])) {
         $accion = $_POST['accion'];
         if ($accion === 'agregar_rutina') {
-            $nombre = $_POST['nombre'];
             $nivel = $_POST['nivel'];
-            $descripcion = $_POST['descripcion'];
             $imagen = $_POST['imagen'] ?? null; // Validar que la clave 'imagen' exista
-            $query = "INSERT INTO rutinas (nombre, nivel, descripcion, imagen) VALUES ('$nombre', '$nivel', '$descripcion', '$imagen')";
+            $query = "INSERT INTO rutinas (nivel, imagen) VALUES ('$nivel', '$imagen')";
             $conexion->query($query);
             header("Location: entrenador.php"); // Redirigir para evitar reenvío del formulario
             exit;
@@ -39,6 +37,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $conexion->query($query);
             header("Location: entrenador.php");
             exit;
+        } elseif ($accion === 'agregar_ejercicios_a_objetivos') {
+            $nivel = $_POST['nivel'];
+            $ejercicios = $_POST['ejercicios'];
+
+            foreach ($ejercicios as $objetivo => $datos) {
+                $ejercicio_id = $datos['ejercicio_id'];
+                $series = $datos['series'];
+                $repeticiones = $datos['repeticiones'];
+                $peso = $datos['peso'];
+
+                // Verificar si la rutina para el nivel y objetivo existe, si no, crearla
+                $query_rutina = "SELECT id FROM rutinas WHERE nivel = '$nivel' AND nombre = '$objetivo' LIMIT 1";
+                $result_rutina = $conexion->query($query_rutina);
+                if ($result_rutina->num_rows === 0) {
+                    $descripcion = "Rutina para el objetivo $objetivo en el nivel $nivel.";
+                    $query_insert_rutina = "INSERT INTO rutinas (nombre, nivel, descripcion) VALUES ('$objetivo', '$nivel', '$descripcion')";
+                    $conexion->query($query_insert_rutina);
+                    $rutina_id = $conexion->insert_id; // Obtener el ID de la rutina recién creada
+                } else {
+                    $rutina = $result_rutina->fetch_assoc();
+                    $rutina_id = $rutina['id'];
+                }
+
+                // Insertar el ejercicio en la rutina correspondiente
+                $query_insert = "INSERT INTO rutina_ejercicios (rutina_id, ejercicio_id, series, repeticiones, peso) 
+                                 VALUES ('$rutina_id', '$ejercicio_id', '$series', '$repeticiones', '$peso')";
+                $conexion->query($query_insert);
+            }
+
+            header("Location: entrenador.php");
+            exit;
+        } elseif ($accion === 'editar_objetivo') {
+            $id = $_POST['id'];
+            $nombre = $_POST['nombre'];
+
+            $query_update = "UPDATE rutinas SET nombre = '$nombre' WHERE id = $id";
+            $conexion->query($query_update);
+            header("Location: entrenador.php");
+            exit;
+        } elseif ($accion === 'eliminar_objetivo') {
+            $id = $_POST['id'];
+
+            $query_delete = "DELETE FROM rutinas WHERE id = $id";
+            $conexion->query($query_delete);
+            header("Location: entrenador.php");
+            exit;
+        } elseif ($accion === 'editar_nivel') {
+            $nivel = $_POST['nivel'];
+            $imagen = $_POST['imagen'];
+
+            $query_update = "UPDATE rutinas SET imagen = '$imagen' WHERE nivel = '$nivel'";
+            $conexion->query($query_update);
+            header("Location: entrenador.php");
+            exit;
         }
     }
 }
@@ -52,6 +104,29 @@ $rutinas = $result_rutinas->fetch_all(MYSQLI_ASSOC); // Almacenar los resultados
 $query_ejercicios = "SELECT id, nombre FROM ejercicios";
 $result_ejercicios = $conexion->query($query_ejercicios);
 $ejercicios = $result_ejercicios->fetch_all(MYSQLI_ASSOC); // Almacenar los resultados en un array
+
+// Obtener niveles únicos desde la tabla rutinas con imágenes
+$query_niveles = "
+    SELECT nivel, imagen 
+    FROM rutinas 
+    WHERE id IN (
+        SELECT MIN(id) 
+        FROM rutinas 
+        GROUP BY nivel
+    )
+";
+$result_niveles = $conexion->query($query_niveles);
+$niveles = $result_niveles->fetch_all(MYSQLI_ASSOC);
+
+// Obtener objetivos agrupados por nivel
+$query_objetivos = "SELECT id, nombre, nivel, descripcion, imagen FROM rutinas ORDER BY nivel";
+$result_objetivos = $conexion->query($query_objetivos);
+$objetivos = $result_objetivos->fetch_all(MYSQLI_ASSOC);
+
+// Obtener rutinas agrupadas por nivel
+$query_rutinas_por_nivel = "SELECT id, nombre, nivel, descripcion, imagen FROM rutinas ORDER BY nivel";
+$result_rutinas_por_nivel = $conexion->query($query_rutinas_por_nivel);
+$rutinas_por_nivel = $result_rutinas_por_nivel->fetch_all(MYSQLI_ASSOC);
 
 // Verificar si se solicitó editar una rutina específica
 $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
@@ -162,15 +237,19 @@ $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
                 }
             }
         });
+
+        function mostrarObjetivos(nivel) {
+            document.getElementById('nivelSeleccionado').value = nivel;
+            mostrarSeccion('seccionObjetivos');
+        }
     </script>
 </head>
 <body>
     <div class="sidebar">
         <h2 class="text-center py-3"><i class="bx bxs-layer"></i> Calorifit</h2>
         <a onclick="mostrarSeccion('seccionAgregarRutina')"><i class="bx bx-plus-circle"></i> Agregar Rutinas</a>
-        <a onclick="mostrarSeccion('seccionAgregarEjercicio')"><i class="bx bx-dumbbell"></i> Agregar Ejercicios</a>
-        <a onclick="mostrarSeccion('seccionRutinasExistentes')"><i class="bx bx-list-ul"></i> Rutinas Existentes</a>
-        <a onclick="mostrarSeccion('seccionEditarRutinas')"><i class="bx bx-edit"></i> Editar Rutinas</a>
+        <a onclick="mostrarSeccion('seccionObjetivosExistentes')"><i class="bx bx-list-ul"></i> Objetivos Existentes</a>
+        <a onclick="mostrarSeccion('seccionNiveles')"><i class="bx bx-layer"></i> Niveles</a>
         <div class="logout">
             <a href="../controladores/cerrar_sesion.php"><i class="bx bxs-log-out"></i> Cerrar Sesión</a>
         </div>
@@ -188,20 +267,12 @@ $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
                     <form method="POST">
                         <input type="hidden" name="accion" value="agregar_rutina">
                         <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre de la Rutina</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ejemplo: Bajar de Peso" required>
-                        </div>
-                        <div class="mb-3">
                             <label for="nivel" class="form-label">Nivel</label>
                             <select class="form-select" id="nivel" name="nivel" required>
                                 <option value="Principiante">Principiante</option>
                                 <option value="Intermedio">Intermedio</option>
                                 <option value="Avanzado">Avanzado</option>
                             </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="descripcion" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Descripción de la rutina" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="imagen" class="form-label">URL de la Imagen</label>
@@ -213,95 +284,73 @@ $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
             </div>
         </div>
 
-        <!-- Sección Agregar Ejercicio -->
-        <div id="seccionAgregarEjercicio" class="seccion hidden">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h2 class="h5 mb-0">Agregar Ejercicio a Rutina</h2>
-                </div>
-                <div class="card-body">
-                    <form method="POST">
-                        <input type="hidden" name="accion" value="agregar_ejercicio">
-                        <div class="mb-3">
-                            <label for="rutina_id" class="form-label">Rutina</label>
-                            <select class="form-select" id="rutina_id" name="rutina_id" required>
-                                <?php if (!empty($rutinas)): ?>
-                                    <?php foreach ($rutinas as $rutina): ?>
-                                        <option value="<?php echo $rutina['id']; ?>">
-                                            <?php echo htmlspecialchars($rutina['nombre'] . " (" . $rutina['nivel'] . ")"); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <option value="">No hay rutinas disponibles</option>
+        <!-- Sección Objetivos Existentes -->
+        <div id="seccionObjetivosExistentes" class="seccion hidden">
+            <h2 class="text-center mb-4 text-secondary">Objetivos Existentes</h2>
+            <div class="row">
+                <?php foreach ($niveles as $nivel): ?>
+                <div class="col-md-12 mb-4">
+                    <h3 class="text-warning"><?php echo htmlspecialchars($nivel['nivel']); ?></h3>
+                    <div class="row">
+                        <?php
+                        $query_objetivo = "SELECT id, nombre FROM rutinas WHERE nivel = '$nivel[nivel]' AND nombre IS NOT NULL AND nombre != ''";
+                        $result_objetivo = $conexion->query($query_objetivo);
+                        $objetivos = $result_objetivo->fetch_all(MYSQLI_ASSOC);
+                        ?>
+                        <?php if (!empty($objetivos)): ?>
+                            <?php foreach ($objetivos as $objetivo): ?>
+                                <?php if (!empty($objetivo['nombre'])): // Validar que el nombre no esté vacío ?>
+                                <div class="col-md-4 mb-4">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <form method="POST">
+                                                <input type="hidden" name="accion" value="editar_objetivo">
+                                                <input type="hidden" name="id" value="<?php echo $objetivo['id']; ?>">
+                                                <div class="mb-3">
+                                                    <label for="nombre-<?php echo $objetivo['id']; ?>" class="form-label">Nombre del Objetivo</label>
+                                                    <input type="text" class="form-control" id="nombre-<?php echo $objetivo['id']; ?>" name="nombre" value="<?php echo htmlspecialchars($objetivo['nombre']); ?>" required>
+                                                </div>
+                                                <button type="submit" class="btn btn-success w-100 mb-2">Guardar Cambios</button>
+                                            </form>
+                                            <form method="POST">
+                                                <input type="hidden" name="accion" value="eliminar_objetivo">
+                                                <input type="hidden" name="id" value="<?php echo $objetivo['id']; ?>">
+                                                <button type="submit" class="btn btn-danger w-100">Eliminar Objetivo</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php endif; ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="ejercicio_id" class="form-label">Ejercicio</label>
-                            <select class="form-select" id="ejercicio_id" name="ejercicio_id" required>
-                                <?php if (!empty($ejercicios)): ?>
-                                    <?php foreach ($ejercicios as $ejercicio): ?>
-                                        <option value="<?php echo $ejercicio['id']; ?>">
-                                            <?php echo htmlspecialchars($ejercicio['nombre']); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <option value="">No hay ejercicios disponibles</option>
-                                <?php endif; ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="series" class="form-label">Series</label>
-                            <input type="number" class="form-control" id="series" name="series" placeholder="Número de series" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="repeticiones" class="form-label">Repeticiones</label>
-                            <input type="number" class="form-control" id="repeticiones" name="repeticiones" placeholder="Número de repeticiones" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="peso" class="form-label">Peso (kg)</label>
-                            <input type="number" class="form-control" id="peso" name="peso" placeholder="Peso en kg" required>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100">Asignar Ejercicio</button>
-                    </form>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="text-center">No hay objetivos disponibles para este nivel.</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
+                <?php endforeach; ?>
             </div>
         </div>
 
-        <!-- Sección Editar Rutinas -->
-        <div id="seccionEditarRutinas" class="seccion hidden">
-            <h2 class="text-center mb-4 text-secondary">Editar Rutinas</h2>
+        <!-- Sección Niveles -->
+        <div id="seccionNiveles" class="seccion hidden">
+            <h2 class="text-center mb-4 text-secondary">Niveles</h2>
             <div class="row">
-                <?php foreach ($rutinas as $row): ?>
+                <?php foreach ($niveles as $nivel): ?>
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <img src="<?php echo htmlspecialchars($row['imagen']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row['nombre']); ?>">
-                        <div class="card-body">
-                            <form method="POST" id="form-editar-<?php echo $row['id']; ?>">
-                                <input type="hidden" name="accion" value="editar_rutina">
-                                <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['id']); ?>">
+                        <img src="<?php echo htmlspecialchars($nivel['imagen']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($nivel['nivel']); ?>">
+                        <div class="card-body text-center">
+                            <h3 class="card-title text-warning"><?php echo htmlspecialchars($nivel['nivel']); ?></h3>
+                            <form method="POST">
+                                <input type="hidden" name="accion" value="editar_nivel">
+                                <input type="hidden" name="nivel" value="<?php echo htmlspecialchars($nivel['nivel']); ?>">
                                 <div class="mb-3">
-                                    <label for="nombre-<?php echo $row['id']; ?>" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre-<?php echo $row['id']; ?>" name="nombre" value="<?php echo htmlspecialchars($row['nombre']); ?>" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nivel-<?php echo $row['id']; ?>" class="form-label">Nivel</label>
-                                    <select class="form-select" id="nivel-<?php echo $row['id']; ?>" name="nivel" required>
-                                        <option value="Principiante" <?php echo $row['nivel'] === 'Principiante' ? 'selected' : ''; ?>>Principiante</option>
-                                        <option value="Intermedio" <?php echo $row['nivel'] === 'Intermedio' ? 'selected' : ''; ?>>Intermedio</option>
-                                        <option value="Avanzado" <?php echo $row['nivel'] === 'Avanzado' ? 'selected' : ''; ?>>Avanzado</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="descripcion-<?php echo $row['id']; ?>" class="form-label">Descripción</label>
-                                    <textarea class="form-control" id="descripcion-<?php echo $row['id']; ?>" name="descripcion" rows="3" required><?php echo htmlspecialchars($row['descripcion']); ?></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="imagen-<?php echo $row['id']; ?>" class="form-label">URL de la Imagen</label>
-                                    <input type="text" class="form-control" id="imagen-<?php echo $row['id']; ?>" name="imagen" value="<?php echo htmlspecialchars($row['imagen']); ?>">
+                                    <label for="imagen-<?php echo htmlspecialchars($nivel['nivel']); ?>" class="form-label">URL de la Imagen</label>
+                                    <input type="text" class="form-control" id="imagen-<?php echo htmlspecialchars($nivel['nivel']); ?>" name="imagen" value="<?php echo htmlspecialchars($nivel['imagen']); ?>" required>
                                 </div>
                                 <button type="submit" class="btn btn-success w-100">Guardar Cambios</button>
                             </form>
+                            <button class="btn btn-primary w-100 mt-2" onclick="mostrarObjetivos('<?php echo htmlspecialchars($nivel['nivel']); ?>')">Agregar Ejercicios a Objetivos</button>
                         </div>
                     </div>
                 </div>
@@ -309,29 +358,43 @@ $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
             </div>
         </div>
 
-        <!-- Sección Rutinas Existentes -->
-        <div id="seccionRutinasExistentes" class="seccion hidden">
-            <h2 class="text-center mb-4 text-secondary">Rutinas Existentes</h2>
-            <div class="row">
-                <?php foreach ($rutinas as $row): ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="<?php echo htmlspecialchars($row['imagen']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row['nombre']); ?>">
-                        <div class="card-body">
-                            <h5 class="card-title text-warning"><?php echo htmlspecialchars($row['nombre']); ?></h5>
-                            <p class="card-text text-muted"><?php echo htmlspecialchars($row['descripcion']); ?></p>
-                            <p class="text-muted"><strong>Nivel:</strong> <?php echo htmlspecialchars($row['nivel']); ?></p>
-                            <a href="?editar=<?php echo $row['id']; ?>" class="btn btn-primary btn-sm">Editar</a>
-                            <form method="POST" class="d-inline">
-                                <input type="hidden" name="accion" value="eliminar_rutina">
-                                <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['id']); ?>">
-                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                            </form>
+        <!-- Sección Objetivos por Nivel -->
+        <div id="seccionObjetivos" class="seccion hidden">
+            <h2 class="text-center mb-4 text-secondary">Agregar Ejercicios a Objetivos</h2>
+            <form method="POST">
+                <input type="hidden" name="accion" value="agregar_ejercicios_a_objetivos">
+                <input type="hidden" id="nivelSeleccionado" name="nivel">
+                <div class="row">
+                    <?php foreach (['Bajar de Peso', 'Mantenimiento', 'Ganar Músculo'] as $objetivo): ?>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title text-warning"><?php echo htmlspecialchars($objetivo); ?></h5>
+                                <div class="mb-2">
+                                    <select class="form-select" name="ejercicios[<?php echo htmlspecialchars($objetivo); ?>][ejercicio_id]" required>
+                                        <option value="" disabled selected>Seleccionar Ejercicio</option>
+                                        <?php foreach ($ejercicios as $ejercicio): ?>
+                                        <option value="<?php echo $ejercicio['id']; ?>"><?php echo htmlspecialchars($ejercicio['nombre']); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="mb-2">
+                                    <input type="number" class="form-control" name="ejercicios[<?php echo htmlspecialchars($objetivo); ?>][series]" placeholder="Series" required>
+                                </div>
+                                <div class="mb-2">
+                                    <input type="number" class="form-control" name="ejercicios[<?php echo htmlspecialchars($objetivo); ?>][repeticiones]" placeholder="Repeticiones" required>
+                                </div>
+                                <div class="mb-2">
+                                    <input type="number" class="form-control" name="ejercicios[<?php echo htmlspecialchars($objetivo); ?>][peso]" placeholder="Peso (kg)" required>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <?php endforeach; ?>
                 </div>
-                <?php endforeach; ?>
-            </div>
+                <button type="submit" class="btn btn-success w-100">Agregar Ejercicios</button>
+            </form>
+            <button class="btn btn-secondary mt-3" onclick="mostrarSeccion('seccionNiveles')">Volver a Niveles</button>
         </div>
     </div>
 </body>

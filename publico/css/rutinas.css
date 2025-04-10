@@ -505,6 +505,14 @@ body {
     display: none;
 }
 
+.nivel-imagen {
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho de la tarjeta */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-radius: 8px; /* Opcional: bordes redondeados */
+    margin-bottom: 10px; /* Espaciado entre la imagen y el contenido */
+    object-fit: cover; /* Ajusta la imagen para que se vea bien dentro del contenedor */
+}
+
 
 
 
