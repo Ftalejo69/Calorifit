@@ -69,8 +69,8 @@ try {
             $conn->beginTransaction();
             
             // 1. Insertar usuario
-            $sql = "INSERT INTO usuarios (nombre, correo, telefono, contrasena, verificado, rol) 
-                    VALUES (:nombre, :correo, :telefono, :contrasena, 1, 'entrenador')";
+            $sql = "INSERT INTO usuarios (nombre, correo, telefono, contrasena, verificado) 
+                    VALUES (:nombre, :correo, :telefono, :contrasena, 1)";
             
             $stmt = $conn->prepare($sql);
             $stmt->execute([
