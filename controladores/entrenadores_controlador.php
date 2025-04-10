@@ -1,28 +1,175 @@
 <?php
+require_once '../config/database.php';
+
 header('Content-Type: application/json');
-include_once '../configuracion/conexion.php';
 
 try {
+    if (!isset($conn)) {
+        throw new Exception('Error de conexión a la base de datos');
+    }
+
     $action = $_GET['action'] ?? '';
 
-    switch($action) {
-        case 'get':
-            $query = "SELECT * FROM entrenadores";
-            $result = $conexion->query($query);
-            if (!$result) {
-                throw new Exception($conexion->error);
-            }
-            $entrenadores = [];
-            while($row = $result->fetch_assoc()) {
-                $entrenadores[] = $row;
-            }
-            echo json_encode($entrenadores);
-            break;
-        default:
-            throw new Exception('Acción no válida');
+    if ($action === 'get') {
+        $sql = "SELECT u.id, u.nombre, u.correo, u.telefono 
+                FROM usuarios u 
+                INNER JOIN usuarios_roles ur ON u.id = ur.usuario_id 
+                INNER JOIN roles r ON ur.rol_id = r.id 
+                WHERE r.nombre = 'entrenador'";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $entrenadores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        error_log("Datos obtenidos: " . print_r($entrenadores, true));
+
+        echo json_encode([
+            'success' => true,
+            'data' => $entrenadores
+        ]);
+        exit;
     }
+
+    if ($action === 'getById') {
+        $id = $_GET['id'] ?? null;
+
+        if (!$id) {
+            echo json_encode(['success' => false, 'error' => 'ID no proporcionado']);
+            exit;
+        }
+
+        try {
+            $stmt = $conn->prepare("SELECT id, nombre, correo, telefono FROM usuarios WHERE id = :id");
+            $stmt->execute([':id' => $id]);
+            $entrenador = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$entrenador) {
+                echo json_encode(['success' => false, 'error' => 'Entrenador no encontrado']);
+                exit;
+            }
+
+            echo json_encode(['success' => true, 'data' => $entrenador]);
+            exit;
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+            exit;
+        }
+    }
+
+    if ($action === 'add') {
+        $datos = json_decode(file_get_contents('php://input'), true);
+        
+        if (!isset($datos['nombre']) || !isset($datos['correo']) || !isset($datos['telefono'])) {
+            echo json_encode(['success' => false, 'error' => 'Datos incompletos']);
+            exit;
+        }
+
+        try {
+            $conn->beginTransaction();
+            
+            // 1. Insertar usuario
+            $sql = "INSERT INTO usuarios (nombre, correo, telefono, contrasena, verificado, rol) 
+                    VALUES (:nombre, :correo, :telefono, :contrasena, 1, 'entrenador')";
+            
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([
+                ':nombre' => $datos['nombre'],
+                ':correo' => $datos['correo'],
+                ':telefono' => $datos['telefono'],
+                ':contrasena' => password_hash('entrenador123', PASSWORD_DEFAULT)
+            ]);
+            
+            $usuario_id = $conn->lastInsertId();
+            
+            // 2. Obtener el rol_id de entrenador
+            $stmt = $conn->prepare("SELECT id FROM roles WHERE nombre = 'entrenador'");
+            $stmt->execute();
+            $rol = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            // 3. Asignar rol
+            $stmt = $conn->prepare("INSERT INTO usuarios_roles (usuario_id, rol_id) VALUES (:usuario_id, :rol_id)");
+            $stmt->execute([
+                ':usuario_id' => $usuario_id,
+                ':rol_id' => $rol['id']
+            ]);
+            
+            $conn->commit();
+            echo json_encode(['success' => true, 'message' => 'Entrenador creado correctamente']);
+            exit;
+        } catch (Exception $e) {
+            $conn->rollBack();
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+            exit;
+        }
+    }
+
+    if ($action === 'update') {
+        $datos = json_decode(file_get_contents('php://input'), true);
+        
+        if (!isset($datos['id']) || !isset($datos['nombre']) || !isset($datos['correo']) || !isset($datos['telefono'])) {
+            echo json_encode(['success' => false, 'error' => 'Datos incompletos']);
+            exit;
+        }
+
+        try {
+            $sql = "UPDATE usuarios 
+                    SET nombre = :nombre, correo = :correo, telefono = :telefono 
+                    WHERE id = :id AND id IN (
+                        SELECT usuario_id FROM usuarios_roles ur 
+                        INNER JOIN roles r ON ur.rol_id = r.id 
+                        WHERE r.nombre = 'entrenador'
+                    )";
+            
+            $stmt = $conn->prepare($sql);
+            $result = $stmt->execute([
+                ':id' => $datos['id'],
+                ':nombre' => $datos['nombre'],
+                ':correo' => $datos['correo'],
+                ':telefono' => $datos['telefono']
+            ]);
+
+            if ($stmt->rowCount() > 0) {
+                echo json_encode(['success' => true, 'message' => 'Entrenador actualizado correctamente']);
+            } else {
+                echo json_encode(['success' => false, 'error' => 'No se encontró el entrenador o no se realizaron cambios']);
+            }
+            exit;
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+            exit;
+        }
+    }
+
+    if ($action === 'delete') {
+        $id = $_GET['id'] ?? null;
+
+        if (!$id) {
+            echo json_encode(['success' => false, 'error' => 'ID no proporcionado']);
+            exit;
+        }
+
+        try {
+            $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = :id");
+            $stmt->execute([':id' => $id]);
+
+            echo json_encode(['success' => true, 'message' => 'Entrenador eliminado correctamente']);
+            exit;
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+            exit;
+        }
+    }
+
+    echo json_encode(['success' => false, 'error' => 'Acción no válida']);
+    exit;
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['error' => $e->getMessage()]);
+    error_log("Error en el controlador de entrenadores: " . $e->getMessage());
+    echo json_encode([
+        'success' => false,
+        'error' => $e->getMessage()
+    ]);
+    exit;
 }
-?>

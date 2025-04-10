@@ -141,12 +141,13 @@ $usuario = $_SESSION['usuario'];
                 <i class="bx bx-plus"></i> Agregar Entrenador
             </button>
             <div class="table-container">
-                <table id="trainers-table">
+                <table id="trainers-table" class="styled-table">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>Especialidad</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -157,22 +158,49 @@ $usuario = $_SESSION['usuario'];
             </div>
         </section>
 
-        <!-- Modal para Entrenadores -->
-        <div id="trainer-modal" class="modal">
+        <!-- Modal para Agregar Entrenador -->
+        <div id="add-trainer-modal" class="modal">
             <div class="modal-content">
                 <span class="close-modal">&times;</span>
-                <h2>Entrenador</h2>
+                <h2>Agregar Nuevo Entrenador</h2>
+                <form id="add-trainer-form">
+                    <div class="form-group">
+                        <label for="new-trainer-name">Nombre:</label>
+                        <input type="text" id="new-trainer-name" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-trainer-email">Correo:</label>
+                        <input type="email" id="new-trainer-email" name="correo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-trainer-phone">Teléfono:</label>
+                        <input type="tel" id="new-trainer-phone" name="telefono" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Agregar Entrenador</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal para Editar Entrenador -->
+        <div id="edit-trainer-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Editar Entrenador</h2>
                 <form id="trainer-form">
-                    <input type="hidden" id="trainer-id">
+                    <input type="hidden" id="trainer-id" name="id">
                     <div class="form-group">
                         <label for="trainer-name">Nombre:</label>
-                        <input type="text" id="trainer-name" name="name" required>
+                        <input type="text" id="trainer-name" name="nombre" required>
                     </div>
                     <div class="form-group">
-                        <label for="trainer-specialty">Especialidad:</label>
-                        <input type="text" id="trainer-specialty" name="specialty" required>
+                        <label for="trainer-email">Correo:</label>
+                        <input type="email" id="trainer-email" name="correo" required>
                     </div>
-                    <button type="submit" class="btn-submit">Guardar</button>
+                    <div class="form-group">
+                        <label for="trainer-phone">Teléfono:</label>
+                        <input type="tel" id="trainer-phone" name="telefono" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Guardar Cambios</button>
                 </form>
             </div>
         </div>
