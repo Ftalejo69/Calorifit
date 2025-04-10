@@ -1,19 +1,29 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+// Asegúrate de iniciar sesión para acceder a los datos del usuario
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    echo "Por favor, inicie sesión para ver su perfil.";
+    exit;
 }
 
-// Check if the user is new (e.g., no plan or other criteria)
-$usuario = $_SESSION['usuario'] ?? null;
-
-// Only set `isNewUser` if it hasn't been explicitly set before
-if (!isset($_SESSION['isNewUser'])) {
-    $_SESSION['isNewUser'] = !isset($usuario['plan']) || empty($usuario['plan']); // True if no plan, false otherwise
-}
+$usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 ?>
-<!-- Estilos personalizados -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CaloriFit</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Estilos personalizados -->
   <link rel="stylesheet" href="../publico/css/estilo.css">
-<body></body>
+</head>
+<body>
   <?php include '../vistas/navbar.php'; ?>
   <?php include '../vistas/modal_perfil.php'; ?>
 
@@ -42,7 +52,7 @@ if (!isset($_SESSION['isNewUser'])) {
             <div class="contenido">
                 <h2>PLAN FIT</h2>
                 <p>Accede a contenido exclusivo y mejora tu rendimiento físico con entrenamientos personalizados.</p>
-                <h3 class="price plan-price" data-monthly="40000" data-annual="320000">$40.000<span>/mes</span></h3>
+                <h3 class="price plan-price" data-monthly="40000" data-annual="320000">$54,950<span>/mes</span></h3>
                 <p class="price-discount" data-monthly="70000" data-annual="560000">$70.000</p>
                 <button class="boton" onclick="location.href='detalles_plan.php?plan=fit'">Descubre más</button>
             </div>
@@ -55,7 +65,7 @@ if (!isset($_SESSION['isNewUser'])) {
             <div class="contenido">
                 <h2>PLAN BLACK</h2>
                 <p>Disfruta de beneficios premium, entrenamientos avanzados y acceso exclusivo a nuestras instalaciones.</p>
-                <h3 class="price plan-price" data-monthly="60000" data-annual="480000">$60.000<span>/mes</span></h3>
+                <h3 class="price plan-price" data-monthly="60000" data-annual="480000">$34,950<span>/mes</span></h3>
                 <p class="price-discount" data-monthly="90000" data-annual="720000">$90.000</p>
                 <button class="boton" onclick="location.href='detalles_plan.php?plan=black'">Descubre más</button>
             </div>
@@ -68,7 +78,7 @@ if (!isset($_SESSION['isNewUser'])) {
             <div class="contenido">
                 <h2>PLAN CALO</h2>
                 <p>Obtén acceso completo a todas las áreas y servicios premium para alcanzar tus metas.</p>
-                <h3 class="price plan-price" data-monthly="80000" data-annual="640000">$80.000<span>/mes</span></h3>
+                <h3 class="price plan-price" data-monthly="80000" data-annual="640000">$89,900<span>/mes</span></h3>
                 <p class="price-discount" data-monthly="120000" data-annual="960000">$120.000</p>
                 <button class="boton" onclick="location.href='detalles_plan.php?plan=calo'">Descubre más</button>
             </div>
@@ -79,7 +89,7 @@ if (!isset($_SESSION['isNewUser'])) {
   <!-- Tabla de comparación de planes -->
   <section class="container my-5">
     <h2 class="text-center mb-4 sub-title">Comparación de Planes</h2>
-    <div class="table-responsive">
+    <div class="table-responsive plan-comparison-wrapper">
       <table class="table plan-comparison-table text-center align-middle">
         <thead>
           <tr>

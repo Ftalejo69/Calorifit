@@ -28,10 +28,8 @@ $isNewUser = $_SESSION['isNewUser'] ?? false;
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="../vistas/planes.php">Nosotros</a></li>
-                <?php if (!$isNewUser): ?>
-                    <li class="nav-item"><a class="nav-link" href="../vistas/rutinas.php">Rutinas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../vistas/ejercicios.php">Historial</a></li>
-                <?php endif; ?>
+                <li class="nav-item"><a class="nav-link" href="../vistas/rutinas.php">Rutinas</a></li>
+                <li class="nav-item"><a class="nav-link" href="../vistas/ejercicios.php">Historial</a></li>
                 <li class="nav-item">
                     <a class="btn btn-logout m-1" href="../vistas/index.php">Cerrar sesión</a>
                 </li>
