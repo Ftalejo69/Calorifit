@@ -454,29 +454,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    window.eliminarMembresia = function(id) {
+    window.eliminarMembresia = async function(id) {
         if (confirm("¿Estás seguro de eliminar esta membresía?")) {
-            fetch(`/Calorifit/controladores/membresias_controlador.php?action=delete&id=${id}`, {
-                method: "DELETE"
-            })
-            .then(response => response.json())
-            .then(data => {
+            try {
+                const response = await fetch(`/Calorifit/controladores/membresias_controlador.php?action=delete&id=${id}`, {
+                    method: "DELETE"
+                });
+
+                const data = await response.json();
                 if (data.success) {
-                    alert(data.message || "Membresía eliminada correctamente");
-                    cargarMembresias();
+                    alert("Membresía eliminada correctamente");
+                    await cargarMembresias(); // Recargar la tabla inmediatamente
                 } else {
                     throw new Error(data.error || "Error al eliminar membresía");
                 }
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error("Error:", error);
                 alert("Error al eliminar la membresía");
-            });
+            }
         }
     };
 
     // Manejar el envío del formulario de planes
-    document.getElementById("plan-form")?.addEventListener("submit", (e) => {
+    document.getElementById("plan-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const planId = document.getElementById("plan-id").value;
         const formData = {
@@ -490,27 +490,28 @@ document.addEventListener("DOMContentLoaded", () => {
             ? `/Calorifit/controladores/membresias_controlador.php?action=update&id=${planId}` 
             : "/Calorifit/controladores/membresias_controlador.php?action=create";
 
-        fetch(url, {
-            method: planId ? "PUT" : "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(response => response.json())
-        .then(data => {
+        try {
+            const response = await fetch(url, {
+                method: planId ? "PUT" : "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
             if (data.success) {
                 alert(data.message || "Operación exitosa");
-                document.getElementById("plan-modal").style.display = "none";
-                cargarMembresias();
+                document.getElementById("plan-modal").classList.remove("active");
+                document.getElementById("plan-form").reset();
+                await cargarMembresias(); // Recargar la tabla inmediatamente
             } else {
                 throw new Error(data.error || "Error al procesar la solicitud");
             }
-        })
-        .catch(error => {
+        } catch (error) {
             console.error("Error:", error);
             alert("Error al guardar el plan");
-        });
+        }
     });
 
     // Manejar el envío del formulario de entrenadores
