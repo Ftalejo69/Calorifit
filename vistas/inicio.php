@@ -1,29 +1,19 @@
 <?php
-// Asegúrate de iniciar sesión para acceder a los datos del usuario
-session_start();
-
-if (!isset($_SESSION['usuario'])) {
-    echo "Por favor, inicie sesión para ver su perfil.";
-    exit;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
-$usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
-?>
+// Check if the user is new (e.g., no plan or other criteria)
+$usuario = $_SESSION['usuario'] ?? null;
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CaloriFit</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <!-- Estilos personalizados -->
+// Only set `isNewUser` if it hasn't been explicitly set before
+if (!isset($_SESSION['isNewUser'])) {
+    $_SESSION['isNewUser'] = !isset($usuario['plan']) || empty($usuario['plan']); // True if no plan, false otherwise
+}
+?>
+<!-- Estilos personalizados -->
   <link rel="stylesheet" href="../publico/css/estilo.css">
-</head>
-<body>
+<body></body>
   <?php include '../vistas/navbar.php'; ?>
   <?php include '../vistas/modal_perfil.php'; ?>
 
