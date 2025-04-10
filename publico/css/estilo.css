@@ -572,3 +572,441 @@ flex: 1;
     background-color: #f8f9fa;
     color: #28a745;
 }
+
+/* Estilo específico para detalles_plan.php */
+.detalles-container {
+  background: linear-gradient(135deg, #ffffff, #f9f9f9); /* Fondo degradado claro */
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.detalles-container h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #FFC107; /* Amarillo */
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.detalles-container p.text-muted {
+  font-size: 1.3rem;
+  color: #6c757d; /* Gris */
+  margin-bottom: 1.5rem;
+}
+
+.detalles-container h3 {
+  font-size: 2.5rem;
+  color: #FFC107; /* Amarillo */
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.detalles-container img {
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 100%;
+  height: auto;
+}
+
+.detalles-container img:hover {
+  transform: scale(1.05); /* Efecto de zoom */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+}
+
+.list-group-item {
+  background: #FFC107; /* Amarillo */
+  color: #333333; /* Texto oscuro */
+  border: none;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  border-radius: 15px;
+  padding: 15px 20px;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.list-group-item:hover {
+  background: #FFD54F; /* Amarillo claro */
+  color: #000000; /* Negro */
+  transform: translateY(-3px); /* Efecto de elevación */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.accordion-button {
+  background: #FFC107; /* Amarillo */
+  color: #333333; /* Texto oscuro */
+  font-weight: bold;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.accordion-button:hover {
+  background: #FFD54F; /* Amarillo claro */
+  color: #000000; /* Negro */
+}
+
+.accordion-body {
+  background: #f9f9f9; /* Fondo gris claro */
+  color: #333333; /* Texto oscuro */
+  font-size: 1.2rem; /* Tamaño de fuente más grande */
+  line-height: 1.8; /* Mejor legibilidad */
+  padding: 20px 25px; /* Espaciado interno */
+  border-radius: 15px; /* Bordes redondeados */
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.05); /* Sombra interna */
+  transition: all 0.3s ease; /* Transición suave */
+  position: relative;
+}
+
+/* Añadir una línea decorativa a la izquierda del contenido */
+.accordion-body::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 5px;
+  height: calc(100% - 20px); /* Altura ajustada */
+  background: linear-gradient(180deg, #FFC107, #FFD54F); /* Degradado amarillo */
+  border-radius: 3px; /* Bordes redondeados */
+}
+
+/* Estilo para el texto dentro de accordion-body */
+.accordion-body p {
+  margin: 0;
+  font-weight: 500; /* Peso de fuente medio */
+  color: #555555; /* Gris oscuro */
+  text-align: justify; /* Justificar texto */
+}
+
+/* Efecto hover para resaltar el contenido */
+.accordion-body:hover {
+  background: #ffffff; /* Fondo blanco */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+  transform: scale(1.02); /* Efecto de zoom */
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #FFC107, #FFD54F); /* Degradado amarillo */
+  color: #333333; /* Texto oscuro */
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 12px 30px;
+  border-radius: 50px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #FFD54F, #FFC107); /* Cambio de degradado */
+  transform: scale(1.1); /* Efecto de zoom */
+  box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4); /* Sombra más pronunciada */
+}
+
+.testimonios-container {
+  display: flex; /* Usar diseño de flexbox */
+  flex-wrap: wrap; /* Permitir que las tarjetas se ajusten si no hay espacio */
+  justify-content: center; /* Centrar las tarjetas */
+  gap: 20px; /* Espaciado entre tarjetas */
+  padding: 2rem;
+  background: #ffffff; /* Fondo blanco */
+  border-radius: 20px; /* Bordes redondeados */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  margin-top: 2rem;
+  max-width: 1200px; /* Limitar el ancho máximo */
+  margin-left: auto; /* Centrar horizontalmente */
+  margin-right: auto; /* Centrar horizontalmente */
+}
+
+/* Estilo para el título de Testimonios */
+.testimonios-container h4 {
+  font-size: 2.5rem; /* Tamaño más grande */
+  font-weight: bold;
+  color: #333333; /* Texto oscuro */
+  text-transform: uppercase; /* Texto en mayúsculas */
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: 1.5px; /* Espaciado entre letras */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  position: relative;
+}
+
+.testimonios-container h4::after {
+  content: "";
+  display: block;
+  width: 100px; /* Ancho de la línea decorativa */
+  height: 4px; /* Grosor de la línea */
+  background: linear-gradient(90deg, #FFC107, #FFD54F); /* Degradado amarillo */
+  margin: 10px auto 0; /* Centrado debajo del texto */
+  border-radius: 2px; /* Bordes redondeados */
+}
+
+/* Estilo para cada tarjeta de testimonio */
+.testimonio-card {
+  background: #f9f9f9; /* Fondo gris claro */
+  border-radius: 15px; /* Bordes redondeados */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  padding: 1.5rem;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  max-width: 500px; /* Limitar el ancho máximo */
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+}
+
+.testimonio-card:hover {
+  transform: translateY(-10px); /* Efecto de elevación */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+}
+
+/* Estilo para el texto del testimonio */
+.testimonio-card p {
+  font-size: 1.1rem;
+  color: #555555; /* Gris oscuro */
+  font-style: italic;
+  margin-bottom: 1rem;
+  line-height: 1.6; /* Mejor legibilidad */
+}
+
+/* Estilo para el nombre del autor */
+.testimonio-card .autor {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333333; /* Texto oscuro */
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para el rol del autor */
+.testimonio-card .rol {
+  font-size: 1rem;
+  color: #777777; /* Gris claro */
+  margin-bottom: 1rem;
+}
+
+/* Estilo para la imagen del autor */
+.testimonio-card .autor-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%; /* Imagen circular */
+  object-fit: cover; /* Ajustar imagen */
+  margin: 0 auto 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Estilo para las estrellas de calificación */
+.testimonio-card .estrellas {
+  color: #FFC107; /* Amarillo */
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Estilo para el título de Preguntas Frecuentes */
+h4.text-center.mt-5 {
+  font-size: 3rem; /* Tamaño más grande */
+  font-weight: bold;
+  color: #FFC107; /* Amarillo */
+  text-transform: uppercase; /* Texto en mayúsculas */
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  letter-spacing: 2px; /* Espaciado entre letras */
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  position: relative;
+  animation: fadeInTitle 1s ease-in-out; /* Animación de entrada */
+}
+
+h4.text-center.mt-5::after {
+  content: "";
+  display: block;
+  width: 120px; /* Ancho de la línea decorativa */
+  height: 6px; /* Grosor de la línea */
+  background: linear-gradient(90deg, #FFC107, #FFD54F); /* Degradado amarillo */
+  margin: 15px auto 0; /* Centrado debajo del texto */
+  border-radius: 3px; /* Bordes redondeados */
+  animation: growLine 1s ease-in-out; /* Animación de crecimiento */
+}
+
+/* Animación para el título */
+@keyframes fadeInTitle {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px); /* Comienza más arriba */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Llega a su posición original */
+  }
+}
+
+/* Animación para la línea decorativa */
+@keyframes growLine {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 120px; /* Ancho final */
+  }
+}
+
+/* Estilo para el contenedor de Preguntas Frecuentes */
+.accordion {
+  background: #ffffff; /* Fondo blanco */
+  border-radius: 20px; /* Bordes más redondeados */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+  padding: 2rem;
+  margin-top: 2rem;
+  transition: all 0.3s ease; /* Transición suave */
+  animation: fadeInAccordion 0.8s ease-in-out; /* Animación de entrada */
+}
+
+/* Estilo para los títulos de las preguntas */
+.accordion-button {
+  background: linear-gradient(135deg, #FFC107, #FFD54F); /* Degradado amarillo */
+  color: #333333; /* Texto oscuro */
+  font-weight: bold;
+  font-size: 1.3rem; /* Tamaño de fuente más grande */
+  border: none;
+  border-radius: 15px; /* Bordes más redondeados */
+  padding: 15px 20px;
+  transition: all 0.3s ease; /* Transición suave */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.accordion-button:not(.collapsed) {
+  background: linear-gradient(135deg, #FFD54F, #FFC107); /* Cambio de degradado */
+  color: #000000; /* Negro */
+  box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.1); /* Sombra interna */
+}
+
+.accordion-button:hover {
+  transform: scale(1.03); /* Efecto de zoom */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+  cursor: pointer;
+}
+
+/* Estilo para el cuerpo de las respuestas */
+.accordion-body {
+  background: #f9f9f9; /* Fondo gris claro */
+  color: #333333; /* Texto oscuro */
+  font-size: 1.2rem; /* Tamaño de fuente más grande */
+  line-height: 1.8; /* Mejor legibilidad */
+  padding: 20px 25px; /* Espaciado interno */
+  border-radius: 15px; /* Bordes redondeados */
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.05); /* Sombra interna */
+  transition: all 0.3s ease; /* Transición suave */
+  position: relative;
+}
+
+/* Añadir una línea decorativa a la izquierda del contenido */
+.accordion-body::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 5px;
+  height: calc(100% - 20px); /* Altura ajustada */
+  background: linear-gradient(180deg, #FFC107, #FFD54F); /* Degradado amarillo */
+  border-radius: 3px; /* Bordes redondeados */
+}
+
+/* Estilo para el texto dentro de accordion-body */
+.accordion-body p {
+  margin: 0;
+  font-weight: 500; /* Peso de fuente medio */
+  color: #555555; /* Gris oscuro */
+  text-align: justify; /* Justificar texto */
+}
+
+/* Efecto hover para resaltar el contenido */
+.accordion-body:hover {
+  background: #ffffff; /* Fondo blanco */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+  transform: scale(1.02); /* Efecto de zoom */
+}
+
+@keyframes fadeInAccordion {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Comienza más abajo */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Llega a su posición original */
+  }
+}
+
+/* Estilo para el contenedor de testimonios */
+.testimonios-container {
+  display: flex; /* Usar diseño de flexbox */
+  flex-wrap: wrap; /* Permitir que las tarjetas se ajusten si no hay espacio */
+  justify-content: center; /* Centrar las tarjetas */
+  gap: 20px; /* Espaciado entre tarjetas */
+  padding: 2rem;
+  background: #ffffff; /* Fondo blanco */
+  border-radius: 20px; /* Bordes redondeados */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  margin-top: 2rem;
+  max-width: 1200px; /* Limitar el ancho máximo */
+  margin-left: auto; /* Centrar horizontalmente */
+  margin-right: auto; /* Centrar horizontalmente */
+}
+
+/* Estilo para cada tarjeta de testimonio */
+.testimonio-card {
+  background: #f9f9f9; /* Fondo gris claro */
+  border-radius: 15px; /* Bordes redondeados */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  padding: 1.5rem;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  max-width: 500px; /* Limitar el ancho máximo */
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+}
+
+.testimonio-card:hover {
+  transform: translateY(-10px); /* Efecto de elevación */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+}
+
+/* Estilo para el texto del testimonio */
+.testimonio-card p {
+  font-size: 1.1rem;
+  color: #555555; /* Gris oscuro */
+  font-style: italic;
+  margin-bottom: 1rem;
+  line-height: 1.6; /* Mejor legibilidad */
+}
+
+/* Estilo para el nombre del autor */
+.testimonio-card .autor {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333333; /* Texto oscuro */
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para el rol del autor */
+.testimonio-card .rol {
+  font-size: 1rem;
+  color: #777777; /* Gris claro */
+  margin-bottom: 1rem;
+}
+
+/* Estilo para la imagen del autor */
+.testimonio-card .autor-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%; /* Imagen circular */
+  object-fit: cover; /* Ajustar imagen */
+  margin: 0 auto 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Estilo para las estrellas de calificación */
+.testimonio-card .estrellas {
+  color: #FFC107; /* Amarillo */
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}

@@ -52,7 +52,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             <div class="contenido">
                 <h2>PLAN FIT</h2>
                 <p>Accede a contenido exclusivo y mejora tu rendimiento físico con entrenamientos personalizados.</p>
-                <h3 class="price plan-price" data-monthly="40000" data-annual="320000">$54,950<span>/mes</span></h3>
+                <h3 class="price plan-price" data-monthly="40000" data-annual="320000">$34,950<span>/mes</span></h3>
                 <p class="price-discount" data-monthly="70000" data-annual="560000">$70.000</p>
                 <button class="boton" onclick="location.href='detalles_plan.php?plan=fit'">Descubre más</button>
             </div>
@@ -65,7 +65,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             <div class="contenido">
                 <h2>PLAN BLACK</h2>
                 <p>Disfruta de beneficios premium, entrenamientos avanzados y acceso exclusivo a nuestras instalaciones.</p>
-                <h3 class="price plan-price" data-monthly="60000" data-annual="480000">$34,950<span>/mes</span></h3>
+                <h3 class="price plan-price" data-monthly="60000" data-annual="480000">$54,950<span>/mes</span></h3>
                 <p class="price-discount" data-monthly="90000" data-annual="720000">$90.000</p>
                 <button class="boton" onclick="location.href='detalles_plan.php?plan=black'">Descubre más</button>
             </div>
@@ -78,7 +78,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             <div class="contenido">
                 <h2>PLAN CALO</h2>
                 <p>Obtén acceso completo a todas las áreas y servicios premium para alcanzar tus metas.</p>
-                <h3 class="price plan-price" data-monthly="80000" data-annual="640000">$89,900<span>/mes</span></h3>
+                <h3 class="price plan-price" data-monthly="80000" data-annual="640000">$89,950<span>/mes</span></h3>
                 <p class="price-discount" data-monthly="120000" data-annual="960000">$120.000</p>
                 <button class="boton" onclick="location.href='detalles_plan.php?plan=calo'">Descubre más</button>
             </div>
@@ -158,7 +158,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
             <td class="fw-bold">Desde</td>
             <td class="fw-bold">$54,950/mes</td>
             <td class="fw-bold">$34,950/mes</td>
-            <td class="fw-bold">$89,900/mes</td>
+            <td class="fw-bold">$89,950/mes</td>
           </tr>
         </tbody>
       </table>

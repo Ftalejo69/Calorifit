@@ -10,7 +10,7 @@ $plan = isset($_GET['plan']) ? $_GET['plan'] : 'fit'; // Plan por defecto
 $planes = [
     'fit' => [
         'nombre' => 'Plan FIT',
-        'precio' => '$40.000/mes',
+        'precio' => '$34.950/mes',
         'descripcion' => 'Acceso a contenido exclusivo.',
         'beneficios' => ['Entrenamientos en línea', 'Clases grupales', 'Acceso a todas las áreas'],
         'imagen' => '../publico/imagenes/fit.jpg',
@@ -21,7 +21,7 @@ $planes = [
     ],
     'black' => [
         'nombre' => 'Plan BLACK',
-        'precio' => '$60.000/mes',
+        'precio' => '$54.950/mes',
         'descripcion' => 'Acceso premium con beneficios exclusivos.',
         'beneficios' => ['Acceso ilimitado a sedes', 'Spa y masajes', 'Descuentos en marcas aliadas'],
         'imagen' => '../publico/imagenes/black.jpg',
@@ -32,7 +32,7 @@ $planes = [
     ],
     'calo' => [
         'nombre' => 'Plan CALO',
-        'precio' => '$80.000/mes',
+        'precio' => '$89.950/mes',
         'descripcion' => 'Acceso completo a todas las áreas y servicios.',
         'beneficios' => ['Seguimiento a tu progreso', 'App personalizada', 'Clases grupales'],
         'imagen' => '../publico/imagenes/calo.jpg',
@@ -102,9 +102,16 @@ $detalles = $planes[$plan] ?? $planes['fit'];
             </div>
         </div>
         <div class="testimonios-container">
-            <h4>Testimonios</h4>
             <?php foreach ($detalles['testimonios'] as $testimonio): ?>
-                <p>"<?= htmlspecialchars($testimonio) ?>"</p>
+                <div class="testimonio-card">
+                    <div class="estrellas">★★★★★</div>
+                    <p>"<?= htmlspecialchars($testimonio) ?>"</p>
+                    <?php if (strpos($testimonio, 'Juan Pérez') !== false): ?>
+                        <img src="https://plus.unsplash.com/premium_photo-1689539137236-b68e436248de?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cGVyc29uYXxlbnwwfHwwfHx8MA%3D%3D" alt="Juan Pérez" class="autor-img">
+                    <?php else: ?>
+                        <img src="https://www.webconsultas.com/sites/default/files/styles/wc_adaptive_image__small/public/media/0d/articulos/perfil-resilencia.jpg.webp" alt="Autor" class="autor-img">
+                    <?php endif; ?>
+                </div>
             <?php endforeach; ?>
         </div>
     </div>
