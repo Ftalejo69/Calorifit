@@ -133,7 +133,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("add-plan-btn")?.addEventListener("click", () => {
         const planModal = document.getElementById("plan-modal");
-        if (planModal) planModal.style.display = "flex";
+        if (planModal) {
+            planModal.classList.add("active");
+            // Limpiar el formulario
+            document.getElementById("plan-form").reset();
+            document.getElementById("plan-id").value = "";
+            document.getElementById("plan-modal-title").textContent = "Agregar Plan";
+        }
     });
 
     // Cargar datos de membresias
@@ -165,6 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <td>${membresia.nombre}</td>
                             <td>$${membresia.precio}</td>
                             <td>${membresia.duracion} días</td>
+                            <td>${membresia.descripcion}</td>
                             <td>
                                 <button class="btn-edit" onclick="editarMembresia(${membresia.id})">Editar</button>
                                 <button class="btn-delete" onclick="eliminarMembresia(${membresia.id})">Eliminar</button>
@@ -404,40 +411,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Funciones para editar y eliminar
     window.editarMembresia = function(id) {
-        fetch(`../controladores/membresias_controlador.php?action=edit&id=${id}`)
-            .then(response => response.json())
-            .then(data => {
-                // Aquí puedes implementar la lógica para editar
-                console.log("Editando membresía:", data);
-            })
-            .catch(error => console.error("Error:", error));
-    }
+        const planModal = document.getElementById("plan-modal");
+        if (planModal) {
+            fetch(`/Calorifit/controladores/membresias_controlador.php?action=getById&id=${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById("plan-id").value = data.plan.id;
+                        document.getElementById("plan-name").value = data.plan.nombre;
+                        document.getElementById("plan-price").value = data.plan.precio;
+                        document.getElementById("plan-duration").value = data.plan.duracion;
+                        document.getElementById("plan-description").value = data.plan.descripcion;
+                        document.getElementById("plan-modal-title").textContent = "Editar Plan";
+                        planModal.classList.add("active");
+                    } else {
+                        throw new Error(data.error || "Error al obtener datos del plan");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error al cargar el plan:", error);
+                    alert("Error al cargar el plan");
+                });
+        }
+    };
 
     window.eliminarMembresia = function(id) {
         if (confirm("¿Estás seguro de eliminar esta membresía?")) {
-            fetch(`../controladores/membresias_controlador.php?action=delete&id=${id}`)
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
+            fetch(`/Calorifit/controladores/membresias_controlador.php?action=delete&id=${id}`, {
+                method: "DELETE"
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message || "Membresía eliminada correctamente");
                     cargarMembresias();
-                })
-                .catch(error => console.error("Error:", error));
+                } else {
+                    throw new Error(data.error || "Error al eliminar membresía");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error al eliminar la membresía");
+            });
         }
-    }
+    };
 
     // Manejar el envío del formulario de planes
     document.getElementById("plan-form")?.addEventListener("submit", (e) => {
         e.preventDefault();
         const planId = document.getElementById("plan-id").value;
         const formData = {
-            name: document.getElementById("plan-name").value,
-            price: document.getElementById("plan-price").value,
-            duration: document.getElementById("plan-duration").value
+            nombre: document.getElementById("plan-name").value,
+            precio: document.getElementById("plan-price").value,
+            duracion: document.getElementById("plan-duration").value,
+            descripcion: document.getElementById("plan-description").value
         };
 
-        const url = planId ? 
-            `../controladores/membresias_controlador.php?action=update&id=${planId}` :
-            "../controladores/membresias_controlador.php?action=create";
+        const url = planId 
+            ? `/Calorifit/controladores/membresias_controlador.php?action=update&id=${planId}` 
+            : "/Calorifit/controladores/membresias_controlador.php?action=create";
 
         fetch(url, {
             method: planId ? "PUT" : "POST",
@@ -448,9 +480,13 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(response => response.json())
         .then(data => {
-            alert(data.message);
-            document.getElementById("plan-modal").style.display = "none";
-            cargarMembresias();
+            if (data.success) {
+                alert(data.message || "Operación exitosa");
+                document.getElementById("plan-modal").style.display = "none";
+                cargarMembresias();
+            } else {
+                throw new Error(data.error || "Error al procesar la solicitud");
+            }
         })
         .catch(error => {
             console.error("Error:", error);

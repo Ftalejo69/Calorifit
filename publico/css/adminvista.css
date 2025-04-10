@@ -320,16 +320,16 @@ html, body {
 }
 
 .modal {
-    display: none;
+    display: none; /* Ocultar por defecto */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
 .modal.active {
@@ -337,42 +337,88 @@ html, body {
 }
 
 .modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     width: 90%;
     max-width: 500px;
     position: relative;
+    transform: scale(0.7);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-header {
+    position: relative;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
 }
 
 .close-modal {
     position: absolute;
-    right: 1rem;
-    top: 1rem;
-    font-size: 1.5rem;
+    top: 0;
+    right: 0;
+    font-size: 24px;
     cursor: pointer;
     color: #666;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
 }
 
 .close-modal:hover {
-    background-color: #f0f0f0;
-    color: #333;
+    color: #ff5555;
 }
 
-/* Estilos para el modal de perfil */
-.modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 500px;
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+.btn-submit {
+    background: #4a90e2;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: #357abd;
 }
 
 .modal h2 {

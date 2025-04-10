@@ -124,6 +124,7 @@ $usuario = $_SESSION['usuario'];
                             <th>Nombre</th>
                             <th>Precio</th>
                             <th>Duración</th>
+                            <th>Descripción</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -133,6 +134,50 @@ $usuario = $_SESSION['usuario'];
                 </table>
             </div>
         </section>
+
+        <!-- Modal para Agregar/Editar Plan -->
+        <div id="plan-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="plan-modal-title">Agregar Plan</h2>
+                    <span class="close-modal">&times;</span>
+                </div>
+                <form id="plan-form">
+                    <input type="hidden" id="plan-id">
+                    <div class="form-group">
+                        <label for="plan-name">
+                            <i class="bx bx-bookmark"></i> Nombre del Plan
+                        </label>
+                        <input type="text" id="plan-name" name="nombre" required 
+                               placeholder="Ingrese el nombre del plan">
+                    </div>
+                    <div class="form-group">
+                        <label for="plan-price">
+                            <i class="bx bx-dollar"></i> Precio
+                        </label>
+                        <input type="number" id="plan-price" name="precio" step="0.01" required 
+                               placeholder="Ingrese el precio">
+                    </div>
+                    <div class="form-group">
+                        <label for="plan-duration">
+                            <i class="bx bx-time"></i> Duración (días)
+                        </label>
+                        <input type="number" id="plan-duration" name="duracion" required 
+                               placeholder="Ingrese la duración en días">
+                    </div>
+                    <div class="form-group">
+                        <label for="plan-description">
+                            <i class="bx bx-text"></i> Descripción
+                        </label>
+                        <textarea id="plan-description" name="descripcion" required 
+                                placeholder="Ingrese la descripción del plan" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="bx bx-save"></i> Guardar Plan
+                    </button>
+                </form>
+            </div>
+        </div>
 
         <!-- Sección de Entrenadores -->
         <section id="entrenadores" class="content-section">
