@@ -1,8 +1,9 @@
 <?php
+// Asegúrate de iniciar sesión para acceder a los datos del usuario
 session_start();
 
 if (!isset($_SESSION['usuario'])) {
-    echo "Por favor, inicie sesión para continuar.";
+    echo "Por favor, inicie sesión para ver su perfil.";
     exit;
 }
 
@@ -26,11 +27,6 @@ $stmt = $conexion->prepare("
 $stmt->bind_param("ss", $objetivo, $nivel);
 $stmt->execute();
 $lista_ejercicios = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-
-// Initialize user points if not set
-if (!isset($_SESSION['usuario']['puntos'])) {
-    $_SESSION['usuario']['puntos'] = 0;
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada'])) {
     $usuario_id = $_SESSION['usuario']['id'];
@@ -61,15 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['marcar_completada']))
         }
     }
 
-    // Award points for completing the routine
-    $puntos_ganados = 20; // Points awarded per routine
-    $_SESSION['usuario']['puntos'] += $puntos_ganados;
-
-    // Show alert with points awarded and redirect to puntos.php
-    echo "<script>
-        alert('¡Rutina completada! Has ganado $puntos_ganados puntos.');
-        window.location.href = 'puntos.php';
-    </script>";
+    echo "<script>alert('Rutina marcada como completada y guardada en el historial y progreso.');</script>";
+    header('Location: rutina_personalizada.php');
+    
     exit;
 }
 ?>

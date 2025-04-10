@@ -67,9 +67,25 @@ font-family: 'Arial', sans-serif;
 }
 
 .sub-title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #ffcc00;
+  font-size: 2.5rem; /* Increase font size for emphasis */
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  color: #FFC107; /* Bright yellow for visibility */
+  letter-spacing: 2px; /* Add spacing between letters */
+  margin-bottom: 20px; /* Add spacing below the title */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add subtle shadow for depth */
+  position: relative;
+}
+
+.sub-title::after {
+  content: "";
+  display: block;
+  width: 100px; /* Width of the underline */
+  height: 4px; /* Thickness of the underline */
+  background: #FFD54F; /* Slightly lighter yellow */
+  margin: 10px auto 0; /* Center the underline */
+  border-radius: 2px; /* Rounded edges for the underline */
 }
 
 /* Botones */
@@ -87,37 +103,39 @@ button:hover {
   color: black; /* Change text color to black */
 }
 
-/* Redesigned Cards */
+/* Tarjetas */
 .card {
-    background: linear-gradient(135deg, #FFF8E1, #FFECB3); /* Light yellow gradient */
-    border-radius: 20px; /* Rounded corners */
-    overflow: hidden;
-    width: 380px;
-    margin: 20px auto;
+  background: #ffffff; /* Fondo blanco */
+    border-radius: 70px; /* Bordes más redondeados */
+    overflow: hidden; /* Asegura que el contenido no se desborde */
+    width: 380px; /* Ancho ajustado */
+    margin: 20px auto; /* Centrar las tarjetas */
     text-align: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    padding: 20px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para hover */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px; /* Espaciado interno */
+    position: relative; /* Necesario para posicionar la imagen */
 }
 
 .card:hover {
-    transform: translateY(-10px) scale(1.05); /* Lift and scale on hover */
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+  transform: translateY(-10px) scale(1.05); /* Efecto de elevación */
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
 }
 
 .card img {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 15px;
-    border-radius: 50%; /* Circular image */
-    border: 5px solid #FFC107; /* Yellow border */
-    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.5); /* Glow effect */
-    transition: transform 0.3s ease;
+  width: 100%;
+    height: 220px; /* Altura ajustada */
+    object-fit: cover; /* Asegura que la imagen se ajuste correctamente */
+    border-radius: 50px; /* Bordes más redondeados para la imagen */
+    margin-bottom: 15px;
+    transition: transform 0.3s ease; /* Transición suave para el efecto */
 }
 
 .card:hover img {
-    transform: scale(1.1); /* Slight zoom on hover */
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño de la imagen */
 }
 
 .card .contenido {
@@ -129,19 +147,28 @@ button:hover {
 }
 
 .card .contenido h2 {
-    font-size: 1.8rem;
-    color: #FFC107;
-    margin-bottom: 10px;
+    font-size: 2rem; /* Tamaño de fuente más grande */
+    color: #FFC107; /* Amarillo brillante */
+    margin-bottom: 15px;
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 1.5px; /* Espaciado entre letras */
     font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-family: 'Poppins', sans-serif; /* Fuente moderna */
+    transition: color 0.3s ease, transform 0.3s ease; /* Transición suave */
+    /* text-shadow: none; */ /* Sombra eliminada */
+}
+
+.card .contenido h2:hover {
+    color: #FFD54F; /* Cambiar a un amarillo más claro al pasar el cursor */
+    transform: scale(1.1); /* Aumentar ligeramente el tamaño */
+    /* text-shadow: none; */ /* Sombra eliminada */
 }
 
 .card .contenido p {
     font-size: 1rem;
-    color: #555555;
+    color: #666; /* Gris medio */
     margin-bottom: 15px;
-    line-height: 1.5;
+    line-height: 1.5; /* Mejor legibilidad */
 }
 
 .card .price {
@@ -186,33 +213,34 @@ background: linear-gradient(135deg, #FFC107, #FFD54F); /* Degradado amarillo */
     padding: 20px;
 }
 
-/* Redesigned Table */
+/* Tabla */
 .plan-comparison-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #FFFFFF;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .plan-comparison-table th {
-    background: #FFC107;
-    color: #333333;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 15px;
+  background: #f8f9fa;
+  color: #495057;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 15px;
+  border-bottom: 1px solid #dee2e6;
 }
 
 .plan-comparison-table td {
-    padding: 15px;
-    color: #555555;
-    border-bottom: 1px solid #EEEEEE;
+  padding: 15px;
+  color: #495057;
+  border-bottom: 1px solid #dee2e6;
 }
 
 .plan-comparison-table tbody tr:hover {
-    background: #FFF8E1;
-    transition: background-color 0.2s ease;
+  background: #f1f3f5;
+  transition: background-color 0.2s ease;
 }
 
 .plan-comparison-table td i.fa-check-circle {
@@ -230,25 +258,24 @@ background: linear-gradient(135deg, #FFC107, #FFD54F); /* Degradado amarillo */
   text-align: left;
 }
 
-/* Redesigned Footer */
+/* Footer */
 .gym-footer {
-    background: linear-gradient(135deg, #FFC107, #FFD54F);
-    color: #333333;
-    padding: 20px 0;
-    text-align: center;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  background: #1a1a1a;
+  color: #a6a6a6;
+  padding: 20px 0;
+  text-align: center;
 }
 
 .gym-footer .footer-content h3 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    color: #333333;
+  font-size: 24px;
+  margin-bottom: 10px;
+  color:#f4c10f;
 }
 
 .gym-footer .footer-content p {
-    font-size: 1rem;
-    margin-bottom: 20px;
-    color: #555555;
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #ffffff;
 }
 
 .gym-footer .socials {
@@ -275,18 +302,18 @@ background: linear-gradient(135deg, #FFC107, #FFD54F); /* Degradado amarillo */
 }
 
 .gym-footer a {
-    color: #333333;
-    text-decoration: none;
+  color: #808080;
+  text-decoration: none;
 }
 
 .gym-footer a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .footer-bottom {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #555555;
+  margin-top: 20px;
+  font-size: 12px;
+  color: #777;
 }
 
 /* Animación de desvanecimiento */
@@ -466,34 +493,25 @@ position: relative; /* Necesario para posicionar la imagen */
     transform: scale(1.1);
 }
 
-/* Redesigned Section Headers */
 .professional-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #FFC107;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    text-shadow: 0 4px 10px rgba(255, 193, 7, 0.5);
+  font-size: 2rem;
+  font-weight: bold;
+  color: #FFC300;
 }
 
 .subtitle {
-    font-size: 1.2rem;
-    color: #555555;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  color: grey;
+  font-size: 1rem;
 }
 
-/* Redesigned Toggle Buttons */
 .toggle-container {
-    display: flex;
-    justify-content: center;
-    background-color: #FFF8E1;
-    border-radius: 30px;
-    padding: 5px;
-    width: 240px;
-    margin: 0 auto 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  background-color: #2b2929;
+  border-radius: 30px;
+  padding: 5px;
+  width: 240px;
+  margin: 0 auto 20px;
 }
 
 .toggle-btn {
@@ -501,7 +519,7 @@ flex: 1;
   padding: 12px 25px;
   font-size: 1rem;
   font-weight: bold;
-  color: #FFC107; /* Default text color */
+  color: #FFC300; /* Default text color */
   background: none; /* No background by default */
   border: none;
   border-radius: 50px;
@@ -513,9 +531,9 @@ flex: 1;
 }
 
 .toggle-btn.active {
-  background: linear-gradient(135deg, #FFC107, #FFD54F); /* Background when active */
+  background: linear-gradient(135deg, #FFC300, #FF5733); /* Background when active */
   color: white; /* Text color when active */
-  box-shadow: 0 4px 10px rgba(255, 193, 7, 0.5); /* Add shadow when active */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow when active */
   transform: scale(1.05);
 }
 
@@ -553,16 +571,4 @@ flex: 1;
     border-color: #28a745;
     background-color: #f8f9fa;
     color: #28a745;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }

@@ -1,3 +1,7 @@
+html {
+    font-size: 16px; /* Tamaño base para rem */
+}
+
 html, body {
     height: 100%; /* Asegurar que el body ocupe toda la altura */
     display: flex; /* Cambiar el diseño a flexbox */
@@ -5,10 +9,13 @@ html, body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #fff;
+    zoom: 1; /* Reset zoom level */
+    -webkit-text-size-adjust: 100%; /* Prevenir ajuste automático de texto */
+    overflow: hidden; /* Prevenir scroll en el body */
 }
 
 .sidebar {
-    width: 250px;
+    width: 200px; /* Reducir el ancho del sidebar */
     height: 100%; /* Asegurar que el sidebar ocupe toda la altura */
     background: linear-gradient(135deg, #fde400, #ff9900); /* Yellow gradient */
     display: flex;
@@ -17,6 +24,10 @@ html, body {
     padding: 1rem 0;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
     flex-shrink: 0; /* Evitar que el sidebar cambie de tamaño */
+    position: fixed; /* Fijar el sidebar */
+    left: 0;
+    top: 0;
+    z-index: 100;
 }
 
 .logo {
@@ -25,7 +36,7 @@ html, body {
 }
 
 .logo h2 {
-    font-size: 1.8rem;
+    font-size: 1.4rem; /* Reducir tamaño del logo */
     text-transform: uppercase;
     display: flex;
     align-items: center;
@@ -50,10 +61,10 @@ html, body {
     color: #000;
     display: flex;
     align-items: center;
-    padding: 1rem;
+    padding: 0.8rem; /* Reducir padding */
     border-radius: 8px;
     transition: all 0.3s ease;
-    font-size: 1rem;
+    font-size: 0.9rem; /* Reducir tamaño de texto del menú */
     gap: 0.8rem;
     position: relative;
     overflow: hidden;
@@ -123,6 +134,9 @@ html, body {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    margin-left: 200px; /* Compensar el ancho del sidebar */
+    height: 100vh; /* Altura completa */
+    overflow-y: auto; /* Permitir scroll solo en contenido */
 }
 
 .stats-header {
@@ -136,13 +150,14 @@ html, body {
     gap: 1rem; /* Espaciado entre tarjetas */
     overflow-x: auto; /* Permitir desplazamiento horizontal si no caben */
     padding-bottom: 1rem; /* Espaciado inferior para el scroll */
+    flex-wrap: wrap; /* Permitir que las tarjetas se envuelvan */
 }
 
 .card {
     flex: 0 0 auto; /* Evitar que las tarjetas se reduzcan o expandan */
-    width: 220px; /* Tamaño fijo para las tarjetas */
+    width: 180px; /* Reducir tamaño de tarjetas */
     background: linear-gradient(135deg, #ffffff, #f9f9f9);
-    padding: 1rem; /* Ajustar el padding */
+    padding: 0.8rem; /* Ajustar el padding */
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -158,10 +173,10 @@ html, body {
 }
 
 .card-icon {
-    font-size: 2rem; /* Ajustar el tamaño del ícono */
+    font-size: 1.5rem; /* Reducir tamaño de iconos */
     margin-bottom: 0.5rem;
     color: #fff;
-    padding: 0.8rem; /* Ajustar el padding del ícono */
+    padding: 0.6rem; /* Ajustar el padding del ícono */
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -218,9 +233,12 @@ html, body {
     justify-content: space-between;
     align-items: center;
     background: linear-gradient(135deg, #fde400, #ff9900);
-    padding: 1rem 1.5rem;
+    padding: 0.8rem 1.2rem; /* Reducir padding del header */
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: sticky; /* Mantener header visible al hacer scroll */
+    top: 0;
+    z-index: 90;
 }
 
 .header .welcome {
@@ -230,7 +248,7 @@ html, body {
 }
 
 .header .welcome h1 {
-    font-size: 1.5rem;
+    font-size: 1.2rem; /* Reducir tamaño del título de bienvenida */
     font-weight: bold;
     color: #000;
     margin: 0;
@@ -464,7 +482,7 @@ html, body {
 
 .content-section {
     background: #fff;
-    padding: 30px;
+    padding: 20px; /* Reducir padding de secciones */
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     margin-bottom: 30px;
@@ -482,6 +500,7 @@ html, body {
     overflow-x: auto; /* Permitir scroll horizontal en tablas grandes */
     margin-top: 20px;
     width: 100%;
+    font-size: 0.9rem; /* Reducir tamaño de texto en tablas */
 }
 
 table {
@@ -606,4 +625,16 @@ tr:hover {
 .estado-badge.Pendiente {
     background-color: #ff9800;
     color: white;
+}
+
+@media screen and (min-width: 1920px) {
+    html {
+        font-size: 18px; /* Aumentar tamaño base en pantallas grandes */
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    html {
+        font-size: 14px; /* Reducir tamaño base en pantallas más pequeñas */
+    }
 }
