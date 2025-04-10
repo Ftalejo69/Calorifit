@@ -106,7 +106,12 @@ class UsuarioModel {
     // Inicia sesión verificando correo y contraseña
     public function loginUser($correo, $password) {
         $correo = $this->conexion->real_escape_string($correo);
-        $sql = "SELECT *, COALESCE(rol, 'usuario') as rol FROM usuarios WHERE correo = ? LIMIT 1";
+        $sql = "SELECT u.*, 
+                   COALESCE(r.nombre, 'usuario') AS rol 
+            FROM usuarios u
+            LEFT JOIN usuarios_roles ur ON u.id = ur.usuario_id
+            LEFT JOIN roles r ON ur.rol_id = r.id
+            WHERE u.correo = ? LIMIT 1";
         $stmt = $this->conexion->prepare($sql);
         $stmt->bind_param("s", $correo);
         $stmt->execute();

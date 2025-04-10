@@ -13,11 +13,14 @@ try {
                            u.correo, 
                            u.fecha_registro,
                            u.verificado,
+                           COALESCE(r.nombre, 'usuario') AS rol,
                            CASE 
                                WHEN u.verificado = 1 THEN 'Verificado'
                                ELSE 'Pendiente'
                            END as estado 
-                    FROM usuarios u";
+                    FROM usuarios u
+                    LEFT JOIN usuarios_roles ur ON u.id = ur.usuario_id
+                    LEFT JOIN roles r ON ur.rol_id = r.id";
             
             $result = $conexion->query($sql);
             
