@@ -45,6 +45,7 @@ $result_rutinas = $conexion->query($sql_rutinas);
 <section class="welcome-section text-center">
     <h1>RUTINAS <span>CALORIFIT</span></h1>
     <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
+    <button id="openProfile" class="btn btn-outline-light mt-3" onclick="location.href='#seleccion-nivel'">Ver Rutinas</button>
     
     <?php if ($rutina_actual): ?>
         <div class="rutina-actual">
