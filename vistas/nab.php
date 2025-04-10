@@ -27,19 +27,11 @@ $isNewUser = $_SESSION['isNewUser'] ?? false;
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="../vistas/planes.php">Nosotros</a></li>
-                <?php if (!$isNewUser): ?>
-                    <li class="nav-item"><a class="nav-link" href="../vistas/rutinas.php">Rutinas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../vistas/ejercicios.php">Historial</a></li>
-                <?php endif; ?>
+          
                 <li class="nav-item">
-                    <a class="btn btn-logout m-1" href="../vistas/index.php">Cerrar sesión</a>
+                    <a class="btn btn-logout m-1" href="../vistas/index.php">INICIAR SESION</a>
                 </li>
-                <!-- Botón para abrir el modal -->
-                <button type="button" class="btn btn-profile m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Ver Perfil
-                </button>
-            </ul>
+               
         </div>
     </div>
 </nav>
