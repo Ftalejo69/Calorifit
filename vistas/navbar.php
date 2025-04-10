@@ -4,8 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $usuario = $_SESSION['usuario'] ?? null;
-$isNewUser = $_SESSION['isNewUser'] ?? false;
-
+$hasPlan = isset($usuario['plan']) && !empty($usuario['plan']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -28,8 +27,10 @@ $isNewUser = $_SESSION['isNewUser'] ?? false;
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="../vistas/planes.php">Nosotros</a></li>
-                <li class="nav-item"><a class="nav-link" href="../vistas/rutinas.php">Rutinas</a></li>
-                <li class="nav-item"><a class="nav-link" href="../vistas/ejercicios.php">Historial</a></li>
+                <?php if ($hasPlan): ?>
+                    <li class="nav-item"><a class="nav-link" href="../vistas/rutinas.php">Rutinas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../vistas/ejercicios.php">Historial</a></li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a class="btn btn-logout m-1" href="../vistas/index.php">Cerrar sesión</a>
                 </li>

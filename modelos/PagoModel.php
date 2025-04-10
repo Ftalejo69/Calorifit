@@ -50,6 +50,17 @@ class PagoModel {
         $stmt->bind_param("iiss", $usuario_id, $membresia_id, $fecha_inicio, $fecha_fin);
         $exito = $stmt->execute();
         $id = $exito ? $stmt->insert_id : null;
+
+        // Update the session with the new plan
+        if ($exito && isset($_SESSION['usuario'])) {
+            $stmtPlan = $this->conexion->prepare("SELECT nombre FROM membresias WHERE id = ?");
+            $stmtPlan->bind_param("i", $membresia_id);
+            $stmtPlan->execute();
+            $planResult = $stmtPlan->get_result()->fetch_assoc();
+            $_SESSION['usuario']['plan'] = $planResult['nombre'] ?? null;
+            $stmtPlan->close();
+        }
+
         $stmt->close();
         return $id;
     }

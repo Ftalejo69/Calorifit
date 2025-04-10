@@ -6,6 +6,12 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
+if (empty($_SESSION['usuario']['plan'])) {
+    $_SESSION['mensaje'] = "Debe adquirir un plan para acceder a las rutinas.";
+    header("Location: inicio.php");
+    exit;
+}
+
 include '../configuracion/conexion.php'; // Añadir esta línea
 
 $usuario = $_SESSION['usuario'];

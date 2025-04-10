@@ -13,7 +13,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($nombre) && !empty($correo) && !empty($telefono) && !empty($contraseña)) {
         $result = $model->registerUser($nombre, $correo, $telefono, $contraseña);
 
-        // Asegúrate de que no haya espacios en blanco antes o después del mensaje
+        if ($result['success']) {
+            $_SESSION['usuario'] = [
+                'nombre' => $nombre,
+                'correo' => $correo,
+                'plan' => null // User starts without a plan
+            ];
+            $_SESSION['isNewUser'] = true; // Mark as a new user
+        }
+
         echo trim($result['message']);
 
         // Enviar el correo directamente

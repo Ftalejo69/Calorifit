@@ -18,6 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['usuario'] = $result['user'];
             $_SESSION['ultimo_acceso'] = time();
 
+            // Retrieve the user's plan
+            $stmt = $conexion->prepare("SELECT m.nombre AS plan FROM inscripciones i 
+                                        INNER JOIN membresias m ON i.membresia_id = m.id 
+                                        WHERE i.usuario_id = ? AND i.fecha_fin >= CURDATE() LIMIT 1");
+            $stmt->bind_param("i", $_SESSION['usuario']['id']);
+            $stmt->execute();
+            $planResult = $stmt->get_result()->fetch_assoc();
+            $_SESSION['usuario']['plan'] = $planResult['plan'] ?? null;
+
             // Verificar roles del usuario
             $stmt = $conexion->prepare("SELECT r.id, r.nombre FROM usuarios_roles ur INNER JOIN roles r ON ur.rol_id = r.id WHERE ur.usuario_id = ?");
             $stmt->bind_param("i", $_SESSION['usuario']['id']);
