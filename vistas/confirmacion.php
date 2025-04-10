@@ -1,8 +1,20 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $mensaje = $_SESSION['mensaje'] ?? 'No se realizó ninguna acción.';
 unset($_SESSION['mensaje']);
+
+// Simulate adding a plan to the user's session after payment confirmation
+if (!isset($_SESSION['usuario']['plan'])) {
+    $_SESSION['usuario']['plan'] = 'Plan Confirmado'; // Example plan name
+}
+
+// Clear the `isNewUser` flag when the user has a plan
+if (isset($_SESSION['usuario']['plan']) && !empty($_SESSION['usuario']['plan'])) {
+    $_SESSION['isNewUser'] = false;
+}
 ?>
 
 <!DOCTYPE html>
