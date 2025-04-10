@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
+if (!isset($_SESSION['usuario']) || !isset($_SESSION['usuario']['roles']) || !in_array('admin', array_column($_SESSION['usuario']['roles'], 'nombre'))) {
     header('Location: inicio.php');
     exit;
 }

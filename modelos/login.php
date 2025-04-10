@@ -17,9 +17,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result['success']) {
             $_SESSION['usuario'] = $result['user'];
             $_SESSION['ultimo_acceso'] = time();
-            
+
+            // Verificar roles del usuario
+            $stmt = $conexion->prepare("SELECT r.id, r.nombre FROM usuarios_roles ur INNER JOIN roles r ON ur.rol_id = r.id WHERE ur.usuario_id = ?");
+            $stmt->bind_param("i", $_SESSION['usuario']['id']);
+            $stmt->execute();
+            $roles = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+            $_SESSION['usuario']['roles'] = $roles;
+
             // Redirección basada en el rol
-            $redirect = ($_SESSION['usuario']['rol'] === 'admin') ? 'adminvista.php' : 'inicio.php';
+            if (in_array('admin', array_column($roles, 'nombre'))) {
+                $redirect = '../vistas/adminvista.php';
+            } else {
+                $redirect = '../vistas/inicio.php';
+            }
+
             echo json_encode(['success' => true, 'redirect' => $redirect]);
         } else {
             echo json_encode(['success' => false, 'message' => $result['message']]);
