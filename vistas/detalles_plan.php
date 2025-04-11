@@ -44,6 +44,11 @@ $planes = [
 ];
 
 $detalles = $planes[$plan] ?? $planes['fit'];
+
+$tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'mensual';
+$precioMensual = isset($_GET['precioMensual']) ? floatval($_GET['precioMensual']) : 0;
+$precioAnual = isset($_GET['precioAnual']) ? floatval($_GET['precioAnual']) : 0;
+$precio = $tipo === 'anual' ? $precioAnual : $precioMensual;
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +66,9 @@ $detalles = $planes[$plan] ?? $planes['fit'];
         <div class="detalles-container">
             <h1 class="text-center"><?= htmlspecialchars($detalles['nombre']) ?></h1>
             <p class="text-center text-muted"><?= htmlspecialchars($detalles['descripcion']) ?></p>
-            <h3 class="text-center text-warning"><?= htmlspecialchars($detalles['precio']) ?></h3>
+            <h3 class="text-center text-warning">
+                <?= $tipo === 'anual' ? '$' . number_format($precio, 0, ',', '.') . '/año' : '$' . number_format($precio, 0, ',', '.') . '/mes' ?>
+            </h3>
             <div class="text-center my-4">
                 <img src="<?= htmlspecialchars($detalles['imagen']) ?>" alt="<?= htmlspecialchars($detalles['nombre']) ?>" class="img-fluid rounded">
             </div>
@@ -98,7 +105,7 @@ $detalles = $planes[$plan] ?? $planes['fit'];
                 </div>
             </div>
             <div class="text-center">
-                <a href="pago.php?plan=<?= urlencode($plan) ?>" class="btn btn-warning">Ir al Pago</a>
+                <a href="pago.php?plan=<?= urlencode($plan) ?>&tipo=<?= urlencode($tipo) ?>&precio=<?= urlencode($precio) ?>" class="btn btn-warning">Ir al Pago</a>
             </div>
         </div>
         <div class="testimonios-container">

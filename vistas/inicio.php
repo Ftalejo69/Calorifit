@@ -70,7 +70,7 @@ while ($row = $result->fetch_assoc()) {
                     <p class="price-discount" data-monthly="<?php echo $precioRegular; ?>" data-annual="<?php echo $precioAnual * 1.4; ?>">
                         $<?php echo number_format($precioRegular, 0, ',', '.'); ?>
                     </p>
-                    <button class="boton" onclick="location.href='detalles_plan.php?plan=<?php echo strtolower(str_replace(' ', '_', $membresia['nombre'])); ?>'">
+                    <button class="boton" onclick="location.href='detalles_plan.php?plan=<?php echo strtolower(str_replace(' ', '_', $membresia['nombre'])); ?>&tipo=' + (annualButton.classList.contains('active') ? 'anual' : 'mensual') + '&precioMensual=<?php echo $precioMensual; ?>&precioAnual=<?php echo $precioAnual; ?>'">
                         Descubre más
                     </button>
                 </div>

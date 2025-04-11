@@ -13,7 +13,15 @@ $planes = [
     'calo' => ['nombre' => 'Plan CALO', 'precio' => '$80.000', 'beneficios' => ['Acceso ilimitado', 'Nutricionista', 'Entrenador personal avanzado']]
 ];
 
-$detalles = $planes[$plan] ?? $planes['fit'];
+// Validar que el plan solicitado exista en el array $planes
+if (!array_key_exists($plan, $planes)) {
+    $plan = 'fit'; // Establecer un plan por defecto si no existe
+}
+
+$detalles = $planes[$plan];
+
+$tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'mensual';
+$precio = isset($_GET['precio']) ? floatval($_GET['precio']) : 0;
 ?>
 
 <!DOCTYPE html>
@@ -161,15 +169,17 @@ $detalles = $planes[$plan] ?? $planes['fit'];
     <?php include 'navbar.php'; ?>
     <div class="pago-container">
         <h1>Pagar <?= htmlspecialchars($detalles['nombre']) ?></h1>
-        <p>Precio: <?= htmlspecialchars($detalles['precio']) ?></p>
+        <p>Precio: <?= $tipo === 'anual' ? '$' . number_format($precio, 0, ',', '.') . '/año' : '$' . number_format($precio, 0, ',', '.') . '/mes' ?></p>
         <h4>Resumen del Plan</h4>
         <ul class="list-group">
-            <?php foreach ($planes[$plan]['beneficios'] as $beneficio): ?>
+            <?php foreach ($detalles['beneficios'] as $beneficio): ?>
                 <li class="list-group-item"><?= htmlspecialchars($beneficio) ?></li>
             <?php endforeach; ?>
         </ul>
         <form action="../controladores/PagoController.php" method="POST" class="mt-4">
             <input type="hidden" name="plan" value="<?= htmlspecialchars($detalles['nombre']) ?>">
+            <input type="hidden" name="tipo" value="<?= htmlspecialchars($tipo) ?>">
+            <input type="hidden" name="precio" value="<?= htmlspecialchars($precio) ?>">
             <h4>Selecciona tu método de pago</h4>
             <div class="d-flex justify-content-center gap-4 my-4">
                 <label class="payment-option">
