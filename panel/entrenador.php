@@ -1,135 +1,12 @@
 <?php
-require '../configuracion/conexion.php'; // Conexión a la base de datos
+require '../modelos/rutinas_modelo.php';
+require '../configuracion/conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['accion'])) {
-        $accion = $_POST['accion'];
-        if ($accion === 'agregar_rutina') {
-            $nivel = $_POST['nivel'];
-            $imagen = $_POST['imagen'] ?? null; // Validar que la clave 'imagen' exista
-            $query = "INSERT INTO rutinas (nivel, imagen) VALUES ('$nivel', '$imagen')";
-            $conexion->query($query);
-            header("Location: entrenador.php"); // Redirigir para evitar reenvío del formulario
-            exit;
-        } elseif ($accion === 'editar_rutina') {
-            $id = $_POST['id'];
-            $nombre = $_POST['nombre'];
-            $nivel = $_POST['nivel'];
-            $descripcion = $_POST['descripcion'];
-            $imagen = $_POST['imagen'] ?? null; // Validar que la clave 'imagen' exista
-            $query = "UPDATE rutinas SET nombre='$nombre', nivel='$nivel', descripcion='$descripcion', imagen='$imagen' WHERE id=$id";
-            $conexion->query($query);
-            header("Location: entrenador.php");
-            exit;
-        } elseif ($accion === 'eliminar_rutina') {
-            $id = $_POST['id'];
-            $query = "DELETE FROM rutinas WHERE id=$id";
-            $conexion->query($query);
-            header("Location: entrenador.php");
-            exit;
-        } elseif ($accion === 'agregar_ejercicio') {
-            $rutina_id = $_POST['rutina_id'];
-            $ejercicio_id = $_POST['ejercicio_id'];
-            $series = $_POST['series'];
-            $repeticiones = $_POST['repeticiones'];
-            $peso = $_POST['peso'];
-            $query = "INSERT INTO rutina_ejercicios (rutina_id, ejercicio_id, series, repeticiones, peso) VALUES ('$rutina_id', '$ejercicio_id', '$series', '$repeticiones', '$peso')";
-            $conexion->query($query);
-            header("Location: entrenador.php");
-            exit;
-        } elseif ($accion === 'agregar_ejercicios_a_objetivos') {
-            $nivel = $_POST['nivel'];
-            $ejercicios = $_POST['ejercicios'];
-
-            foreach ($ejercicios as $objetivo => $datos) {
-                $ejercicio_id = $datos['ejercicio_id'];
-                $series = $datos['series'];
-                $repeticiones = $datos['repeticiones'];
-                $peso = $datos['peso'];
-
-                // Verificar si la rutina para el nivel y objetivo existe, si no, crearla
-                $query_rutina = "SELECT id FROM rutinas WHERE nivel = '$nivel' AND nombre = '$objetivo' LIMIT 1";
-                $result_rutina = $conexion->query($query_rutina);
-                if ($result_rutina->num_rows === 0) {
-                    $descripcion = "Rutina para el objetivo $objetivo en el nivel $nivel.";
-                    $query_insert_rutina = "INSERT INTO rutinas (nombre, nivel, descripcion) VALUES ('$objetivo', '$nivel', '$descripcion')";
-                    $conexion->query($query_insert_rutina);
-                    $rutina_id = $conexion->insert_id; // Obtener el ID de la rutina recién creada
-                } else {
-                    $rutina = $result_rutina->fetch_assoc();
-                    $rutina_id = $rutina['id'];
-                }
-
-                // Insertar el ejercicio en la rutina correspondiente
-                $query_insert = "INSERT INTO rutina_ejercicios (rutina_id, ejercicio_id, series, repeticiones, peso) 
-                                 VALUES ('$rutina_id', '$ejercicio_id', '$series', '$repeticiones', '$peso')";
-                $conexion->query($query_insert);
-            }
-
-            header("Location: entrenador.php");
-            exit;
-        } elseif ($accion === 'editar_objetivo') {
-            $id = $_POST['id'];
-            $nombre = $_POST['nombre'];
-
-            $query_update = "UPDATE rutinas SET nombre = '$nombre' WHERE id = $id";
-            $conexion->query($query_update);
-            header("Location: entrenador.php");
-            exit;
-        } elseif ($accion === 'eliminar_objetivo') {
-            $id = $_POST['id'];
-
-            $query_delete = "DELETE FROM rutinas WHERE id = $id";
-            $conexion->query($query_delete);
-            header("Location: entrenador.php");
-            exit;
-        } elseif ($accion === 'editar_nivel') {
-            $nivel = $_POST['nivel'];
-            $imagen = $_POST['imagen'];
-
-            $query_update = "UPDATE rutinas SET imagen = '$imagen' WHERE nivel = '$nivel'";
-            $conexion->query($query_update);
-            header("Location: entrenador.php");
-            exit;
-        }
-    }
-}
-
-// Obtener rutinas
-$query_rutinas = "SELECT id, nombre, nivel, descripcion, imagen FROM rutinas"; // Incluir la columna 'descripcion'
-$result_rutinas = $conexion->query($query_rutinas);
-$rutinas = $result_rutinas->fetch_all(MYSQLI_ASSOC); // Almacenar los resultados en un array
-
-// Obtener ejercicios
-$query_ejercicios = "SELECT id, nombre FROM ejercicios";
-$result_ejercicios = $conexion->query($query_ejercicios);
-$ejercicios = $result_ejercicios->fetch_all(MYSQLI_ASSOC); // Almacenar los resultados en un array
-
-// Obtener niveles únicos desde la tabla rutinas con imágenes
-$query_niveles = "
-    SELECT nivel, imagen 
-    FROM rutinas 
-    WHERE id IN (
-        SELECT MIN(id) 
-        FROM rutinas 
-        GROUP BY nivel
-    )
-";
-$result_niveles = $conexion->query($query_niveles);
-$niveles = $result_niveles->fetch_all(MYSQLI_ASSOC);
-
-// Obtener objetivos agrupados por nivel
-$query_objetivos = "SELECT id, nombre, nivel, descripcion, imagen FROM rutinas ORDER BY nivel";
-$result_objetivos = $conexion->query($query_objetivos);
-$objetivos = $result_objetivos->fetch_all(MYSQLI_ASSOC);
-
-// Obtener rutinas agrupadas por nivel
-$query_rutinas_por_nivel = "SELECT id, nombre, nivel, descripcion, imagen FROM rutinas ORDER BY nivel";
-$result_rutinas_por_nivel = $conexion->query($query_rutinas_por_nivel);
-$rutinas_por_nivel = $result_rutinas_por_nivel->fetch_all(MYSQLI_ASSOC);
-
-// Verificar si se solicitó editar una rutina específica
-$editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
+// Obtener datos desde el modelo
+$rutinas = obtenerRutinas($conexion);
+$ejercicios = obtenerEjercicios($conexion);
+$niveles = obtenerNiveles($conexion);
+$objetivos = obtenerObjetivos($conexion);
 ?>
 
 <!DOCTYPE html>
@@ -219,6 +96,7 @@ $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
         }
     </style>
     <script>
+        // Función para mostrar una sección específica
         function mostrarSeccion(seccionId) {
             document.querySelectorAll('.seccion').forEach(seccion => {
                 seccion.classList.add('hidden');
@@ -226,30 +104,232 @@ $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
             document.getElementById(seccionId).classList.remove('hidden');
         }
 
-        // Mostrar automáticamente la sección de editar rutinas si se selecciona una rutina
+        // Configurar eventos para los botones del menú
         document.addEventListener('DOMContentLoaded', () => {
-            const editarRutinaId = "<?php echo $editarRutinaId; ?>";
-            if (editarRutinaId) {
-                mostrarSeccion('seccionEditarRutinas');
-                const rutinaForm = document.getElementById(`form-editar-${editarRutinaId}`);
-                if (rutinaForm) {
-                    rutinaForm.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', function () {
+                    const target = this.getAttribute('data-target');
+                    mostrarSeccion(target);
+                });
+            });
         });
+
+        function eliminarObjetivo(id) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este objetivo?')) return;
+
+            fetch('../controladores/rutinas_controlador.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    accion: 'eliminar_objetivo',
+                    id: id,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Objetivo eliminado correctamente');
+                    document.getElementById(`objetivo-${id}`).remove();
+                } else {
+                    alert('Error al eliminar el objetivo.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al intentar eliminar el objetivo.');
+            });
+        }
+
+        function editarObjetivo(event, id) {
+            event.preventDefault();
+
+            const form = document.getElementById(`form-editar-objetivo-${id}`);
+            const formData = new FormData(form);
+
+            fetch('../controladores/rutinas_controlador.php', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Objetivo actualizado correctamente');
+                    location.reload();
+                } else {
+                    alert('Error al actualizar el objetivo.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al intentar actualizar el objetivo.');
+            });
+        }
+
+        function agregarObjetivo(event, nivel) {
+            event.preventDefault();
+
+            const form = document.getElementById(`form-agregar-objetivo-${nivel}`);
+            const formData = new FormData(form);
+
+            fetch('../controladores/rutinas_controlador.php', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Objetivo agregado correctamente');
+                    location.reload();
+                } else {
+                    alert('Error al agregar el objetivo.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al intentar agregar el objetivo.');
+            });
+        }
+
+        function guardarNivel(event, nivel) {
+            event.preventDefault();
+
+            const form = document.getElementById(`form-nivel-${nivel}`);
+            const formData = new FormData(form);
+
+            fetch('../controladores/rutinas_controlador.php', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Nivel actualizado correctamente');
+                    location.reload();
+                } else {
+                    alert('Error al actualizar el nivel.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al intentar actualizar el nivel.');
+            });
+        }
 
         function mostrarObjetivos(nivel) {
             document.getElementById('nivelSeleccionado').value = nivel;
+
+            // Cargar información de rutinas y niveles asociados
+            fetch(`../controladores/rutinas_controlador.php?nivel=${nivel}`)
+                .then(response => response.json())
+                .then(data => {
+                    const infoRutina = document.getElementById('infoRutina');
+                    if (data.success) {
+                        infoRutina.innerHTML = `
+                            <h4 class="text-secondary">Rutinas para el nivel: ${nivel}</h4>
+                            <ul>
+                                ${data.rutinas.map(rutina => `<li>${rutina.nombre} - ${rutina.descripcion}</li>`).join('')}
+                            </ul>
+                        `;
+                    } else {
+                        infoRutina.innerHTML = '<p class="text-danger">No se encontraron rutinas para este nivel.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ocurrió un error al cargar las rutinas.');
+                });
+
             mostrarSeccion('seccionObjetivos');
+        }
+
+        function asignarEjercicios(event) {
+            event.preventDefault();
+
+            const form = document.getElementById('form-asignar-ejercicios');
+            const formData = new FormData(form);
+
+            fetch('../controladores/rutinas_controlador.php', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Ejercicios asignados correctamente');
+                    // Limpiar los campos del formulario para permitir nuevas asignaciones
+                    form.reset();
+                } else {
+                    alert('Error al asignar los ejercicios.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al intentar asignar los ejercicios.');
+            });
+        }
+
+        function eliminarNivel(nivel) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este nivel? Se eliminarán también todos los objetivos y ejercicios asociados.')) return;
+
+            fetch('../controladores/rutinas_controlador.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    accion: 'eliminar_nivel',
+                    nivel: nivel,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Nivel eliminado correctamente');
+                    location.reload();
+                } else {
+                    alert('Error al eliminar el nivel.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al intentar eliminar el nivel.');
+            });
+        }
+
+        function agregarRutina(event) {
+            event.preventDefault();
+
+            const form = document.getElementById('form-agregar-rutina');
+            const formData = new FormData(form);
+
+            fetch('../controladores/rutinas_controlador.php', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Rutina agregada correctamente');
+                    location.reload();
+                } else {
+                    alert('Error al agregar la rutina.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al intentar agregar la rutina.');
+            });
         }
     </script>
 </head>
 <body>
     <div class="sidebar">
         <h2 class="text-center py-3"><i class="bx bxs-layer"></i> Calorifit</h2>
-        <a onclick="mostrarSeccion('seccionAgregarRutina')"><i class="bx bx-plus-circle"></i> Agregar Rutinas</a>
-        <a onclick="mostrarSeccion('seccionObjetivosExistentes')"><i class="bx bx-list-ul"></i> Objetivos Existentes</a>
-        <a onclick="mostrarSeccion('seccionNiveles')"><i class="bx bx-layer"></i> Niveles</a>
+        <a class="menu-item" data-target="seccionAgregarRutina"><i class="bx bx-plus-circle"></i> Agregar Rutinas</a>
+        <a class="menu-item" data-target="seccionObjetivosExistentes"><i class="bx bx-list-ul"></i> Objetivos Existentes</a>
+        <a class="menu-item" data-target="seccionNiveles"><i class="bx bx-layer"></i> Niveles</a>
         <div class="logout">
             <a href="../controladores/cerrar_sesion.php"><i class="bx bxs-log-out"></i> Cerrar Sesión</a>
         </div>
@@ -258,17 +338,18 @@ $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
         <h1 class="text-center mb-4 text-warning">Panel de Entrenador</h1>
 
         <!-- Sección Agregar Rutina -->
-        <div id="seccionAgregarRutina" class="seccion">
+        <div id="seccionAgregarRutina" class="seccion hidden">
             <div class="card mb-4">
                 <div class="card-header">
                     <h2 class="h5 mb-0">Agregar Nueva Rutina</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST">
+                    <form id="form-agregar-rutina" onsubmit="agregarRutina(event)">
                         <input type="hidden" name="accion" value="agregar_rutina">
                         <div class="mb-3">
                             <label for="nivel" class="form-label">Nivel</label>
                             <select class="form-select" id="nivel" name="nivel" required>
+                                <option value="" disabled selected>Seleccionar Nivel</option>
                                 <option value="Principiante">Principiante</option>
                                 <option value="Intermedio">Intermedio</option>
                                 <option value="Avanzado">Avanzado</option>
@@ -293,34 +374,27 @@ $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
                     <h3 class="text-warning"><?php echo htmlspecialchars($nivel['nivel']); ?></h3>
                     <div class="row">
                         <?php
-                        $query_objetivo = "SELECT id, nombre FROM rutinas WHERE nivel = '$nivel[nivel]' AND nombre IS NOT NULL AND nombre != ''";
-                        $result_objetivo = $conexion->query($query_objetivo);
-                        $objetivos = $result_objetivo->fetch_all(MYSQLI_ASSOC);
+                        $objetivos = obtenerObjetivosPorNivel($conexion, $nivel['nivel']);
                         ?>
                         <?php if (!empty($objetivos)): ?>
                             <?php foreach ($objetivos as $objetivo): ?>
-                                <?php if (!empty($objetivo['nombre'])): // Validar que el nombre no esté vacío ?>
-                                <div class="col-md-4 mb-4">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                            <form method="POST">
-                                                <input type="hidden" name="accion" value="editar_objetivo">
-                                                <input type="hidden" name="id" value="<?php echo $objetivo['id']; ?>">
-                                                <div class="mb-3">
-                                                    <label for="nombre-<?php echo $objetivo['id']; ?>" class="form-label">Nombre del Objetivo</label>
-                                                    <input type="text" class="form-control" id="nombre-<?php echo $objetivo['id']; ?>" name="nombre" value="<?php echo htmlspecialchars($objetivo['nombre']); ?>" required>
-                                                </div>
-                                                <button type="submit" class="btn btn-success w-100 mb-2">Guardar Cambios</button>
-                                            </form>
-                                            <form method="POST">
-                                                <input type="hidden" name="accion" value="eliminar_objetivo">
-                                                <input type="hidden" name="id" value="<?php echo $objetivo['id']; ?>">
-                                                <button type="submit" class="btn btn-danger w-100">Eliminar Objetivo</button>
-                                            </form>
-                                        </div>
+                            <div class="col-md-4 mb-4" id="objetivo-<?php echo $objetivo['id']; ?>">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center text-primary"><?php echo htmlspecialchars($objetivo['nombre']); ?></h5>
+                                        <form id="form-editar-objetivo-<?php echo $objetivo['id']; ?>" onsubmit="editarObjetivo(event, <?php echo $objetivo['id']; ?>)">
+                                            <input type="hidden" name="accion" value="editar_objetivo">
+                                            <input type="hidden" name="id" value="<?php echo $objetivo['id']; ?>">
+                                            <div class="mb-3">
+                                                <label for="nombre-<?php echo $objetivo['id']; ?>" class="form-label">Nombre del Objetivo</label>
+                                                <input type="text" class="form-control" id="nombre-<?php echo $objetivo['id']; ?>" name="nombre" value="<?php echo htmlspecialchars($objetivo['nombre']); ?>" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-success w-100 mb-2">Guardar Cambios</button>
+                                        </form>
+                                        <button class="btn btn-danger w-100" onclick="eliminarObjetivo(<?php echo $objetivo['id']; ?>);">Eliminar Objetivo</button>
                                     </div>
                                 </div>
-                                <?php endif; ?>
+                            </div>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <p class="text-center">No hay objetivos disponibles para este nivel.</p>
@@ -341,7 +415,7 @@ $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
                         <img src="<?php echo htmlspecialchars($nivel['imagen']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($nivel['nivel']); ?>">
                         <div class="card-body text-center">
                             <h3 class="card-title text-warning"><?php echo htmlspecialchars($nivel['nivel']); ?></h3>
-                            <form method="POST">
+                            <form id="form-nivel-<?php echo htmlspecialchars($nivel['nivel']); ?>" onsubmit="guardarNivel(event, '<?php echo htmlspecialchars($nivel['nivel']); ?>')">
                                 <input type="hidden" name="accion" value="editar_nivel">
                                 <input type="hidden" name="nivel" value="<?php echo htmlspecialchars($nivel['nivel']); ?>">
                                 <div class="mb-3">
@@ -350,7 +424,8 @@ $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
                                 </div>
                                 <button type="submit" class="btn btn-success w-100">Guardar Cambios</button>
                             </form>
-                            <button class="btn btn-primary w-100 mt-2" onclick="mostrarObjetivos('<?php echo htmlspecialchars($nivel['nivel']); ?>')">Agregar Ejercicios a Objetivos</button>
+                            <button class="btn btn-danger w-100 mt-2" onclick="eliminarNivel('<?php echo htmlspecialchars($nivel['nivel']); ?>')">Eliminar Nivel</button>
+                            <button class="btn btn-primary w-100 mt-2" onclick="mostrarObjetivos('<?php echo htmlspecialchars($nivel['nivel']); ?>')">Asignar Ejercicios a Objetivos</button>
                         </div>
                     </div>
                 </div>
@@ -360,10 +435,13 @@ $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
 
         <!-- Sección Objetivos por Nivel -->
         <div id="seccionObjetivos" class="seccion hidden">
-            <h2 class="text-center mb-4 text-secondary">Agregar Ejercicios a Objetivos</h2>
-            <form method="POST">
+            <h2 class="text-center mb-4 text-secondary">Asignar Ejercicios a Objetivos</h2>
+            <form id="form-asignar-ejercicios" onsubmit="asignarEjercicios(event)">
                 <input type="hidden" name="accion" value="agregar_ejercicios_a_objetivos">
                 <input type="hidden" id="nivelSeleccionado" name="nivel">
+                <div id="infoRutina" class="mb-4">
+                    <!-- Aquí se mostrarán las rutinas y niveles asociados dinámicamente -->
+                </div>
                 <div class="row">
                     <?php foreach (['Bajar de Peso', 'Mantenimiento', 'Ganar Músculo'] as $objetivo): ?>
                     <div class="col-md-4 mb-4">
@@ -392,7 +470,7 @@ $editarRutinaId = isset($_GET['editar']) ? $_GET['editar'] : null;
                     </div>
                     <?php endforeach; ?>
                 </div>
-                <button type="submit" class="btn btn-success w-100">Agregar Ejercicios</button>
+                <button type="submit" class="btn btn-success w-100">Asignar Ejercicios</button>
             </form>
             <button class="btn btn-secondary mt-3" onclick="mostrarSeccion('seccionNiveles')">Volver a Niveles</button>
         </div>
