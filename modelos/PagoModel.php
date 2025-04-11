@@ -47,19 +47,23 @@ class PagoModel {
     }
 
     public function registrarPago($usuario_id, $precio, $metodo_pago) {
+        error_log("Registrando pago: usuario_id=$usuario_id, precio=$precio, metodo_pago=$metodo_pago");
         $stmt = $this->conexion->prepare("INSERT INTO pagos (usuario_id, monto, metodo_pago) VALUES (?, ?, ?)");
         $stmt->bind_param("ids", $usuario_id, $precio, $metodo_pago);
         $exito = $stmt->execute();
         $id = $exito ? $stmt->insert_id : null;
+        error_log("Resultado de registrarPago: " . ($id ? "Éxito, ID=$id" : "Fallo"));
         $stmt->close();
         return $id;
     }
 
     public function registrarInscripcion($usuario_id, $membresia_id, $fecha_inicio, $fecha_fin) {
+        error_log("Registrando inscripción: usuario_id=$usuario_id, membresia_id=$membresia_id, fecha_inicio=$fecha_inicio, fecha_fin=$fecha_fin");
         $stmt = $this->conexion->prepare("INSERT INTO inscripciones (usuario_id, membresia_id, fecha_inicio, fecha_fin) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("iiss", $usuario_id, $membresia_id, $fecha_inicio, $fecha_fin);
         $exito = $stmt->execute();
         $id = $exito ? $stmt->insert_id : null;
+        error_log("Resultado de registrarInscripcion: " . ($id ? "Éxito, ID=$id" : "Fallo"));
 
         // Update the session with the new plan
         if ($exito && isset($_SESSION['usuario'])) {

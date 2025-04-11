@@ -7,11 +7,15 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 include_once '../configuracion/conexion.php';
+include_once '../modelos/PagoModel.php';
+$pagoModel = new PagoModel($conexion);
 
 // Obtener datos del plan desde la URL
 $membresia_id = isset($_GET['id']) ? $_GET['id'] : null;
 $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'mensual';
 $precio = isset($_GET['precio']) ? floatval($_GET['precio']) : 0;
+
+error_log("Valor recibido en pago.php para membresia_id: " . $membresia_id);
 
 // Obtener los detalles de la membresía desde la base de datos
 $sql = "SELECT * FROM membresias WHERE id = ?";
@@ -22,6 +26,7 @@ $result = $stmt->get_result();
 $membresia = $result->fetch_assoc();
 
 if (!$membresia) {
+    error_log("Membresía no encontrada para ID: " . $membresia_id);
     $_SESSION['mensaje'] = "Plan no encontrado";
     header('Location: inicio.php');
     exit;

@@ -8,11 +8,11 @@ if (!isset($_SESSION['usuario'])) {
 
 include_once '../configuracion/conexion.php';
 
-$plan_id = isset($_GET['plan']) ? $_GET['plan'] : 'fit';
+$plan_id = isset($_GET['plan']) ? $_GET['plan'] : 'Plan FIT';
 $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'mensual';
 
 // Obtener los detalles del plan desde la base de datos
-$sql = "SELECT * FROM membresias WHERE LOWER(REPLACE(nombre, ' ', '_')) = ?";
+$sql = "SELECT * FROM membresias WHERE nombre = ?";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("s", $plan_id);
 $stmt->execute();
@@ -20,7 +20,8 @@ $result = $stmt->get_result();
 $plan = $result->fetch_assoc();
 
 if (!$plan) {
-    // Si no se encuentra el plan, redirigir a la página de planes
+    error_log("Plan no encontrado para nombre: " . $plan_id);
+    $_SESSION['mensaje'] = "Plan no encontrado";
     header('Location: inicio.php');
     exit;
 }
@@ -129,6 +130,7 @@ if ($plan['beneficios']) {
             </div>
             <div class="text-center">
                 <a href="pago.php?plan=<?= urlencode($plan_id) ?>&tipo=<?= urlencode($tipo) ?>&precio=<?= urlencode($precio) ?>&id=<?= urlencode($plan['id']) ?>" class="btn btn-warning">Ir al Pago</a>
+                <?php error_log("Enlace generado hacia pago.php con id: " . $plan['id']); ?>
             </div>
         </div>
         <div class="testimonios-container">
