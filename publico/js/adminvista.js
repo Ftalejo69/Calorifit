@@ -268,9 +268,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Función para abrir el modal de edición actualizada
     function abrirModalEdicion(id) {
         const modal = document.getElementById('edit-trainer-modal');
         const form = document.getElementById('trainer-form');
+        const imagePreview = document.getElementById('current-image-preview');
 
         if (!modal || !form) {
             console.error("No se encontró el modal o el formulario de edición.");
@@ -291,13 +293,85 @@ document.addEventListener("DOMContentLoaded", () => {
                     form.querySelector("#trainer-name").value = entrenador.nombre;
                     form.querySelector("#trainer-email").value = entrenador.correo;
                     form.querySelector("#trainer-phone").value = entrenador.telefono;
+                    
+                    // Mostrar la imagen actual
+                    if (entrenador.imagen) {
+                        imagePreview.innerHTML = `
+                            <img src="../publico/imagenes/${entrenador.imagen}" 
+                                 alt="Imagen actual" 
+                                 style="max-width: 200px; margin-top: 10px;">
+                            <p>Imagen actual: ${entrenador.imagen}</p>`;
+                    } else {
+                        imagePreview.innerHTML = '<p>No hay imagen actual</p>';
+                    }
+
                     modal.classList.add("active");
                 } else {
                     console.error("Error al obtener los datos del entrenador:", data.error);
                 }
             })
-            .catch(error => console.error("Error al cargar los datos del entrenador:", error));
+            .catch(error => {
+                console.error("Error:", error);
+            });
     }
+
+    // Manejar el envío del formulario para agregar entrenador
+    document.getElementById('add-trainer-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        try {
+            const response = await fetch('/Calorifit/controladores/entrenadores_controlador.php?action=add', {
+                method: 'POST',
+                body: formData // FormData maneja automáticamente el enctype multipart/form-data
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Entrenador agregado correctamente');
+                document.getElementById('add-trainer-modal').classList.remove("active");
+                e.target.reset();
+                await cargarEntrenadores();
+            } else {
+                throw new Error(result.error || 'Error al agregar entrenador');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+    });
+
+    // Manejar el envío del formulario para editar entrenador
+    document.getElementById('trainer-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        // Asegurarse de que el ID esté incluido en los datos enviados
+        const trainerId = document.getElementById('trainer-id').value;
+        if (!trainerId) {
+            alert('ID no proporcionado. Por favor, intente nuevamente.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/Calorifit/controladores/entrenadores_controlador.php?action=update', {
+                method: 'POST',
+                body: formData // FormData maneja automáticamente el enctype multipart/form-data
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Entrenador actualizado correctamente');
+                document.getElementById('edit-trainer-modal').classList.remove("active");
+                await cargarEntrenadores();
+            } else {
+                throw new Error(result.error || 'Error al actualizar entrenador');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+    });
 
     // Manejar el envío del formulario para agregar entrenador
     document.getElementById('add-trainer-form')?.addEventListener('submit', async (e) => {
@@ -306,7 +380,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const datos = {
             nombre: formData.get('nombre'),
             correo: formData.get('correo'),
-            telefono: formData.get('telefono')
+            telefono: formData.get('telefono'),
+            imagen: formData.get('imagen')
         };
 
         try {
@@ -321,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
             if (result.success) {
                 alert('Entrenador agregado correctamente');
-                document.getElementById('add-trainer-modal').style.display = 'none';
+                document.getElementById('add-trainer-modal').classList.remove("active");
                 e.target.reset();
                 await cargarEntrenadores();
             } else {
@@ -341,7 +416,8 @@ document.addEventListener("DOMContentLoaded", () => {
             id: formData.get('id'),
             nombre: formData.get('nombre'),
             correo: formData.get('correo'),
-            telefono: formData.get('telefono')
+            telefono: formData.get('telefono'),
+            imagen: formData.get('imagen')
         };
 
         try {
@@ -356,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
             if (result.success) {
                 alert('Entrenador actualizado correctamente');
-                document.getElementById('edit-trainer-modal').style.display = 'none';
+                document.getElementById('edit-trainer-modal').classList.remove("active");
                 await cargarEntrenadores();
             } else {
                 throw new Error(result.error || 'Error al actualizar entrenador');

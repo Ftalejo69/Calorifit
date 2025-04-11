@@ -1,5 +1,4 @@
 <?php
-// Asegúrate de iniciar sesión para acceder a los datos del usuario
 session_start();
 
 if (!isset($_SESSION['usuario'])) {
@@ -7,7 +6,20 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
-$usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
+$usuario = $_SESSION['usuario'];
+
+// Obtener la lista de entrenadores desde la base de datos
+include_once '../configuracion/conexion.php';
+$query = "SELECT u.id, u.nombre, u.correo, u.telefono, u.imagen 
+          FROM usuarios u 
+          INNER JOIN usuarios_roles ur ON u.id = ur.usuario_id 
+          INNER JOIN roles r ON ur.rol_id = r.id 
+          WHERE r.nombre = 'entrenador'";
+$result = $conexion->query($query);
+$entrenadores = [];
+while ($row = $result->fetch_assoc()) {
+    $entrenadores[] = $row;
+}
 ?>
 
 <!DOCTYPE html>
@@ -201,163 +213,65 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 .mission-vision-card:hover::before {
   opacity: 1; /* Efecto de brillo al pasar el mouse */
 }
-/* Estilos para la sección de bienvenida */
-.welcome-section {
-    background: linear-gradient(to right, #000, #2e2b2b);
-    color: #fff;
-    text-align: center;
-    padding: 100px 20px;
-    font-family: 'Arial', sans-serif;
-    font-size: 30px;
-    font-weight: 900;
-}
 
-.welcome-section h1 {
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: white;
-}
-
-.welcome-section h1 span {
-    color: #ffe600;
-    font-size: 40px;
-    font-weight: bold;
-}
-
-.welcome-section p {
-    font-size: 25px;
-    font-family: 'Roboto', sans-serif;
-    color: #ccc;
-    line-height: 1.6;
-    margin-bottom: 30px;
-}
-
-/* Animación de desvanecimiento */
-@keyframes fadeIn {
-  0% {
-    opacity: 0; /* Comienza invisible */
-  }
-  100% {
-    opacity: 1; /* Se hace visible al final */
-  }
-}
-
-/* Animación de deslizamiento desde abajo */
-@keyframes slideUp {
-  0% {
-    transform: translateY(30px); /* Comienza 30px abajo */
-  }
-  100% {
-    transform: translateY(0); /* Se mueve a su posición original */
-  }
-}
-
-/* Estilos para el h1 */
-.welcome-section h1 {
-  font-size: 40px; /* Tamaño de texto grande */
-  font-weight: bold; /* Negrita para el encabezado */
-  margin-bottom: 20px; /* Separación hacia abajo */
-  color: white; /* Color blanco para el h1 */
-  opacity: 0; /* Comienza invisible */
-  animation: fadeIn 2s ease-out 0.5s forwards, slideUp 2s ease-out 0.5s forwards; /* Animación */
-}
-
-/* Estilos para el span */
-.welcome-section h1 span {
-  color: #ffe600; /* Color naranja para el texto dentro del span */
-  font-size: 40px; /* Mismo tamaño de letra que el h1 */
-  font-weight: bold; /* Negrita para resaltar */
-}
-
-/* Estilos para el p */
-.welcome-section p {
-  font-size: 25px; /* Tamaño de fuente moderado */
-  font-family: 'Roboto', sans-serif; /* Fuente más elegante y moderna */
-  color: #ccc; /* Color gris claro para el párrafo */
-  line-height: 1.6; /* Espaciado entre líneas para mayor legibilidad */
-  margin-bottom: 30px; /* Separación hacia abajo */
-  opacity: 0; /* Comienza invisible */
-  animation: fadeIn 2s ease-out 1s forwards, slideUp 2s ease-out 1s forwards; /* Animación */
-}
-#openProfile:hover {
-  background-color: #ffe600; /* Fondo naranja brillante al pasar el cursor */
-  color: #333; /* Color de texto oscuro al pasar el cursor */
-  border-color: #ff6600; /* Borde naranja al pasar el cursor */
-  transform: scale(1.05); /* Aumentar ligeramente el tamaño del botón */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-}
-/* Estilos para el botón */
-#openProfile {
-  background-color: transparent; /* Fondo transparente */
-  color: #fff; /* Color de texto blanco */
-  border: 2px solid #fff; /* Borde blanco */
-  padding: 12px 30px; /* Espaciado interno del botón */
-  font-size: 16px; /* Tamaño de texto */
-  border-radius: 50px; /* Bordes redondeados */
-  text-transform: uppercase; /* Texto en mayúsculas */
-  font-weight: bold; /* Negrita para el texto */
-  cursor: pointer; /* Cambio de cursor cuando pasa sobre el botón */
-  transition: all 0.3s ease; /* Transición suave para todos los cambios */
-  opacity: 0; /* Comienza invisible */
-  animation: fadeIn 2s ease-out 1.5s forwards, slideUp 2s ease-out 1.5s forwards; /* Animación */
-}
-
-#openProfile:focus {
-  outline: none; /* Quitar el contorno del botón cuando está en foco */
-}
-
-
-.main-image-container {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  border-radius: 15px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+.testimonial-card {
+  background: linear-gradient(145deg, #1e1e1e, #292929);
+  border-radius: 20px;
+  padding: 2rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 70%; /* Tamaño ligeramente aumentado */
-  max-width: 320px;
-  border: 5px solid #ffe600; /* Borde amarillo */
-}
-
-.main-image-container:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
-}
-
-.main-image {
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease;
-}
-
-.main-image-container:hover .main-image {
-  transform: scale(1.08);
-}
-
-.main-image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+}
+
+.testimonial-content {
+  color: #fff;
+  position: relative;
+}
+
+.testimonial-content i {
+  color: #ffe600;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.testimonial-content p {
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.testimonial-author {
   display: flex;
   align-items: center;
-  justify-content: center;
+  margin-top: 1rem;
+}
+
+.testimonial-author img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 1rem;
+  border: 3px solid #ffe600;
+}
+
+.testimonial-author h5 {
+  margin: 0;
   color: #ffe600;
-  font-size: 1.3rem; /* Tamaño ajustado */
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 1.1rem;
 }
 
-.main-image-container:hover .main-image-overlay {
-  opacity: 1;
+.testimonial-author small {
+  color: #aaa;
+  display: block;
+  margin-top: 0.25rem;
 }
-
   </style>
 </head>
 <body>
@@ -369,7 +283,7 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 <section class="welcome-section text-center">
   <h1>NOSOTROS <span>CALORIFIT</span></h1>
   <p>Transforma tu cuerpo y mente con nuestros planes exclusivos.</p>
-  <button id="openProfile" class="btn btn-outline-light mt-3" onclick="location.href='#nosotros'">NOSOTROS</butNon>
+  <button id="openProfile" class="btn btn-outline-light mt-3" onclick="location.href='#nosotros'">NOSOTROS</button>
 </section>
 
 <section class="container text-center my-5">
@@ -404,61 +318,94 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
 
   <!-- Row para las tarjetas de los entrenadores -->
   <div class="row justify-content-center">
-    <!-- Entrenador 1 -->
+    <?php foreach ($entrenadores as $entrenador): ?>
     <div class="col-md-4 mb-4">
       <div class="trainer-card">
         <div class="trainer-card-inner">
           <!-- Parte frontal -->
           <div class="trainer-card-front">
-            <img src="../publico/imagenes/solno.jpeg" alt="Entrenador 1" class="trainer-image">
-            <h5 class="card-title">Juan Solano</h5>
-            <p class="trainer-description">Experto en desarrollo de fuerza y resistencia.</p>
+            <img src="../publico/imagenes/<?php echo htmlspecialchars($entrenador['imagen']); ?>" 
+                 alt="<?php echo htmlspecialchars($entrenador['nombre']); ?>" 
+                 class="trainer-image">
+            <h5 class="card-title"><?php echo htmlspecialchars($entrenador['nombre']); ?></h5>
+            <p class="trainer-description">Entrenador profesional de Calorifit</p>
           </div>
           <!-- Parte trasera -->
           <div class="trainer-card-back">
-            <h5>Juan Solano</h5>
-            <p>Certificado en entrenamiento de fuerza avanzada. Más de 10 años de experiencia ayudando a clientes a alcanzar sus metas.</p>
-            <button class="btn btn-primary" onclick="abrirModal('Juan Solano')">Contactar</button>
+            <h5><?php echo htmlspecialchars($entrenador['nombre']); ?></h5>
+            <p>Entrenador certificado con experiencia en fitness y nutrición.</p>
+            <button class="btn btn-primary" onclick="contactarEntrenador('<?php echo htmlspecialchars($entrenador['nombre']); ?>', '<?php echo htmlspecialchars($entrenador['telefono']); ?>', '<?php echo htmlspecialchars($entrenador['correo']); ?>')">Contactar</button>
           </div>
         </div>
       </div>
     </div>
+    <?php endforeach; ?>
+  </div>
+</section>
 
-    <!-- Entrenador 2 -->
+<!-- Sección de Misión y Visión -->
+<section class="container my-5">
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="mission-vision-card">
+        <h3><i class="fas fa-bullseye"></i> Nuestra Misión</h3>
+        <p>En Calorifit, nuestra misión es transformar vidas a través del fitness y la salud, proporcionando un ambiente motivador y profesional donde cada persona pueda alcanzar sus objetivos físicos y mentales. Nos comprometemos a brindar asesoramiento personalizado y apoyo continuo para que nuestros miembros logren resultados duraderos.</p>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="mission-vision-card">
+        <h3><i class="fas fa-eye"></i> Nuestra Visión</h3>
+        <p>Ser reconocidos como el centro líder en transformación física y bienestar integral, inspirando a las personas a adoptar un estilo de vida saludable y activo. Aspiramos a crear una comunidad fuerte y unida donde cada miembro se sienta apoyado en su viaje hacia una mejor versión de sí mismo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sección de Testimonios -->
+<section class="container my-5">
+  <h2 class="section-title mb-4">Testimonios</h2>
+  <div class="row">
     <div class="col-md-4 mb-4">
-      <div class="trainer-card">
-        <div class="trainer-card-inner">
-          <!-- Parte frontal -->
-          <div class="trainer-card-front">
-            <img src="../publico/imagenes/eddy.jpeg" alt="Entrenador 2" class="trainer-image">
-            <h5 class="card-title">Eddy Vargas</h5>
-            <p class="trainer-description">Especialista en nutrición y entrenamiento físico.</p>
-          </div>
-          <!-- Parte trasera -->
-          <div class="trainer-card-back">
-            <h5>Eddy Vargas</h5>
-            <p>Nutriólogo certificado y entrenador personal. Experto en planes alimenticios personalizados.</p>
-            <button class="btn btn-primary" onclick="abrirModal('Eddy Vargas')">Contactar</button>
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <i class="fas fa-quote-left"></i>
+          <p>"Calorifit cambió mi vida por completo. Gracias a sus entrenadores profesionales y planes personalizados, logré mis objetivos de pérdida de peso y me siento mejor que nunca."</p>
+          <div class="testimonial-author">
+            <img src="../publico/imagenes/imagenmiujer.jpg" alt="María García">
+            <div>
+              <h5>María García</h5>
+              <small>Miembro desde 2023</small>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Entrenador 3 -->
     <div class="col-md-4 mb-4">
-      <div class="trainer-card">
-        <div class="trainer-card-inner">
-          <!-- Parte frontal -->
-          <div class="trainer-card-front">
-            <img src="../publico/imagenes/borja.jpeg" alt="Entrenador 3" class="trainer-image">
-            <h5 class="card-title">Samuel Borja</h5>
-            <p class="trainer-description">Líder en programas de entrenamiento funcional.</p>
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <i class="fas fa-quote-left"></i>
+          <p>"Los entrenadores son excepcionales. Su dedicación y conocimiento me ayudaron a superar mis límites y alcanzar un nivel de fitness que nunca pensé posible."</p>
+          <div class="testimonial-author">
+            <img src="../publico/imagenes/David-Laid.jpg" alt="Carlos Rodríguez">
+            <div>
+              <h5>Carlos Rodríguez</h5>
+              <small>Miembro desde 2022</small>
+            </div>
           </div>
-          <!-- Parte trasera -->
-          <div class="trainer-card-back">
-            <h5>Samuel Borja</h5>
-            <p>Especialista en entrenamiento funcional y rehabilitación. Ayudando a clientes a mejorar su movilidad y fuerza.</p>
-            <button class="btn btn-primary" onclick="abrirModal('Samuel Borja')">Contactar</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          <i class="fas fa-quote-left"></i>
+          <p>"El ambiente en Calorifit es increíble. La comunidad te motiva a dar lo mejor de ti mismo, y los resultados hablan por sí solos. ¡Totalmente recomendado!"</p>
+          <div class="testimonial-author">
+            <img src="../publico/imagenes/arnold.jpg" alt="Juan Martínez">
+            <div>
+              <h5>Juan Martínez</h5>
+              <small>Miembro desde 2024</small>
+            </div>
           </div>
         </div>
       </div>
@@ -493,612 +440,45 @@ $usuario = $_SESSION['usuario']; // Datos del usuario que están en la sesión
   </div>
 </div>
 
-<section class="container text-center my-5 about-section">
-  <h2 class="section-title"><i class="fas fa-heartbeat"></i> Nosotros</h2>
-  
-  <div class="row justify-content-center">
-    <div class="col-md-10">
-      <p style="color: #fff;">
-        En <strong>Calorifit</strong>, nos dedicamos a transformar vidas a través de la salud y el bienestar. Nuestro equipo de expertos trabaja incansablemente para ofrecer programas personalizados que se adapten a las necesidades de cada individuo.
-      </p>
-    </div>
-  </div>
-
-  <div class="row mt-5">
-    <!-- Misión -->
-    <div class="col-md-6 mb-4">
-      <div class="card mission-vision-card">
-        <div class="card-body">
-          <h3 class="card-title"><i class="fas fa-bullseye"></i> Misión</h3>
-          <p class="text-light">Inspirar y empoderar a las personas para alcanzar su máximo potencial físico y mental, promoviendo un estilo de vida saludable y sostenible.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Visión -->
-    <div class="col-md-6 mb-4">
-      <div class="card mission-vision-card">
-        <div class="card-body">
-          <h3 class="card-title"><i class="fas fa-eye"></i> Visión</h3>
-          <p class="text-light">Ser líderes en el ámbito del bienestar integral, reconocidos por nuestra innovación, excelencia y compromiso con la salud de nuestros clientes.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="container text-center my-5">
-  <h2 class="section-title"><i class="fas fa-comments"></i> Testimonios</h2>
-  <div class="row">
-    <div class="col-md-4 mb-4">
-      <div class="card bg-dark text-light shadow">
-        <div class="card-body">
-          <i class="fas fa-quote-left text-warning mb-3"></i>
-          <p class="card-text">"Gracias a Calorifit, logré perder 10 kg en 3 meses. ¡Los entrenadores son increíbles!"</p>
-          <h5 class="card-title">- María López</h5>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card bg-dark text-light shadow">
-        <div class="card-body">
-          <i class="fas fa-quote-left text-warning mb-3"></i>
-          <p class="card-text">"El plan personalizado de nutrición cambió mi vida. ¡Altamente recomendado!"</p>
-          <h5 class="card-title">- Carlos Pérez</h5>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card bg-dark text-light shadow">
-        <div class="card-body">
-          <i class="fas fa-quote-left text-warning mb-3"></i>
-          <p class="card-text">"Nunca me sentí tan motivado para entrenar. ¡Gracias Calorifit!"</p>
-          <h5 class="card-title">- Ana García</h5>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="mt-4 position-relative">
-    <a href="inicio.php" class="btn btn-warning btn-xl text-dark fw-bold rounded-pill animate-btn">Suscríbete</a>
-    <div class="arrow-container">
-      <i class="fas fa-arrow-down text-warning arrow" style="left: 45%;"></i>
-      <i class="fas fa-arrow-down text-warning arrow" style="left: 55%;"></i>
-    </div>
-  </div>
-</section>
-
-<style>
-  .arrow-container {
-    position: absolute;
-    top: -50px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    animation: bounce 1.5s infinite;
-  }
-
-  .arrow {
-    font-size: 2.5rem;
-  }
-
-  @keyframes bounce {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  .btn-xl {
-    padding: 15px 40px;
-    font-size: 1.5rem;
-  }
-
-  .animate-btn {
-    position: relative;
-    animation: pulse 1.5s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-  }
-</style>
-
-<!-- Modal de contacto -->
-<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content contact-modal">
-      <div class="modal-header">
-        <h5 class="modal-title" id="contactModalLabel">
-          <i class="fas fa-user-circle"></i> Contacto con <span id="trainerName"></span>
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="contact-info">
-          <p><strong><i class="fas fa-phone-alt"></i> Teléfono:</strong> <span id="trainerPhone"></span></p>
-          <p><strong><i class="fas fa-envelope"></i> Correo:</strong> <span id="trainerEmail"></span></p>
-          <p><strong><i class="fas fa-comments"></i> Chat:</strong> <a href="#" id="trainerChat" target="_blank">Iniciar chat</a></p>
-        </div>
-        <div class="chat-container">
-          <h6 class="chat-title"><i class="fas fa-comment-dots"></i> Chat en vivo</h6>
-          <div id="chatMessages" class="chat-messages border rounded p-3 mb-3"></div>
-          <div class="input-group">
-            <input type="text" id="chatInput" class="form-control" placeholder="Escribe un mensaje...">
-            <button class="btn btn-primary-custom" id="sendMessageButton">Enviar</button>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<style>
-/* Modal Styling */
-.contact-modal {
-    border-radius: 15px;
-    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    color: #333;
-    padding: 20px;
-    animation: fadeIn 0.5s ease-out;
-}
-
-/* Animation for modal appearance */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Modal header styling */
-.modal-header {
-    background: linear-gradient(to right, #f4c10f, #ffc400);
-    color: #000;
-    border-bottom: none;
-    border-radius: 15px 15px 0 0;
-    padding: 15px;
-    text-align: center;
-}
-
-.modal-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.modal-title i {
-    margin-right: 10px;
-    font-size: 2rem;
-}
-
-/* Modal body styling */
-.modal-body {
-    font-family: 'Arial', sans-serif;
-    padding: 25px;
-    line-height: 1.6;
-}
-
-.contact-info p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 10px;
-}
-
-.contact-info i {
-    color: #ffc400;
-    margin-right: 8px;
-}
-
-/* Chat container styling */
-.chat-container {
-    margin-top: 20px;
-}
-
-.chat-title {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.chat-messages {
-    height: 200px;
-    overflow-y: auto;
-    background-color: #f8f9fa;
-    color: #000;
-    padding: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.chat-messages div {
-    margin-bottom: 10px;
-}
-
-.chat-messages div.user-message {
-    font-weight: bold;
-    color: #333;
-}
-
-.chat-messages div.trainer-message {
-    color: #555;
-}
-
-/* Input group styling */
-.input-group {
-    display: flex;
-    gap: 10px;
-}
-
-.input-group .form-control {
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.input-group .form-control:focus {
-    border-color: #f4c10f;
-    box-shadow: 0 0 5px rgba(244, 193, 15, 0.5);
-}
-
-.input-group .btn-primary-custom {
-    background-color: #f4c10f;
-    border-color: #f4c10f;
-    color: #000;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 10px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.input-group .btn-primary-custom:hover {
-    background-color: #ffc400;
-    transform: scale(1.05);
-}
-
-/* Modal footer styling */
-.modal-footer {
-    border-top: none;
-    padding-top: 15px;
-    text-align: center;
-}
-
-/* Modal dialog shadow */
-.modal-dialog {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-}
-</style>
-
-<!-- Modal for user profile -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content profile-modal">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">
-          <i class="fas fa-user-circle"></i> Mi Perfil
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="../modelos/editar_perfil.php" id="perfilForm">
-          <!-- Nombre -->
-          <div class="mb-3">
-            <label for="nombre" class="form-label">
-              <i class="fas fa-user"></i> Nombre
-            </label>
-            <input type="text" class="form-control" id="nombre" name="nombre" readonly value="<?= isset($usuario['nombre']) ? $usuario['nombre'] : ''; ?>">
-          </div>
-
-          <!-- Correo -->
-          <div class="mb-3">
-            <label for="correo" class="form-label">
-              <i class="fas fa-envelope"></i> Correo
-            </label>
-            <input type="email" class="form-control" id="correo" name="correo" value="<?= isset($_SESSION['usuario']['correo']) ? $_SESSION['usuario']['correo'] : ''; ?>" readonly>
-          </div>
-
-          <!-- Teléfono -->
-          <div class="mb-3">
-            <label for="telefono" class="form-label">
-              <i class="fas fa-phone"></i> Teléfono
-            </label>
-            <input type="tel" class="form-control" id="telefono" name="telefono" readonly value="<?= isset($usuario['telefono']) ? $usuario['telefono'] : ''; ?>">
-          </div>
-
-          <!-- Fecha de nacimiento -->
-          <div class="mb-3">
-            <label for="fecha_nacimiento" class="form-label">
-              <i class="fas fa-birthday-cake"></i> Fecha de Nacimiento
-            </label>
-            <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" readonly value="<?= isset($usuario['fecha_nacimiento']) ? $usuario['fecha_nacimiento'] : ''; ?>">
-          </div>
-
-          <!-- Género -->
-          <div class="mb-3">
-            <label for="genero" class="form-label">
-              <i class="fas fa-venus-mars"></i> Género
-            </label>
-            <select class="form-select" id="genero" name="genero" disabled>
-              <option value="M" <?= isset($usuario['genero']) && $usuario['genero'] == 'M' ? 'selected' : ''; ?>>Masculino</option>
-              <option value="F" <?= isset($usuario['genero']) && $usuario['genero'] == 'F' ? 'selected' : ''; ?>>Femenino</option>
-              <option value="Otro" <?= isset($usuario['genero']) && $usuario['genero'] == 'Otro' ? 'selected' : ''; ?>>Otro</option>
-            </select>
-          </div>
-
-          <!-- Peso -->
-          <div class="mb-3">
-            <label for="peso" class="form-label">
-              <i class="fas fa-weight"></i> Peso
-            </label>
-            <input type="number" class="form-control" id="peso" name="peso" readonly value="<?= isset($usuario['peso']) ? $usuario['peso'] : ''; ?>" step="0.1">
-          </div>
-
-          <!-- Altura -->
-          <div class="mb-3">
-            <label for="altura" class="form-label">
-              <i class="fas fa-ruler-vertical"></i> Altura
-            </label>
-            <input type="number" class="form-control" id="altura" name="altura" readonly value="<?= isset($usuario['altura']) ? $usuario['altura'] : ''; ?>" step="0.1">
-          </div>
-
-          <!-- Fecha de Registro -->
-          <div class="mb-3">
-            <label for="fecha_registro" class="form-label">
-              <i class="fas fa-calendar-alt"></i> Fecha de Registro
-            </label>
-            <input type="text" class="form-control" id="fecha_registro" readonly value="<?= isset($usuario['fecha_registro']) ? $usuario['fecha_registro'] : ''; ?>">
-          </div>
-
-          <!-- Botones -->
-          <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-secondary ms-2" id="editarBtn">Editar</button>
-            <button type="submit" class="btn btn-primary ms-2" id="guardarBtn" style="display: none;">Guardar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<style>
-/* Modal Styling */
-.profile-modal {
-    border-radius: 15px;
-    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    color: #333;
-    padding: 20px;
-    animation: fadeIn 0.5s ease-out;
-}
-
-/* Animation for modal appearance */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Modal header styling */
-.modal-header {
-    background: linear-gradient(to right, #f4c10f, #ffc400);
-    color: #000;
-    border-bottom: none;
-    border-radius: 15px 15px 0 0;
-    padding: 15px;
-    text-align: center;
-}
-
-.modal-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.modal-title i {
-    margin-right: 10px;
-    font-size: 2rem;
-}
-
-/* Modal body styling */
-.modal-body {
-    font-family: 'Arial', sans-serif;
-    padding: 25px;
-    line-height: 1.6;
-}
-
-/* Ensure consistent label styling */
-.modal-body .form-label {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-    display: block;
-}
-
-/* Add spacing between form groups */
-.modal-body .mb-3 {
-    margin-bottom: 20px;
-}
-
-/* Input field styling */
-.form-control {
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.form-control:focus {
-    border-color: #f4c10f;
-    box-shadow: 0 0 5px rgba(244, 193, 15, 0.5);
-}
-
-/* Button styling */
-.btn-primary {
-    background-color: #f4c10f;
-    border-color: #f4c10f;
-    color: #000;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 10px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.btn-primary:hover {
-    background-color: #ffc400;
-    transform: scale(1.05);
-}
-
-.btn-secondary {
-    background-color: #e0e0e0;
-    border-color: #d6d6d6;
-    color: #333;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 10px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.btn-secondary:hover {
-    background-color: #d6d6d6;
-    transform: scale(1.05);
-}
-
-/* Modal footer styling */
-.modal-footer {
-    border-top: none;
-    padding-top: 15px;
-    text-align: center;
-}
-
-/* Modal dialog shadow */
-.modal-dialog {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-}
-</style>
-
 <?php include '../vistas/footer.php'; ?>
 
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  const trainers = {
-    "Juan Solano": {
-      phone: "123-456-7890",
-      email: "juan.solano@calorifit.com",
-      chat: "https://chat.calorifit.com/juan-solano"
-    },
-    "Eddy Vargas": {
-      phone: "987-654-3210",
-      email: "eddy.vargas@calorifit.com",
-      chat: "https://chat.calorifit.com/eddy-vargas"
-    },
-    "Samuel Borja": {
-      phone: "555-123-4567",
-      email: "samuel.borja@calorifit.com",
-      chat: "https://chat.calorifit.com/samuel-borja"
+document.addEventListener('DOMContentLoaded', function() {
+    // Función para contactar entrenador actualizada
+    window.contactarEntrenador = function(nombre, telefono, correo) {
+        document.getElementById('trainerName').textContent = nombre;
+        document.getElementById('trainerPhone').textContent = telefono;
+        document.getElementById('trainerEmail').textContent = correo;
+        const contactModal = new bootstrap.Modal(document.getElementById('contactModal'));
+        contactModal.show();
     }
-  };
 
-  function contactarEntrenador(nombre) {
-    const trainer = trainers[nombre];
-    if (trainer) {
-      document.getElementById('trainerName').textContent = nombre;
-      document.getElementById('trainerPhone').textContent = trainer.phone;
-      document.getElementById('trainerEmail').textContent = trainer.email;
-      document.getElementById('trainerChat').href = trainer.chat;
-      const contactModal = new bootstrap.Modal(document.getElementById('contactModal'));
-      contactModal.show();
-    }
-  }
+    // Resto del código JavaScript para el chat
+    document.getElementById('sendMessageButton').addEventListener('click', function () {
+        const chatInput = document.getElementById('chatInput');
+        const chatMessages = document.getElementById('chatMessages');
+        const message = chatInput.value.trim();
 
-  function abrirModal(nombre) {
-    const trainer = trainers[nombre];
-    if (trainer) {
-      document.getElementById('trainerName').textContent = nombre;
-      document.getElementById('trainerPhone').textContent = trainer.phone;
-      document.getElementById('trainerEmail').textContent = trainer.email;
-      document.getElementById('chatMessages').innerHTML = ''; // Limpiar mensajes previos
-      const contactModal = new bootstrap.Modal(document.getElementById('contactModal'));
-      contactModal.show();
-    }
-  }
+        if (message) {
+            const userMessage = document.createElement('div');
+            userMessage.textContent = `Tú: ${message}`;
+            userMessage.style.fontWeight = 'bold';
+            chatMessages.appendChild(userMessage);
 
-  document.getElementById('sendMessageButton').addEventListener('click', function () {
-    const chatInput = document.getElementById('chatInput');
-    const chatMessages = document.getElementById('chatMessages');
-    const message = chatInput.value.trim();
+            setTimeout(() => {
+                const trainerMessage = document.createElement('div');
+                trainerMessage.textContent = `Entrenador: Gracias por tu mensaje. Te responderé pronto.`;
+                chatMessages.appendChild(trainerMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
 
-    if (message) {
-      // Agregar mensaje del usuario al chat
-      const userMessage = document.createElement('div');
-      userMessage.textContent = `Tú: ${message}`;
-      userMessage.style.fontWeight = 'bold';
-      chatMessages.appendChild(userMessage);
-
-      // Simular respuesta del entrenador
-      setTimeout(() => {
-        const trainerMessage = document.createElement('div');
-        trainerMessage.textContent = `Entrenador: Gracias por tu mensaje. Te responderé pronto.`;
-        chatMessages.appendChild(trainerMessage);
-        chatMessages.scrollTop = chatMessages.scrollHeight; // Desplazar hacia el final
-      }, 1000);
-
-      chatInput.value = ''; // Limpiar el campo de entrada
-      chatMessages.scrollTop = chatMessages.scrollHeight; // Desplazar hacia el final
-    }
-  });
-
-  document.querySelectorAll('.send-message-btn').forEach((button) => {
-    button.addEventListener('click', function () {
-      const chatContainer = this.closest('.chat-container');
-      const chatInput = chatContainer.querySelector('.chat-input');
-      const chatMessages = chatContainer.querySelector('.chat-messages');
-      const message = chatInput.value.trim();
-
-      if (message) {
-        // Agregar mensaje del usuario al chat
-        const userMessage = document.createElement('div');
-        userMessage.textContent = `Tú: ${message}`;
-        userMessage.style.fontWeight = 'bold';
-        chatMessages.appendChild(userMessage);
-
-        // Simular respuesta del entrenador
-        setTimeout(() => {
-          const trainerMessage = document.createElement('div');
-          trainerMessage.textContent = `Entrenador: Gracias por tu mensaje. Te responderé pronto.`;
-          chatMessages.appendChild(trainerMessage);
-          chatMessages.scrollTop = chatMessages.scrollHeight; // Desplazar hacia el final
-        }, 1000);
-
-        chatInput.value = ''; // Limpiar el campo de entrada
-        chatMessages.scrollTop = chatMessages.scrollHeight; // Desplazar hacia el final
-      }
+            chatInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
     });
-  });
+});
 </script>
 
 </body>

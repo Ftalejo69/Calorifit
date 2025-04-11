@@ -223,7 +223,7 @@ $usuario = $_SESSION['usuario'];
             <div class="modal-content">
                 <span class="close-modal">&times;</span>
                 <h2>Agregar Nuevo Entrenador</h2>
-                <form id="add-trainer-form">
+                <form id="add-trainer-form" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="new-trainer-name">Nombre:</label>
                         <input type="text" id="new-trainer-name" name="nombre" required>
@@ -236,6 +236,11 @@ $usuario = $_SESSION['usuario'];
                         <label for="new-trainer-phone">Teléfono:</label>
                         <input type="tel" id="new-trainer-phone" name="telefono" required>
                     </div>
+                    <div class="form-group">
+                        <label for="new-trainer-image">Imagen:</label>
+                        <input type="file" id="new-trainer-image" name="imagen" accept="image/*" required>
+                        <small class="form-text text-muted">Selecciona una imagen para el entrenador (máximo 2MB)</small>
+                    </div>
                     <button type="submit" class="btn-submit">Agregar Entrenador</button>
                 </form>
             </div>
@@ -246,7 +251,7 @@ $usuario = $_SESSION['usuario'];
             <div class="modal-content">
                 <span class="close-modal">&times;</span>
                 <h2>Editar Entrenador</h2>
-                <form id="trainer-form">
+                <form id="trainer-form" enctype="multipart/form-data">
                     <input type="hidden" id="trainer-id" name="id">
                     <div class="form-group">
                         <label for="trainer-name">Nombre:</label>
@@ -259,6 +264,12 @@ $usuario = $_SESSION['usuario'];
                     <div class="form-group">
                         <label for="trainer-phone">Teléfono:</label>
                         <input type="tel" id="trainer-phone" name="telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="trainer-image">Imagen:</label>
+                        <input type="file" id="trainer-image" name="imagen" accept="image/*">
+                        <small class="form-text text-muted">Selecciona una nueva imagen para actualizar la existente</small>
+                        <div id="current-image-preview"></div>
                     </div>
                     <button type="submit" class="btn-submit">Guardar Cambios</button>
                 </form>

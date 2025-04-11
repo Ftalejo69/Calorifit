@@ -12,7 +12,7 @@ try {
     $action = $_GET['action'] ?? '';
 
     if ($action === 'get') {
-        $sql = "SELECT u.id, u.nombre, u.correo, u.telefono 
+        $sql = "SELECT u.id, u.nombre, u.correo, u.telefono, u.imagen 
                 FROM usuarios u 
                 INNER JOIN usuarios_roles ur ON u.id = ur.usuario_id 
                 INNER JOIN roles r ON ur.rol_id = r.id 
@@ -40,7 +40,7 @@ try {
         }
 
         try {
-            $stmt = $conn->prepare("SELECT id, nombre, correo, telefono FROM usuarios WHERE id = :id");
+            $stmt = $conn->prepare("SELECT id, nombre, correo, telefono, imagen FROM usuarios WHERE id = :id");
             $stmt->execute([':id' => $id]);
             $entrenador = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -59,10 +59,33 @@ try {
     }
 
     if ($action === 'add') {
-        $datos = json_decode(file_get_contents('php://input'), true);
-        
-        if (!isset($datos['nombre']) || !isset($datos['correo']) || !isset($datos['telefono'])) {
-            echo json_encode(['success' => false, 'error' => 'Datos incompletos']);
+        // Verificar si se envió una imagen
+        if (!isset($_FILES['imagen']) || $_FILES['imagen']['error'] !== UPLOAD_ERR_OK) {
+            echo json_encode(['success' => false, 'error' => 'Debe proporcionar una imagen']);
+            exit;
+        }
+
+        // Validar el tipo de archivo
+        $allowed = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!in_array($_FILES['imagen']['type'], $allowed)) {
+            echo json_encode(['success' => false, 'error' => 'Tipo de archivo no permitido. Use JPG, PNG o GIF']);
+            exit;
+        }
+
+        // Validar el tamaño (máximo 2MB)
+        if ($_FILES['imagen']['size'] > 2 * 1024 * 1024) {
+            echo json_encode(['success' => false, 'error' => 'La imagen no debe superar los 2MB']);
+            exit;
+        }
+
+        // Generar nombre único para la imagen
+        $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+        $imagen_nombre = uniqid('entrenador_') . '.' . $extension;
+        $ruta_destino = '../publico/imagenes/' . $imagen_nombre;
+
+        // Mover la imagen al directorio
+        if (!move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_destino)) {
+            echo json_encode(['success' => false, 'error' => 'Error al guardar la imagen']);
             exit;
         }
 
@@ -72,16 +95,17 @@ try {
             // Generar token único para recuperación de contraseña
             $token = bin2hex(random_bytes(16));
             
-            // 1. Insertar usuario sin contraseña
-            $sql = "INSERT INTO usuarios (nombre, correo, telefono, verificado, token_recuperacion, fecha_token) 
-                    VALUES (:nombre, :correo, :telefono, 1, :token, NOW())";
+            // 1. Insertar usuario con la imagen
+            $sql = "INSERT INTO usuarios (nombre, correo, telefono, verificado, token_recuperacion, fecha_token, imagen) 
+                    VALUES (:nombre, :correo, :telefono, 1, :token, NOW(), :imagen)";
             
             $stmt = $conn->prepare($sql);
             $stmt->execute([
-                ':nombre' => $datos['nombre'],
-                ':correo' => $datos['correo'],
-                ':telefono' => $datos['telefono'],
-                ':token' => $token
+                ':nombre' => $_POST['nombre'],
+                ':correo' => $_POST['correo'],
+                ':telefono' => $_POST['telefono'],
+                ':token' => $token,
+                ':imagen' => $imagen_nombre
             ]);
             
             $usuario_id = $conn->lastInsertId();
@@ -98,44 +122,95 @@ try {
                 ':rol_id' => $rol['id']
             ]);
             
-            // 4. Enviar correo con link de configuración de contraseña
+            // 4. Enviar correo
             $model = new UsuarioModel($conn);
-            $model->sendPasswordSetupEmail($datos['nombre'], $datos['correo'], $token);
+            $model->sendPasswordSetupEmail($_POST['nombre'], $_POST['correo'], $token);
             
             $conn->commit();
             echo json_encode(['success' => true, 'message' => 'Entrenador creado correctamente. Se ha enviado un correo para configurar la contraseña.']);
             exit;
         } catch (Exception $e) {
             $conn->rollBack();
+            // Si hay error, eliminar la imagen subida
+            if (file_exists($ruta_destino)) {
+                unlink($ruta_destino);
+            }
             echo json_encode(['success' => false, 'error' => $e->getMessage()]);
             exit;
         }
     }
 
     if ($action === 'update') {
-        $datos = json_decode(file_get_contents('php://input'), true);
+        $id = $_POST['id'] ?? null;
         
-        if (!isset($datos['id']) || !isset($datos['nombre']) || !isset($datos['correo']) || !isset($datos['telefono'])) {
-            echo json_encode(['success' => false, 'error' => 'Datos incompletos']);
+        if (!$id) {
+            echo json_encode(['success' => false, 'error' => 'ID no proporcionado']);
             exit;
         }
 
         try {
+            $imagen_nombre = null;
+            
+            // Si se envió una nueva imagen
+            if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+                // Validar el tipo de archivo
+                $allowed = ['image/jpeg', 'image/png', 'image/gif'];
+                if (!in_array($_FILES['imagen']['type'], $allowed)) {
+                    echo json_encode(['success' => false, 'error' => 'Tipo de archivo no permitido. Use JPG, PNG o GIF']);
+                    exit;
+                }
+
+                // Validar el tamaño
+                if ($_FILES['imagen']['size'] > 2 * 1024 * 1024) {
+                    echo json_encode(['success' => false, 'error' => 'La imagen no debe superar los 2MB']);
+                    exit;
+                }
+
+                // Generar nombre único
+                $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
+                $imagen_nombre = uniqid('entrenador_') . '.' . $extension;
+                $ruta_destino = '../publico/imagenes/' . $imagen_nombre;
+
+                // Obtener imagen anterior para eliminarla
+                $stmt = $conn->prepare("SELECT imagen FROM usuarios WHERE id = :id");
+                $stmt->execute([':id' => $id]);
+                $imagen_anterior = $stmt->fetchColumn();
+
+                // Mover nueva imagen
+                if (!move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_destino)) {
+                    echo json_encode(['success' => false, 'error' => 'Error al guardar la imagen']);
+                    exit;
+                }
+
+                // Eliminar imagen anterior si existe y no es la default
+                if ($imagen_anterior && $imagen_anterior !== 'entrenador-default.jpg' && file_exists('../publico/imagenes/' . $imagen_anterior)) {
+                    unlink('../publico/imagenes/' . $imagen_anterior);
+                }
+            }
+
+            // Actualizar usuario
             $sql = "UPDATE usuarios 
-                    SET nombre = :nombre, correo = :correo, telefono = :telefono 
-                    WHERE id = :id AND id IN (
+                    SET nombre = :nombre, correo = :correo, telefono = :telefono" .
+                    ($imagen_nombre ? ", imagen = :imagen" : "") .
+                    " WHERE id = :id AND id IN (
                         SELECT usuario_id FROM usuarios_roles ur 
                         INNER JOIN roles r ON ur.rol_id = r.id 
                         WHERE r.nombre = 'entrenador'
                     )";
             
+            $params = [
+                ':id' => $id,
+                ':nombre' => $_POST['nombre'],
+                ':correo' => $_POST['correo'],
+                ':telefono' => $_POST['telefono']
+            ];
+
+            if ($imagen_nombre) {
+                $params[':imagen'] = $imagen_nombre;
+            }
+
             $stmt = $conn->prepare($sql);
-            $result = $stmt->execute([
-                ':id' => $datos['id'],
-                ':nombre' => $datos['nombre'],
-                ':correo' => $datos['correo'],
-                ':telefono' => $datos['telefono']
-            ]);
+            $result = $stmt->execute($params);
 
             if ($stmt->rowCount() > 0) {
                 echo json_encode(['success' => true, 'message' => 'Entrenador actualizado correctamente']);
@@ -144,6 +219,10 @@ try {
             }
             exit;
         } catch (Exception $e) {
+            // Si hay error y se subió una nueva imagen, eliminarla
+            if (isset($ruta_destino) && file_exists($ruta_destino)) {
+                unlink($ruta_destino);
+            }
             echo json_encode(['success' => false, 'error' => $e->getMessage()]);
             exit;
         }
