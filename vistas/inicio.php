@@ -35,6 +35,15 @@ while ($row = $result->fetch_assoc()) {
     <?php include '../vistas/navbar.php'; ?>
     <?php include '../vistas/modal_perfil.php'; ?>
 
+    <?php if (isset($_SESSION['mensaje'])): ?>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle"></i>
+            <?php echo htmlspecialchars($_SESSION['mensaje']); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php unset($_SESSION['mensaje']); ?>
+    <?php endif; ?>
+
     <!-- Sección de bienvenida -->
     <section class="welcome-section text-center">
         <h1>Bienvenido a <span>CALORIFIT</span></h1>
