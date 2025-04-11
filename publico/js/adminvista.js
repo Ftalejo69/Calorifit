@@ -146,8 +146,31 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("plan-form").reset();
             document.getElementById("plan-id").value = "";
             document.getElementById("plan-modal-title").textContent = "Agregar Plan";
+            benefitsContainer.innerHTML = '';
+            addBenefitInput();
         }
     });
+
+    // Funciones para manejar beneficios
+    const benefitsContainer = document.getElementById('benefits-container');
+    const addBenefitButton = document.getElementById('add-benefit');
+
+    function addBenefitInput(value = '') {
+        const benefitDiv = document.createElement('div');
+        benefitDiv.className = 'benefit-item';
+        benefitDiv.innerHTML = `
+            <input type="text" class="benefit-input" value="${value}" placeholder="Ingrese un beneficio">
+            <button type="button" class="remove-benefit">×</button>
+        `;
+        benefitsContainer.appendChild(benefitDiv);
+
+        // Agregar evento para eliminar beneficio
+        benefitDiv.querySelector('.remove-benefit').addEventListener('click', function() {
+            benefitDiv.remove();
+        });
+    }
+
+    addBenefitButton.addEventListener('click', () => addBenefitInput());
 
     // Cargar datos de membresias
     function cargarMembresias() {
@@ -172,6 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 tableBody.innerHTML = "";
                 if (Array.isArray(data)) {
                     data.forEach(membresia => {
+                        const beneficios = membresia.beneficios ? JSON.parse(membresia.beneficios) : [];
                         const row = document.createElement("tr");
                         row.innerHTML = `
                             <td>${membresia.id}</td>
@@ -179,6 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <td>$${membresia.precio}</td>
                             <td>${membresia.duracion} días</td>
                             <td>${membresia.descripcion}</td>
+                            <td>${beneficios.join('<br>')}</td>
                             <td>
                                 <button class="btn-edit" onclick="editarMembresia(${membresia.id})">Editar</button>
                                 <button class="btn-delete" onclick="eliminarMembresia(${membresia.id})">Eliminar</button>
@@ -441,6 +466,16 @@ document.addEventListener("DOMContentLoaded", () => {
                         document.getElementById("plan-price").value = data.plan.precio;
                         document.getElementById("plan-duration").value = data.plan.duracion;
                         document.getElementById("plan-description").value = data.plan.descripcion;
+                        
+                        // Limpiar beneficios existentes
+                        benefitsContainer.innerHTML = '';
+                        
+                        // Cargar beneficios
+                        if (data.plan.beneficios) {
+                            const beneficios = JSON.parse(data.plan.beneficios);
+                            beneficios.forEach(beneficio => addBenefitInput(beneficio));
+                        }
+                        
                         document.getElementById("plan-modal-title").textContent = "Editar Plan";
                         planModal.classList.add("active");
                     } else {
@@ -479,11 +514,18 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("plan-form")?.addEventListener("submit", async (e) => {
         e.preventDefault();
         const planId = document.getElementById("plan-id").value;
+        
+        // Recoger todos los beneficios
+        const beneficios = Array.from(document.querySelectorAll('.benefit-input'))
+            .map(input => input.value.trim())
+            .filter(value => value !== '');
+
         const formData = {
             nombre: document.getElementById("plan-name").value,
             precio: document.getElementById("plan-price").value,
             duracion: document.getElementById("plan-duration").value,
-            descripcion: document.getElementById("plan-description").value
+            descripcion: document.getElementById("plan-description").value,
+            beneficios: JSON.stringify(beneficios)
         };
 
         const url = planId 
@@ -504,6 +546,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(data.message || "Operación exitosa");
                 document.getElementById("plan-modal").classList.remove("active");
                 document.getElementById("plan-form").reset();
+                benefitsContainer.innerHTML = '';
+                addBenefitInput();
                 await cargarMembresias(); // Recargar la tabla inmediatamente
             } else {
                 throw new Error(data.error || "Error al procesar la solicitud");

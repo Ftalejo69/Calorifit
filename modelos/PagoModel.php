@@ -26,6 +26,16 @@ class PagoModel {
         return $membresia;
     }
 
+    public function obtenerMembresiaPorId($membresia_id) {
+        $stmt = $this->conexion->prepare("SELECT id, nombre, precio, duracion FROM membresias WHERE id = ?");
+        $stmt->bind_param("i", $membresia_id);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $membresia = $resultado->fetch_assoc();
+        $stmt->close();
+        return $membresia;
+    }
+
     public function verificarInscripcionActiva($usuario_id, $membresia_id) {
         $stmt = $this->conexion->prepare("SELECT id FROM inscripciones WHERE usuario_id = ? AND membresia_id = ? AND fecha_fin >= CURDATE()");
         $stmt->bind_param("ii", $usuario_id, $membresia_id);

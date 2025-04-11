@@ -3,13 +3,13 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$mensaje = $_SESSION['mensaje'] ?? 'No se realizó ninguna acción.';
-unset($_SESSION['mensaje']);
+// Obtener el mensaje de la sesión
+$mensaje = isset($_SESSION['mensaje']) ? $_SESSION['mensaje'] : 'Transacción completada';
+$tipo = isset($_SESSION['tipo_mensaje']) ? $_SESSION['tipo_mensaje'] : 'success';
 
-// Simulate adding a plan to the user's session after payment confirmation
-if (!isset($_SESSION['usuario']['plan'])) {
-    $_SESSION['usuario']['plan'] = 'Plan Confirmado'; // Example plan name
-}
+// Limpiar variables de sesión
+unset($_SESSION['mensaje']);
+unset($_SESSION['tipo_mensaje']);
 
 // Clear the `isNewUser` flag when the user has a plan
 if (isset($_SESSION['usuario']['plan']) && !empty($_SESSION['usuario']['plan'])) {
@@ -24,6 +24,7 @@ if (isset($_SESSION['usuario']['plan']) && !empty($_SESSION['usuario']['plan']))
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmación</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../publico/css/estilo.css">
     <style>
         .confirmacion-container {
@@ -38,7 +39,6 @@ if (isset($_SESSION['usuario']['plan']) && !empty($_SESSION['usuario']['plan']))
         .confirmacion-container h1 {
             font-size: 2.8rem;
             font-weight: bold;
-            color: #FFC107; /* Amarillo brillante */
             text-transform: uppercase;
             margin-bottom: 1.5rem;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
@@ -68,20 +68,42 @@ if (isset($_SESSION['usuario']['plan']) && !empty($_SESSION['usuario']['plan']))
             color: #FFC107; /* Amarillo brillante */
             margin-bottom: 1rem;
         }
+        .mensaje-error {
+            color: #dc3545;
+        }
+        .mensaje-success {
+            color: #28a745;
+        }
+        .icono-error {
+            color: #dc3545;
+        }
+        .icono-success {
+            color: #28a745;
+        }
     </style>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
     <div class="container">
         <div class="confirmacion-container">
-            <div class="icono-exito">
-                <i class="fas fa-check-circle"></i> <!-- Ícono de éxito -->
+            <div class="icono-<?php echo $tipo; ?>">
+                <?php if ($tipo === 'error'): ?>
+                    <i class="fas fa-times-circle fa-4x"></i>
+                <?php else: ?>
+                    <i class="fas fa-check-circle fa-4x"></i>
+                <?php endif; ?>
             </div>
-            <h1><?= htmlspecialchars($mensaje) ?></h1>
-            <p>Gracias por tu compra. Tu plan ha sido confirmado exitosamente.</p>
-            <a href="inicio.php" class="btn btn-primary">Volver al Inicio</a>
+            <h1 class="mensaje-<?php echo $tipo; ?>"><?php echo htmlspecialchars($mensaje); ?></h1>
+            <?php if ($tipo === 'success'): ?>
+                <p>Gracias por tu compra. Tu plan ha sido confirmado exitosamente.</p>
+            <?php else: ?>
+                <p>Ha ocurrido un problema con tu transacción.</p>
+            <?php endif; ?>
+            <a href="inicio.php" class="btn btn-primary mt-4">Volver al Inicio</a>
         </div>
     </div>
     <?php include 'footer.php'; ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

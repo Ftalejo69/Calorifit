@@ -125,6 +125,7 @@ $usuario = $_SESSION['usuario'];
                             <th>Precio</th>
                             <th>Duración</th>
                             <th>Descripción</th>
+                            <th>Beneficios</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -171,6 +172,20 @@ $usuario = $_SESSION['usuario'];
                         </label>
                         <textarea id="plan-description" name="descripcion" required 
                                 placeholder="Ingrese la descripción del plan" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="plan-benefits">
+                            <i class="bx bx-list-check"></i> Beneficios
+                        </label>
+                        <div id="benefits-container">
+                            <div class="benefit-item">
+                                <input type="text" class="benefit-input" placeholder="Ingrese un beneficio">
+                                <button type="button" class="remove-benefit">×</button>
+                            </div>
+                        </div>
+                        <button type="button" id="add-benefit" class="btn-secondary">
+                            <i class="bx bx-plus"></i> Agregar Beneficio
+                        </button>
                     </div>
                     <button type="submit" class="btn-submit">
                         <i class="bx bx-save"></i> Guardar Plan

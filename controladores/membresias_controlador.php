@@ -7,7 +7,7 @@ try {
 
     switch($action) {
         case 'get':
-            $sql = "SELECT id, nombre, precio, duracion, descripcion FROM membresias";
+            $sql = "SELECT id, nombre, precio, duracion, descripcion, beneficios FROM membresias";
             $result = $conexion->query($sql);
             
             if (!$result) {
@@ -25,7 +25,7 @@ try {
         case 'getById':
             $id = $_GET['id'] ?? null;
             if (!$id) throw new Exception("ID no proporcionado");
-            $sql = "SELECT id, nombre, precio, duracion FROM membresias WHERE id = ?";
+            $sql = "SELECT id, nombre, precio, duracion, descripcion, beneficios FROM membresias WHERE id = ?";
             $stmt = $conexion->prepare($sql);
             $stmt->bind_param("i", $id);
             if ($stmt->execute()) {
@@ -43,9 +43,9 @@ try {
 
         case 'create':
             $data = json_decode(file_get_contents('php://input'), true);
-            $sql = "INSERT INTO membresias (nombre, precio, duracion, descripcion) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO membresias (nombre, precio, duracion, descripcion, beneficios) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conexion->prepare($sql);
-            $stmt->bind_param("sdis", $data['nombre'], $data['precio'], $data['duracion'], $data['descripcion']);
+            $stmt->bind_param("sdiss", $data['nombre'], $data['precio'], $data['duracion'], $data['descripcion'], $data['beneficios']);
             if ($stmt->execute()) {
                 echo json_encode(['success' => true, 'message' => 'Membresía creada correctamente']);
             } else {
@@ -57,9 +57,9 @@ try {
             $id = $_GET['id'] ?? null;
             $data = json_decode(file_get_contents('php://input'), true);
             if (!$id) throw new Exception("ID no proporcionado");
-            $sql = "UPDATE membresias SET nombre = ?, precio = ?, duracion = ?, descripcion = ? WHERE id = ?";
+            $sql = "UPDATE membresias SET nombre = ?, precio = ?, duracion = ?, descripcion = ?, beneficios = ? WHERE id = ?";
             $stmt = $conexion->prepare($sql);
-            $stmt->bind_param("sdisi", $data['nombre'], $data['precio'], $data['duracion'], $data['descripcion'], $id);
+            $stmt->bind_param("sdissi", $data['nombre'], $data['precio'], $data['duracion'], $data['descripcion'], $data['beneficios'], $id);
             if ($stmt->execute()) {
                 echo json_encode(['success' => true, 'message' => 'Membresía actualizada correctamente']);
             } else {
