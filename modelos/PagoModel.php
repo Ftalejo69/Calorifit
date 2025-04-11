@@ -37,8 +37,8 @@ class PagoModel {
     }
 
     public function verificarInscripcionActiva($usuario_id, $membresia_id) {
-        $stmt = $this->conexion->prepare("SELECT id FROM inscripciones WHERE usuario_id = ? AND membresia_id = ? AND fecha_fin >= CURDATE()");
-        $stmt->bind_param("ii", $usuario_id, $membresia_id);
+        $stmt = $this->conexion->prepare("SELECT id FROM inscripciones WHERE usuario_id = ? AND fecha_fin >= CURDATE()");
+        $stmt->bind_param("i", $usuario_id);
         $stmt->execute();
         $resultado = $stmt->get_result();
         $existe = $resultado->num_rows > 0;
