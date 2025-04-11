@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-04-2025 a las 07:19:27
+-- Tiempo de generación: 11-04-2025 a las 05:27:17
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -74,13 +74,6 @@ CREATE TABLE `historial` (
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `historial`
---
-
-INSERT INTO `historial` (`id`, `usuario_id`, `nombre_rutina`, `nivel`, `fecha`) VALUES
-(1, 9, 'Ganar Músculo', 'Intermedio', '2025-04-09');
-
 -- --------------------------------------------------------
 
 --
@@ -95,6 +88,13 @@ CREATE TABLE `inscripciones` (
   `fecha_fin` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `inscripciones`
+--
+
+INSERT INTO `inscripciones` (`id`, `usuario_id`, `membresia_id`, `fecha_inicio`, `fecha_fin`) VALUES
+(3, 14, 5, '2025-04-11', '2025-05-11');
+
 -- --------------------------------------------------------
 
 --
@@ -106,17 +106,18 @@ CREATE TABLE `membresias` (
   `nombre` varchar(50) NOT NULL,
   `precio` decimal(10,2) NOT NULL,
   `duracion` int(11) NOT NULL,
-  `descripcion` text DEFAULT NULL
+  `descripcion` text DEFAULT NULL,
+  `beneficios` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `membresias`
 --
 
-INSERT INTO `membresias` (`id`, `nombre`, `precio`, `duracion`, `descripcion`) VALUES
-(1, 'Plan FIT', 40000.00, 30, 'Acceso a contenido exclusivo.'),
-(2, 'Plan BLACK', 60000.00, 30, 'Acceso premium con beneficios exclusivos.'),
-(3, 'Plan CALO', 80000.00, 30, 'Acceso completo a todas las áreas y servicios.');
+INSERT INTO `membresias` (`id`, `nombre`, `precio`, `duracion`, `descripcion`, `beneficios`) VALUES
+(2, 'Plan BLACK', 80000.00, 30, 'mas premium', '[\"Spa y masajes\",\"Descuentos en marcas aliadas\",\"App personalizada\"]'),
+(3, 'Plan CALO', 60000.00, 30, 'Acceso completo a todas las áreas y servicios.', '[\"App personalizada\"]'),
+(5, 'FIT', 40000.00, 30, 'plan....', '[\"melo\"]');
 
 -- --------------------------------------------------------
 
@@ -132,6 +133,14 @@ CREATE TABLE `pagos` (
   `metodo_pago` enum('Efectivo','Tarjeta','Transferencia') NOT NULL,
   `inscripcion_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pagos`
+--
+
+INSERT INTO `pagos` (`id`, `usuario_id`, `monto`, `fecha_pago`, `metodo_pago`, `inscripcion_id`) VALUES
+(3, 14, 40000.00, '2025-04-11 01:21:07', '', 3),
+(4, 14, 21313.00, '2025-04-11 01:21:17', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -150,16 +159,6 @@ CREATE TABLE `progreso_usuario` (
   `historial_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `progreso_usuario`
---
-
-INSERT INTO `progreso_usuario` (`id`, `usuario_id`, `ejercicio_id`, `fecha`, `series`, `repeticiones`, `peso`, `historial_id`) VALUES
-(1, 1, 1, '2025-04-08', 3, 12, 50.00, NULL),
-(2, 1, 2, '2025-04-08', 4, 10, 60.00, NULL),
-(3, 9, 4, '2025-04-09', 4, 10, 30.00, 1),
-(4, 9, 11, '2025-04-09', 4, 10, 25.00, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -177,8 +176,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `nombre`) VALUES
 (1, 'admin'),
-(2, 'usuario'),
-(3, 'entrenador');
+(3, 'entrenador'),
+(2, 'usuario');
 
 -- --------------------------------------------------------
 
@@ -192,25 +191,18 @@ CREATE TABLE `rutinas` (
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
-  `nivel` enum('Principiante','Intermedio','Avanzado') NOT NULL
+  `nivel` enum('Principiante','Intermedio','Avanzado') NOT NULL,
+  `imagen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `rutinas`
 --
 
-INSERT INTO `rutinas` (`id`, `usuario_id`, `nombre`, `descripcion`, `fecha_creacion`, `nivel`) VALUES
-(1, NULL, 'Bajar de Peso', 'Rutina diseñada para reducir grasa corporal.', '2025-04-08 12:26:14', 'Principiante'),
-(2, NULL, 'Ganar Músculo', 'Rutina diseñada para aumentar masa muscular.', '2025-04-08 12:26:14', 'Principiante'),
-(3, NULL, 'Mantenimiento', 'Rutina diseñada para mantener la forma física.', '2025-04-08 12:26:14', 'Principiante'),
-(5, NULL, 'Bajar de Peso', 'Rutina para intermedios.', '2025-04-08 12:26:14', 'Intermedio'),
-(6, NULL, 'Bajar de Peso', 'Rutina para avanzados.', '2025-04-08 12:26:14', 'Avanzado'),
-(7, NULL, 'Ganar Músculo', 'Rutina para principiantes.', '2025-04-08 12:26:14', 'Principiante'),
-(8, NULL, 'Ganar Músculo', 'Rutina para intermedios.', '2025-04-08 12:26:14', 'Intermedio'),
-(9, NULL, 'Ganar Músculo', 'Rutina para avanzados.', '2025-04-08 12:26:14', 'Avanzado'),
-(10, NULL, 'Mantenimiento', 'Rutina para principiantes.', '2025-04-08 12:26:14', 'Principiante'),
-(11, NULL, 'Mantenimiento', 'Rutina para intermedios.', '2025-04-08 12:26:14', 'Intermedio'),
-(12, NULL, 'Mantenimiento', 'Rutina para avanzados.', '2025-04-08 12:26:14', 'Avanzado');
+INSERT INTO `rutinas` (`id`, `usuario_id`, `nombre`, `descripcion`, `fecha_creacion`, `nivel`, `imagen`) VALUES
+(1, NULL, 'Bajar de Peso', 'Rutina diseñada para reducir grasa corporal.', '2025-04-08 12:26:14', 'Principiante', NULL),
+(5, NULL, 'Bajar de Peso', 'Rutina para intermedios.', '2025-04-08 12:26:14', 'Intermedio', NULL),
+(9, NULL, 'Ganar Músculo', 'Rutina para avanzados.', '2025-04-08 12:26:14', 'Avanzado', NULL);
 
 -- --------------------------------------------------------
 
@@ -239,42 +231,14 @@ INSERT INTO `rutina_ejercicios` (`id`, `rutina_id`, `ejercicio_id`, `series`, `r
 (4, 1, 2, 4, 12, 5.00, 60),
 (5, 1, 3, 4, 0, 0.00, 60),
 (6, 1, 8, 4, 12, 0.00, 60),
-(7, 2, 4, 4, 10, 20.00, 90),
-(8, 2, 13, 3, 12, 10.00, 60),
-(9, 2, 12, 3, 12, 15.00, 60),
-(10, 2, 10, 4, 10, 15.00, 90),
-(11, 2, 11, 4, 10, 20.00, 90),
-(12, 3, 1, 1, 0, 0.00, 30),
-(13, 3, 2, 3, 12, 0.00, 60),
-(14, 3, 8, 3, 10, 0.00, 60),
-(15, 3, 9, 3, 15, 0.00, 45),
 (16, 5, 1, 1, 0, 0.00, 30),
 (17, 5, 7, 1, 0, 0.00, 30),
 (18, 5, 2, 4, 15, 15.00, 45),
 (19, 5, 14, 4, 12, 40.00, 60),
 (20, 5, 9, 4, 20, 0.00, 45),
-(21, 6, 15, 5, 5, 40.00, 120),
-(22, 6, 17, 5, 3, 30.00, 120),
-(23, 6, 16, 4, 5, 0.00, 90),
-(24, 6, 19, 3, 10, 0.00, 60),
-(25, 7, 4, 3, 12, 10.00, 60),
-(26, 7, 13, 3, 12, 5.00, 60),
-(27, 7, 2, 3, 12, 5.00, 60),
-(28, 8, 4, 4, 10, 30.00, 90),
-(29, 8, 11, 4, 10, 25.00, 90),
-(30, 8, 14, 4, 12, 50.00, 90),
 (31, 9, 15, 5, 5, 50.00, 120),
 (32, 9, 16, 5, 8, 0.00, 90),
-(33, 9, 17, 5, 3, 40.00, 120),
-(34, 10, 1, 1, 0, 0.00, 30),
-(35, 10, 8, 3, 10, 0.00, 45),
-(36, 10, 3, 3, 30, 0.00, 45),
-(37, 11, 4, 4, 10, 25.00, 75),
-(38, 11, 11, 4, 10, 20.00, 75),
-(39, 11, 2, 4, 12, 20.00, 75),
-(40, 12, 18, 4, 8, 0.00, 90),
-(41, 12, 16, 4, 6, 0.00, 90),
-(42, 12, 19, 4, 8, 0.00, 90);
+(33, 9, 17, 5, 3, 40.00, 120);
 
 -- --------------------------------------------------------
 
@@ -311,28 +275,22 @@ CREATE TABLE `usuarios` (
   `token` int(255) DEFAULT NULL,
   `verificado` tinyint(1) NOT NULL,
   `token_recuperacion` varchar(64) DEFAULT NULL,
-  `fecha_token` datetime DEFAULT NULL
+  `fecha_token` datetime DEFAULT NULL,
+  `imagen` varchar(255) DEFAULT 'entrenador-default.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `telefono`, `fecha_nacimiento`, `genero`, `peso`, `altura`, `fecha_registro`, `token`, `verificado`, `token_recuperacion`, `fecha_token`) VALUES
-(1, 'Juan', 'esteban@gmail.com', '$2y$10$TS4ARSE9N/ZC4ast07BjHOZOqyRaoH1QJ44JarWH5BZK058.2YRmK', '32133123', NULL, NULL, NULL, NULL, '2025-03-19 00:35:43', 2147483647, 0, NULL, NULL),
-(2, 'juan', 'solano@gmail.com', '$2y$10$KyTNFJnQI8ZxEo8Sw6BUSuy5rQVqugQzQRF86MzAsK.T6tYAZBnbG', '321312', NULL, NULL, NULL, NULL, '2025-03-19 01:05:43', 80224, 0, NULL, NULL),
-(3, 'Juanito', 'juanito@gmail.com', '$2y$10$isyYlIlaBOeZ9206uckStOKL1xIRW5zsKKhFFvMIaQRgQtxuqHGNK', '3123123', NULL, NULL, NULL, NULL, '2025-03-26 00:13:41', 3263, 0, NULL, NULL),
-(4, 'juanchis', 'j2005solano@gmail.com', '$2y$10$YkRGmhf1UxIHSXanBwCdhO/YBF2F.fnFT1WykER2Aq84aroc2G8Rq', '3123213', NULL, NULL, NULL, NULL, '2025-03-26 00:22:59', 5, 0, NULL, NULL),
-(7, 'edewf', 'eddie@gmail.com', '$2y$10$i45UVy3ykLlRsThddjBH8Oli266us/st8t6mcjHE56nEyQXmpwYam', '1233566', NULL, NULL, NULL, NULL, '2025-04-08 12:50:57', 468843, 0, NULL, NULL),
-(8, 'samuel', 'samuel@gmail.com', '$2y$10$mbtcfBeudMireqVSa2Hrg.t1zzWSpjVxXYCeaHLPMV3E4DxaBwI1q', '3123123', NULL, NULL, NULL, NULL, '2025-04-08 12:57:31', 76, 0, NULL, NULL),
-(9, 'samuel', 'alejo@gmail.com', '$2y$10$Hrmsdld1gshtIAce8ufKYuZGvOqmehUa7BCrskpdiHSrn2j1P9lHG', '2342344', NULL, NULL, NULL, NULL, '2025-04-09 04:22:51', 4, 0, NULL, NULL),
-(13, 'Administrador', 'admin@calorifit.com', '$2y$10$6R.L0ThwWYZJkhyxXnj9.uh1qQAmQIX71.p5p1Z3wVwGpyOgl34x2', '999999999', NULL, NULL, NULL, NULL, '2025-04-09 05:03:39', NULL, 1, NULL, NULL),
-(14, 'samuel', 'alejovital42@gmail.com', '$2y$10$T.DwqlE.l7vBl17.kR5KTuc3qsMgQRsLlpCwaUdmsPCHpK.1cp0DC', '12312345', NULL, NULL, NULL, NULL, '2025-04-09 05:06:33', NULL, 1, NULL, NULL),
-(15, 'alejo', 'samitobch@gmail.com', '$2y$10$AnVXJu7/iFoBodnLPn9QsuxcqJD.z5IatqCjMNgJZUUHfdycZY5vi', '23424234', NULL, NULL, NULL, NULL, '2025-04-09 05:12:25', NULL, 1, NULL, NULL),
-(16, 'Juan Solano', 'juan.solano@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL),
-(17, 'Ana García', 'ana.garcia@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL),
-(18, 'Carlos Mendoza', 'carlos.mendoza@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL),
-(19, 'María López', 'maria.lopez@calorifit.com', '$2y$10$randomhash', '123456789', NULL, NULL, NULL, NULL, CURRENT_TIMESTAMP, NULL, 1, NULL, NULL);
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasena`, `telefono`, `fecha_nacimiento`, `genero`, `peso`, `altura`, `fecha_registro`, `token`, `verificado`, `token_recuperacion`, `fecha_token`, `imagen`) VALUES
+(2, 'juan', 'solano@gmail.com', '$2y$10$KyTNFJnQI8ZxEo8Sw6BUSuy5rQVqugQzQRF86MzAsK.T6tYAZBnbG', '321312', NULL, NULL, NULL, NULL, '2025-03-19 01:05:43', 80224, 0, NULL, NULL, 'solno.jpeg'),
+(7, 'edewf', 'eddie@gmail.com', '$2y$10$i45UVy3ykLlRsThddjBH8Oli266us/st8t6mcjHE56nEyQXmpwYam', '1233566', NULL, NULL, NULL, NULL, '2025-04-08 12:50:57', 468843, 0, NULL, NULL, 'entrenador_67f88aadb5208.jpeg'),
+(8, 'samuel', 'samuel@gmail.com', '$2y$10$mbtcfBeudMireqVSa2Hrg.t1zzWSpjVxXYCeaHLPMV3E4DxaBwI1q', '3123123', NULL, NULL, NULL, NULL, '2025-04-08 12:57:31', 76, 0, NULL, NULL, 'entrenador_67f88a96ae851.jpeg'),
+(13, 'Administrador', 'admin@calorifit.com', '$2y$10$6R.L0ThwWYZJkhyxXnj9.uh1qQAmQIX71.p5p1Z3wVwGpyOgl34x2', '999999999', NULL, NULL, NULL, NULL, '2025-04-09 05:03:39', NULL, 1, NULL, NULL, 'entrenador-default.jpg'),
+(14, 'samuel', 'alejovital42@gmail.com', '$2y$10$T.DwqlE.l7vBl17.kR5KTuc3qsMgQRsLlpCwaUdmsPCHpK.1cp0DC', '12312345', NULL, NULL, NULL, NULL, '2025-04-09 05:06:33', NULL, 1, NULL, NULL, 'entrenador-default.jpg'),
+(21, 'samuel', 'samitobch@gmail.com', '$2y$10$zPq8ni.nWyDiWVxoJtrCPeoIVeKZQNWL6OR/B/J44VzPeS/EiiG.2', '312312', NULL, NULL, NULL, NULL, '2025-04-11 02:25:51', NULL, 1, NULL, NULL, 'entrenador-default.jpg'),
+(23, 'wefwef7', 'admin@calorifi7t.com', '', '324235', NULL, NULL, NULL, NULL, '2025-04-11 03:24:05', NULL, 1, '8684a31dc3ca433f01cf65062cbb241c', '2025-04-10 22:24:05', 'entrenador_67f88b55671a1.jpg');
 
 -- --------------------------------------------------------
 
@@ -350,13 +308,13 @@ CREATE TABLE `usuarios_roles` (
 --
 
 INSERT INTO `usuarios_roles` (`usuario_id`, `rol_id`) VALUES
+(2, 3),
+(7, 3),
+(8, 3),
 (13, 1),
-(14, 1);
-
--- Asignar rol de entrenador a los nuevos usuarios
-INSERT INTO `usuarios_roles` (`usuario_id`, `rol_id`)
-SELECT `id`, 3 FROM `usuarios` 
-WHERE `id` NOT IN (SELECT `usuario_id` FROM `usuarios_roles`);
+(14, 1),
+(21, 2),
+(23, 3);
 
 --
 -- Índices para tablas volcadas
@@ -472,19 +430,19 @@ ALTER TABLE `historial`
 -- AUTO_INCREMENT de la tabla `inscripciones`
 --
 ALTER TABLE `inscripciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `membresias`
 --
 ALTER TABLE `membresias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `progreso_usuario`
@@ -520,7 +478,7 @@ ALTER TABLE `tareas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Restricciones para tablas volcadas
@@ -583,12 +541,6 @@ ALTER TABLE `tareas`
 ALTER TABLE `usuarios_roles`
   ADD CONSTRAINT `usuarios_roles_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `usuarios_roles_ibfk_2` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
-
---
--- Eliminar la tabla entrenadores
---
-DROP TABLE IF EXISTS `entrenadores`;
-
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
