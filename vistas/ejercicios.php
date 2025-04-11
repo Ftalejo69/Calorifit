@@ -100,34 +100,51 @@ $rutinas_completadas = filtrarRutinas($conexion, $usuario_id, $selected_date);
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
+                                <!-- Título de la rutina -->
                                 <h5 class="card-title"><?php echo htmlspecialchars($rutina['nombre_rutina']); ?></h5>
+                                
+                                <!-- Nivel de la rutina -->
                                 <p class="card-text">Nivel: <span><?php echo htmlspecialchars($rutina['nivel']); ?></span></p>
+                                
+                                <!-- Fecha de la rutina -->
                                 <p class="card-text">Fecha: <span><?php echo htmlspecialchars($rutina['fecha']); ?></span></p>
+                                
+                                <!-- Lista de ejercicios asociados a la rutina -->
                                 <ul>
                                     <?php
+                                    // Consulta para obtener los ejercicios asociados a la rutina
                                     $sql_ejercicios = "SELECT e.nombre as nombre_ejercicio, p.series, p.repeticiones, p.peso
                                                        FROM progreso_usuario p
                                                        INNER JOIN ejercicios e ON e.id = p.ejercicio_id
                                                        WHERE p.historial_id = ?
                                                        ORDER BY p.id";
                                     $stmt_ejercicios = $conexion->prepare($sql_ejercicios);
-                                    $stmt_ejercicios->bind_param("i", $rutina['id']);
+                                    $stmt_ejercicios->bind_param("i", $rutina['id']); // Vincular el ID de la rutina
                                     $stmt_ejercicios->execute();
                                     $result_ejercicios = $stmt_ejercicios->get_result();
+                                    
+                                    // Iterar sobre los ejercicios y mostrarlos en la lista
                                     while ($ejercicio = $result_ejercicios->fetch_assoc()):
                                     ?>
                                         <li>
+                                            <!-- Nombre del ejercicio -->
                                             <span class="exercise-name"><?php echo htmlspecialchars($ejercicio['nombre_ejercicio']); ?></span>
+                                            
+                                            <!-- Detalles del ejercicio: series, repeticiones y peso -->
                                             <span class="exercise-details">Series: <?php echo htmlspecialchars($ejercicio['series']); ?>, Repeticiones: <?php echo htmlspecialchars($ejercicio['repeticiones']); ?>, Peso: <?php echo htmlspecialchars($ejercicio['peso']); ?></span>
                                         </li>
                                     <?php endwhile; ?>
-                                    <?php $stmt_ejercicios->close(); ?>
+                                    <?php $stmt_ejercicios->close(); // Cerrar la consulta preparada ?>
                                 </ul>
+                                
+                                <!-- Botón para eliminar la rutina -->
                                 <form method="post" style="margin-top: 10px;">
-                                    <input type="hidden" name="historial_id" value="<?php echo $rutina['id']; ?>">
+                                    <input type="hidden" name="historial_id" value="<?php echo $rutina['id']; ?>"> <!-- ID de la rutina -->
                                     <button type="submit" name="eliminar_rutina" class="btn btn-danger">Eliminar</button>
                                 </form>
                             </div>
+                            
+                            <!-- Pie de la tarjeta -->
                             <div class="card-footer">
                                 ¡Sigue trabajando para alcanzar tus metas!
                             </div>
@@ -135,6 +152,7 @@ $rutinas_completadas = filtrarRutinas($conexion, $usuario_id, $selected_date);
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
+                <!-- Mensaje si no hay rutinas completadas para la fecha seleccionada -->
                 <p>No hay rutinas completadas en el historial para la fecha seleccionada.</p>
             <?php endif; ?>
         </div>
