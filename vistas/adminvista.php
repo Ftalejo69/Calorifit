@@ -276,6 +276,33 @@ $usuario = $_SESSION['usuario'];
             </div>
         </div>
 
+        <!-- Modal para Editar Usuario -->
+        <div id="edit-user-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Editar Usuario</h2>
+                <form id="edit-user-form">
+                    <input type="hidden" id="edit-user-id" name="id">
+                    <div class="form-group">
+                        <label for="edit-user-name">Nombre:</label>
+                        <input type="text" id="edit-user-name" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-user-email">Correo:</label>
+                        <input type="email" id="edit-user-email" name="correo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-user-status">Estado:</label>
+                        <select id="edit-user-status" name="estado" required>
+                            <option value="activo">Activo</option>
+                            <option value="inactivo">Inactivo</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-submit">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+
         <!-- Sección de Usuarios -->
         <section id="usuarios" class="content-section">
             <h2>Gestión de Usuarios</h2>

@@ -7,11 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const modals = document.querySelectorAll(".modal");
     const closeButtons = document.querySelectorAll(".close-modal");
 
-    // Ocultar todos los modales al inicio
-    modals.forEach(modal => {
-        modal.style.display = "none";
-    });
-
     // Manejadores para abrir el modal de perfil
     document.getElementById("ver-perfil")?.addEventListener("click", (e) => {
         e.preventDefault();
@@ -528,6 +523,64 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("Error al cargar los usuarios. Revisa la consola para más detalles.");
             });
     }
+
+    // Función para editar usuario
+    window.editarUsuario = function(id) {
+        const modal = document.getElementById('edit-user-modal');
+        if (modal) {
+            fetch(`../controladores/usuarios_controlador.php?action=getById&id=${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('edit-user-id').value = data.usuario.id;
+                        document.getElementById('edit-user-name').value = data.usuario.nombre;
+                        document.getElementById('edit-user-email').value = data.usuario.correo;
+                        document.getElementById('edit-user-status').value = data.usuario.estado;
+                        modal.classList.add("active");
+                    } else {
+                        throw new Error(data.error || "Error al obtener datos del usuario");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Error al cargar los datos del usuario");
+                });
+        }
+    };
+
+    // Manejar el envío del formulario de edición de usuario
+    document.getElementById('edit-user-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const datos = {
+            id: formData.get('id'),
+            nombre: formData.get('nombre'),
+            correo: formData.get('correo'),
+            estado: formData.get('estado')
+        };
+
+        try {
+            const response = await fetch('../controladores/usuarios_controlador.php?action=update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datos)
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Usuario actualizado correctamente');
+                document.getElementById('edit-user-modal').classList.remove("active");
+                await cargarUsuarios();
+            } else {
+                throw new Error(result.error || 'Error al actualizar usuario');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert(error.message);
+        }
+    });
 
     // Funciones para editar y eliminar
     window.editarMembresia = function(id) {
