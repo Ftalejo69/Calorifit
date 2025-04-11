@@ -1,5 +1,6 @@
 <?php
 require_once '../config/database.php';
+require_once '../modelos/usuario.php';
 
 header('Content-Type: application/json');
 
@@ -68,16 +69,19 @@ try {
         try {
             $conn->beginTransaction();
             
-            // 1. Insertar usuario
-            $sql = "INSERT INTO usuarios (nombre, correo, telefono, contrasena, verificado) 
-                    VALUES (:nombre, :correo, :telefono, :contrasena, 1)";
+            // Generar token único para recuperación de contraseña
+            $token = bin2hex(random_bytes(16));
+            
+            // 1. Insertar usuario sin contraseña
+            $sql = "INSERT INTO usuarios (nombre, correo, telefono, verificado, token_recuperacion, fecha_token) 
+                    VALUES (:nombre, :correo, :telefono, 1, :token, NOW())";
             
             $stmt = $conn->prepare($sql);
             $stmt->execute([
                 ':nombre' => $datos['nombre'],
                 ':correo' => $datos['correo'],
                 ':telefono' => $datos['telefono'],
-                ':contrasena' => password_hash('entrenador123', PASSWORD_DEFAULT)
+                ':token' => $token
             ]);
             
             $usuario_id = $conn->lastInsertId();
@@ -94,8 +98,12 @@ try {
                 ':rol_id' => $rol['id']
             ]);
             
+            // 4. Enviar correo con link de configuración de contraseña
+            $model = new UsuarioModel($conn);
+            $model->sendPasswordSetupEmail($datos['nombre'], $datos['correo'], $token);
+            
             $conn->commit();
-            echo json_encode(['success' => true, 'message' => 'Entrenador creado correctamente']);
+            echo json_encode(['success' => true, 'message' => 'Entrenador creado correctamente. Se ha enviado un correo para configurar la contraseña.']);
             exit;
         } catch (Exception $e) {
             $conn->rollBack();

@@ -38,6 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Redirección basada en el rol
             if (in_array('admin', array_column($roles, 'nombre'))) {
                 $redirect = '../vistas/adminvista.php';
+            } elseif (in_array('entrenador', array_column($roles, 'nombre'))) {
+                $redirect = '../panel/entrenador.php';
             } else {
                 $redirect = '../vistas/inicio.php';
             }

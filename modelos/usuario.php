@@ -185,6 +185,38 @@ class UsuarioModel {
         }
         return ['success' => false, 'message' => '❌ El enlace ha expirado o no es válido.'];
     }
+
+    public function sendPasswordSetupEmail($nombre, $correo, $token) {
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'calorifit131@gmail.com';
+            $mail->Password = 'qqpi lgla yqoe cfbx';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+
+            $mail->setFrom('calorifit131@gmail.com', 'CaloriFit');
+            $mail->addAddress($correo, $nombre);
+
+            $mail->isHTML(true);
+            $mail->Subject = 'Bienvenido a CaloriFit - Configura tu contraseña';
+            $setupLink = "http://localhost/Calorifit/vistas/reset_password.php?token=" . $token;
+            $mail->Body = "Hola $nombre,<br><br>
+                        Has sido agregado como entrenador en CaloriFit. Por favor, configura tu contraseña haciendo clic en el siguiente enlace:<br><br>
+                        <a href='$setupLink'>$setupLink</a><br><br>
+                        Una vez que hayas configurado tu contraseña, podrás acceder a tu panel de entrenador.<br><br>
+                        Saludos,<br>
+                        Equipo CaloriFit";
+
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            error_log("Error al enviar correo: " . $mail->ErrorInfo);
+            throw $e;
+        }
+    }
 }
   
 
