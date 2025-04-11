@@ -31,6 +31,19 @@ $rutina_actual = $result->fetch_assoc();
 
 $sql_rutinas = "SELECT * FROM rutinas";
 $result_rutinas = $conexion->query($sql_rutinas);
+
+// Obtener niveles únicos desde la tabla rutinas con el campo imagen
+$query_niveles = "
+    SELECT nivel, imagen 
+    FROM rutinas 
+    WHERE id IN (
+        SELECT MIN(id) 
+        FROM rutinas 
+        GROUP BY nivel
+    )
+";
+$result_niveles = $conexion->query($query_niveles);
+$niveles = $result_niveles->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -81,25 +94,31 @@ $result_rutinas = $conexion->query($sql_rutinas);
     <?php endif; ?>
 </section>
 
-<div id="seleccion-nivel" class="<?php echo $rutina_actual ? 'oculto' : ''; ?>">
+<div id="seleccion-nivel">
     <div class="header">
-        <h1 class="titulo">IMPULSA <span class="resaltar">TU COMPROMISO Y MOTIVACIÓN</span></h1>
-        <p class="subtitulo">Elige tu programa de acompañamiento y seguimiento según tu objetivo</p>
+        <h1 class="titulo">NIVELES</h1>
+        <p class="subtitulo">Selecciona un nivel para ver los objetivos disponibles</p>
     </div>
-    
-    <div id="rutinas" class="contenedor-tarjetas">
-        <?php while ($row = $result_rutinas->fetch_assoc()): ?>
-        <div class="tarjeta">
-            <img src="<?php echo htmlspecialchars($row['imagen']); ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>">
-            <div class="contenido">
-                <h2><?php echo htmlspecialchars($row['nombre']); ?></h2>
-                <p><?php echo htmlspecialchars($row['descripcion']); ?></p>
-                <button class="boton" onclick="redirigirNivel('<?php echo htmlspecialchars($row['nivel']); ?>')">Seleccionar Nivel</button>
+    <div class="contenedor-tarjetas">
+        <?php if (!empty($niveles)): ?>
+            <?php foreach ($niveles as $nivel): ?>
+            <div class="tarjeta">
+                <img src="<?php echo htmlspecialchars($nivel['imagen']); ?>" alt="<?php echo htmlspecialchars($nivel['nivel']); ?>" class="nivel-imagen">
+                <h2 class="text-center"><?php echo htmlspecialchars($nivel['nivel']); ?></h2>
+                <button class="boton" onclick="redirigirNivel('<?php echo htmlspecialchars($nivel['nivel']); ?>')">Ver Objetivos</button>
             </div>
-        </div>
-        <?php endwhile; ?>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="text-center">No hay niveles disponibles.</p>
+        <?php endif; ?>
     </div>
 </div>
+
+<script>
+    function redirigirNivel(nivel) {
+        location.href = `objetivo.php?nivel=${encodeURIComponent(nivel)}`;
+    }
+</script>
 
 <section class="int">
     <div class="routine-section">
